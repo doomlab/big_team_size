@@ -7,6 +7,7 @@ output: word_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(pwr)
 ```
 
 median and IQR instead of mean and standard deviation 
@@ -21,59 +22,70 @@ This study is an archival data investigation into scholarly publication records 
 
 ### Variables 
 
+Article characteristics include the year of publication, number of authors (team size), and discipline. Discipline will be defined at the All Science Journal Classification (ASJC; https://service.elsevier.com/app/answers/detail/a_id/15181/supporthub/scopus/) using the subject area codes, resulting in 27 different discipline areas. Metric characteristics include citation count (number of times an article was cited within the current data snapshot) and weighted citations. Field weighted citations indicates the number of citations in the last five years. We will check if the five year count is excluded for newer articles, and if not, we will exclude all publications that have not been available for five years to ensure this metric is consistent. Author characteristics include affiliation country, affiliation/institution, h-index, gender, and gender ratio. We will transform the affiliation country into a count variable of the number of unique countries. Similarly, we will transform the affiliation/institutions into a count of the number of different affiliations across authors. Each author can only count for one affiliation, even if they have multiples listed. We will use the h-index of the first and last authors for each article. We will use h-index with and without self-citation if this metric is available through the ICSR system. If both are available, we will also use a h-ratio of (h-with self / h-without self) to see how self-citation rates impact metrics. Last, Elsevier has noted that their inferred gender column has a 97% accuracy, and we will use inferred gender of the first and last authors for each article. From this variable, we will additionally calculate the gender ratio (male:female) as a single variable for each article. 
+
 ## Sampling Plan
 
-While Scopus includes articles from 1788 to present, we will limit our sample to journal articles published from 1970 until present. Scopus indicates that articles form 1970 to present include reference information, which will be required for calculation of several of the variables described above. Only journal articles from this time period will be included. No other exclusions will apply. 
+While Scopus includes articles from 1788 to present, we will limit our sample to journal articles published from 1970 until present. Scopus indicates that articles form 1970 to present include reference information, which will be required for calculation of several of the variables described above. Only journal articles from this time period will be included. No other exclusions will apply. We will include the date of analysis to indicate what data was available at the time analysis. 
 
 ## Power 
+
+Given the large size of the Scopus dataset, all analyses are expected to achieve the required 95% power. 
+
+```{r}
+pwr.f2.test(u = NULL, #df num
+            v = NULL, #df denom
+            f2 = NULL, 
+            sig.level = 0.05, 
+            power = .95)
+
+```
+
 
 ## Analysis Plan
 
 ### Data Screening
 
-Missing data will be excluded for the analyses in which the data is missing only. 
+Missing data will be excluded for the analyses in which the data is missing only. We will otherwise assume all data is accurate. In all analyses, we will examine the cell counts for each categorical random variable in order to collapse small cell sizes (i.e., *n* < 5). No articles will be considered an outlier, as all publication data is expected to be part of the population. 
 
-Data Screening:
-We will assume all data is accurate. 
-In all analyses, we will examine the cell counts for each categorical random variable in order to collapse small cell sizes. 
-No missing data will be estimated. 
-No articles will be considered “outliers” but we will look for outliers in the solution to describe their impact on the models (i.e., very large team sizes or citation counts). 
-Assumptions:
-The large data size implies the assumption of normality, and we will also examine the assumptions of linearity and homoscedasticity. We will examine for non-linear trends and adjust the models appropriately for curvilinear effects. Any violations of homoscedasticity will be noted. 
-In each analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r > .90, we will note these correlations and only use one of the proposed variables.
+In each analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r > .90, we will note these correlations and only use one of the proposed variables. The size of the dataset implies the assumption of normality. In our analyses, a linear trend is the main focus of interest, and we will note any obvious non-linear trends. Last, we will note any violations of homoscedasticity. In order to feasibly examine these two assumptions (linearity, homoscedasticity), we will first run all analyses with *n* = 20,000 randomly selected data points and plot the standardized residuals versus the predicted values for each analysis. We will summarize those findings in a supplemental file denoting potential deviations.
 
 ### Decision Criteria
 
-“Significance” (minimum effect size of interest): The large sample size will likely indicate all predictors significant at the traditional p value criterion. Therefore, we will use the confidence interval for R2 as our indicator that an effect is worthwhile. The minimum effect should be greater than .01 in the lower CI to indicate the usefulness of the predictor. We will use the MOTE package to calculate confidence intervals for R2 values. 
-Differences between effects: We will use the confidence interval of effect sizes to determine if effects are different from each other. If their confidence intervals overlap, they are not different. If they do not overlap, we will state that they are different. 
+The large sample size will likely indicate all predictors significant at the traditional *p* value criterion. For individual predictors, we will similarly use 95% confidence intervals to indicate if the effect is non-zero (lower bound greater than .001). Using these confidence intervals, difference between effects will determine if their confidence intervals overlap. If they do not overlap, we will state that they are different. 
 
 ### Research Questions 
 
+All analyses will be performed using *pyspark* [CITE: https://spark.apache.org/docs/latest/api/python/] within the Databricks system. Visualization and presentation of analyses will be performed using *R* and *ggplot2* [CITE: https://cran.r-project.org/web/packages/ggplot2/citation.html]. We will report $R^2$ and its 95% confidence interval for each model as an effect size using the *MOTE* package [CITE: https://cran.r-project.org/web/packages/MOTE/citation.html].
+
 Research Question 1a: What is the pattern of team size distribution within various disciplines over time?
 
-For this research question, we will use multilevel models to analyze the change in team size over time. Our hypothesis is that team size has changed over time (non-directional), and these changes will be different across disciplines. We will run separate models for each discipline to ensure that each article is only represented once per analysis, as articles can contribute to multiple disciplines. While a multilevel model would allow us to embed all disciplines within one model, no pyspark multilevel model implementation exists to model data at this scale. SO WE ARE GOING TO HACK IT 
-Time change overall: In order to determine if team sizes change overall across time, we will use a linear model of team size predicted by year of publication in which each article is only represented once, regardless of discipline. We will examine if the confidence interval of the slope parameter is different from zero (i.e., to four decimal places) to determine if the predictor was significant. 
-Average team size by discipline: We will calculate the average team size and confidence interval per discipline. We will not explicitly compare discipline intercepts in a post hoc format with any form of test. Instead we will use visualization techniques to display the intercepts and their confidence interval for readers to examine (i.e., a forest plot). 
-Time change by discipline: Using linear models, we will calculate each discipline's slope and confidence interval using a linear model of team size predicted by year of publication. Again, we will provide these slopes in a visualization for readers to examine with no official post hoc comparison. 
+We will first calculate the mean, median, and interquartile range of team size by discipline. We will not explicitly compare discipline intercepts in a post hoc format with any form of test. Instead we will use visualization techniques to display the distribution and their confidence interval for readers to examine (i.e., a forest plot).
+
+In order to determine if team sizes change overall across time, we will use a linear model of team size predicted by year of publication in which each article is only represented once, regardless of discipline. We will examine if the confidence interval of the slope parameter is different from zero to determine if the predictor was significant. Last, we will calculate each discipline's slope and confidence interval using a linear model of team size predicted by year of publication. Again, we will provide these slopes in a visualization for readers to examine with no official post hoc comparison. While a multilevel model would allow us to embed all disciplines within one model, no *pyspark* multilevel model implementation exists to model data at this scale.
 
 Research Question 1b: Is team size related to article impact? 
  
-For this research question, we will examine the impact of team size on article publication metrics for impact. Our hypothesis is that team size impacts article metrics (non-directional). We will run these analyses once for each DV listed above (metrics_dv). 
+For this research question, we will examine the impact of team size on article publication metrics for impact. Our hypothesis is that team size impacts article metrics (non-directional). We will run these analyses once for each dependent variable of citation count and weighted citation five year count. We will calculate the mean, median, and interquartile range of each publication metric by discipline. We will visualize these values instead of comparing them directly. 
 
-Team size overall: To determine the impact of team size on publication metrics, we will use a linear model of publication metrics predicted by time (covariate) and team size. We will include time as a covariate, as we expect that older articles will potentially have more or different metrics because they have been around longer to cite. We will examine if the confidence interval of the team size slope parameter is different from zero (i.e., to four decimal places) to determine if the predictor was significant. 
-Average metrics by discipline: We will calculate the average of each publication metric and confidence interval per discipline. We will visualize these values instead of comparing them directly. 
-Team size slope by discipline: Using a linear model of time and team size predicting publication metrics, we will calculate the slope for team size for each discipline separately. We will visualize these differences and the confidence intervals. 
+To determine the impact of team size on publication metrics, we will use a linear model of publication metrics predicted by time (covariate) and team size. We will include time as a covariate, as we expect that older articles will potentially have more or different metrics because they have been around longer to cite. We will examine if the confidence interval of the team size slope parameter is different from zero. Last, we will calculate the slope for team size for each discipline separately. We will visualize these differences and the confidence intervals. 
  
 Research Question 2: What characteristics of team composition have the greatest influence on article metrics? 
  
 For this research question, we will continue to use the model from the previous research question and add other article metrics to determine their contribution to the model. Our hypothesis is that each variable has an impact on the metrics variables (non-directional). Each author independent variable will be modeled separately and compared using confidence intervals as described above for which variable had the strongest impact on publication metrics. 
-Overall impact for each independent variable: Using the linear model from the previous research question, we will add each author independent variable in separate models to calculate their slope. We will determine if these slopes were important by examining if their confidence interval was greater than zero. We will then compare each slope to other slopes to see if their confidence intervals overlap. We have to examine the effects of each author metric separately. When examining first and/or last author information, the single author paper presents a unique problem because they are both first and last author. Therefore, these cannot be included in the same model. In order not to use the same variance twice, single author papers will be treated as first author only, and NA for last author analyses. If these were included in the same model, all single author papers would be dropped, which would bias the results.
-Impact by discipline: Next, we will calculate each author independent variable separated by discipline and then visualize those slopes for each variable. 
+
+Using the linear model from the previous research question, we will add each author independent variable (affiliation country count, affiliation/institution count, h-index, gender, and gender ratio) in separate models to calculate their slope. We will determine if these slopes were important by examining if their confidence interval was greater than zero. We will then compare each slope to other slopes to see if their confidence intervals overlap. We have to examine the effects of each author metric separately. When examining first and/or last author information, the single author paper presents a unique problem because they are both first and last author. Therefore, these cannot be included in the same model. In order not to use the same variance twice, single author papers will be treated as first author only, and NA for last author analyses. If these were included in the same model, all single author papers would be dropped, which would bias the results. Last, we will calculate each author independent variable separated by discipline and then visualize those slopes for each variable. 
 
 ## Data availability
 
-While we cannot provide access to the full dataset because it is only accessible through access granted by Elsevier, we will provide our analysis code via GitHub. Persons interested in replicating or extending the current work can do so through using the ICSR lab Databricks platform. 
+While we cannot provide access to the full dataset because it is only accessible through access granted by Elsevier, we will provide our analysis code via GitHub and the Open Science Framework. Persons interested in replicating or extending the current work can do so through using the ICSR lab Databricks platform. 
 
 ## Code availability
+
+The code to run all analyses in the Databricks platform, as well as the code generated for this report can be found at: https://osf.io/g4qnp/?view_only=d50da32d11cd47f889ce74cac954d2d7. 
+
+# Results
+
+## Research Question 1a:
 
 
