@@ -6,13 +6,20 @@ output: word_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE)
 library(pwr)
+library(rio)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(MOTE)
 ```
 
-median and IQR instead of mean and standard deviation 
+```{r}
+DF <- import("descriptives.xlsx")
+DF2 <- import("model.xlsx")
+```
 
-https://osf.io/g4qnp/
 
 # Methods
 
@@ -48,7 +55,7 @@ pwr.f2.test(u = NULL, #df num
 
 Missing data will be excluded for the analyses in which the data is missing only. We will otherwise assume all data is accurate. In all analyses, we will examine the cell counts for each categorical random variable in order to collapse small cell sizes (i.e., *n* < 5). No articles will be considered an outlier, as all publication data is expected to be part of the population. 
 
-In each analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r > .90, we will note these correlations and only use one of the proposed variables. The size of the dataset implies the assumption of normality. In our analyses, a linear trend is the main focus of interest, and we will note any obvious non-linear trends. Last, we will note any violations of homoscedasticity. In order to feasibly examine these two assumptions (linearity, homoscedasticity), we will first run all analyses with *n* = 20,000 randomly selected data points and plot the standardized residuals versus the predicted values for each analysis. We will summarize those findings in a supplemental file denoting potential deviations.
+In each relevant analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r > .90, we will note these correlations and only use one of the proposed variables. The size of the dataset implies the assumption of normality. In our analyses, a linear trend is the main focus of interest, and we will note any obvious non-linear trends. Last, we will note any violations of homoscedasticity. In order to feasibly examine these two assumptions (linearity, homoscedasticity), we will first run all analyses with *n* = 20,000 randomly selected data points and plot the residuals versus the predicted values for each analysis. We will summarize those findings in a supplemental file denoting potential deviations.
 
 ### Decision Criteria
 
@@ -60,7 +67,7 @@ All analyses will be performed using *pyspark* [CITE: https://spark.apache.org/d
 
 Research Question 1a: What is the pattern of team size distribution within various disciplines over time?
 
-We will first calculate the mean, median, and interquartile range of team size by discipline. We will not explicitly compare discipline intercepts in a post hoc format with any form of test. Instead we will use visualization techniques to display the distribution and their confidence interval for readers to examine (i.e., a forest plot).
+We will first calculate the mean, median, and interquartile range of team size by discipline. We will not explicitly compare discipline intercepts in a post hoc format with any form of test. Instead we will use visualization techniques to display the distribution and their interquartile range for readers to examine (i.e., a forest plot).
 
 In order to determine if team sizes change overall across time, we will use a linear model of team size predicted by year of publication in which each article is only represented once, regardless of discipline. We will examine if the confidence interval of the slope parameter is different from zero to determine if the predictor was significant. Last, we will calculate each discipline's slope and confidence interval using a linear model of team size predicted by year of publication. Again, we will provide these slopes in a visualization for readers to examine with no official post hoc comparison. While a multilevel model would allow us to embed all disciplines within one model, no *pyspark* multilevel model implementation exists to model data at this scale.
 
@@ -86,6 +93,80 @@ The code to run all analyses in the Databricks platform, as well as the code gen
 
 # Results
 
-## Research Question 1a:
+## Data Screening
+
+We will use the plots shown with each of the descriptive graphs to answer if individual subject areas are linear and homoscedastic. Likely, we are going to talk about how the residuals are mostly fine, minus some very big outliers of the big team papers that show up with large residuals. Mostly that's because it's easy to predict 2-5 authors, and then boom! a 500 person paper is really wrong. 
+
+We will use correlations to determine multicollinearity for any analyses with more than one independent variable. 
+
+## Research Question 1a: What is the pattern of team size distribution within various disciplines over time?
+
+- Descriptive Statistics:
+
+We shall present a graph! But we shall also talk about the ones with the biggest discrepancies between the mean and the median. 
+
+```{r}
+hyp1a <- DF %>% filter(model == "hyp1a") %>% filter(subjareas != "undefined")
+ggplot(hyp1a, aes(subjareas, median)) + 
+  geom_point(aes(size = sample)) + 
+  geom_pointrange(aes(ymin=iqr_25, ymax=iqr_75)) + 
+  scale_size_continuous(name = "Sample Size") + 
+  # geom_point(aes(subjareas, mean, color = subjareas)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        legend.position = "bottom") + 
+  xlab("Discipline Areas") + 
+  ylab("Median and IQR")
+```
+
+For example, in this pilot data, we are going to say these have crazy values:
+
+```{r}
+hyp1a %>% filter(mean - median > 5)
+```
+
+- Model Statistics: 
+
+```{r}
+hyp1a_model <- DF2 %>% filter(grepl("hyp1a", model))
+
+# add predictor information
+hyp1a_model$predictor <- rep(c("team_size", "intercept"), nrow(hyp1a_model)/2)
+hyp1a_model <- hyp1a_model %>% 
+  filter(predictor == "team_size") %>% 
+  separate(col = "model", 
+           into = c("model", "subjareas"), 
+           sep = "_",
+           fill = "right") %>% 
+  left_join(hyp1a, by = c("subjareas" = "subjareas"))
+
+hyp1a_model$sample[is.na(hyp1a_model$subjareas)] <- sum(hyp1a_model$sample, na.rm = T)
+
+# get CIs effects
+
+# get CIs R2
+```
+
+
+Overall
+
+
+
+
+
+
+
+
+Research Question 1b: Is team size related to article impact? 
+ 
+For this research question, we will examine the impact of team size on article publication metrics for impact. Our hypothesis is that team size impacts article metrics (non-directional). We will run these analyses once for each dependent variable of citation count and weighted citation five year count. We will calculate the mean, median, and interquartile range of each publication metric by discipline. We will visualize these values instead of comparing them directly. 
+
+To determine the impact of team size on publication metrics, we will use a linear model of publication metrics predicted by time (covariate) and team size. We will include time as a covariate, as we expect that older articles will potentially have more or different metrics because they have been around longer to cite. We will examine if the confidence interval of the team size slope parameter is different from zero. Last, we will calculate the slope for team size for each discipline separately. We will visualize these differences and the confidence intervals. 
+ 
+Research Question 2: What characteristics of team composition have the greatest influence on article metrics? 
+ 
+For this research question, we will continue to use the model from the previous research question and add other article metrics to determine their contribution to the model. Our hypothesis is that each variable has an impact on the metrics variables (non-directional). Each author independent variable will be modeled separately and compared using confidence intervals as described above for which variable had the strongest impact on publication metrics. 
+
+Using the linear model from the previous research question, we will add each author independent variable (affiliation country count, affiliation/institution count, h-index, gender, and gender ratio) in separate models to calculate their slope. We will determine if these slopes were important by examining if their confidence interval was greater than zero. We will then compare each slope to other slopes to see if their confidence intervals overlap. We have to examine the effects of each author metric separately. When examining first and/or last author information, the single author paper presents a unique problem because they are both first and last author. Therefore, these cannot be included in the same model. In order not to use the same variance twice, single author papers will be treated as first author only, and NA for last author analyses. If these were included in the same model, all single author papers would be dropped, which would bias the results. Last, we will calculate each author independent variable separated by discipline and then visualize those slopes for each variable. 
 
 
