@@ -12,7 +12,7 @@ library(rio)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(MOTE)
+library(MBESS)
 ```
 
 ```{r}
@@ -29,7 +29,7 @@ This study is an archival data investigation into scholarly publication records 
 
 ### Variables 
 
-Article characteristics include the year of publication, number of authors (team size), and discipline. Discipline will be defined at the All Science Journal Classification (ASJC; https://service.elsevier.com/app/answers/detail/a_id/15181/supporthub/scopus/) using the subject area codes, resulting in 27 different discipline areas. Metric characteristics include citation count (number of times an article was cited within the current data snapshot) and weighted citations. Field weighted citations indicates the number of citations in the last five years. We will check if the five year count is excluded for newer articles, and if not, we will exclude all publications that have not been available for five years to ensure this metric is consistent. Author characteristics include affiliation country, affiliation/institution, h-index, gender, and gender ratio. We will transform the affiliation country into a count variable of the number of unique countries. Similarly, we will transform the affiliation/institutions into a count of the number of different affiliations across authors. Each author can only count for one affiliation, even if they have multiples listed. We will use the h-index of the first and last authors for each article. We will use h-index with and without self-citation if this metric is available through the ICSR system. If both are available, we will also use a h-ratio of (h-with self / h-without self) to see how self-citation rates impact metrics. Last, Elsevier has noted that their inferred gender column has a 97% accuracy, and we will use inferred gender of the first and last authors for each article. From this variable, we will additionally calculate the gender ratio (male:female) as a single variable for each article. 
+Article characteristics include the year of publication, number of authors (team size), and discipline. Discipline will be defined at the All Science Journal Classification (ASJC; https://service.elsevier.com/app/answers/detail/a_id/15181/supporthub/scopus/) using the subject area codes, resulting in 27 different discipline areas. Metric characteristics include citation count (number of times an article was cited within the current data snapshot) and weighted citations. Field weighted citations indicates the number of citations in the last five years. We will check if the five year count is excluded for newer articles, and if not, we will exclude all publications that have not been available for five years to ensure this metric is consistent. Author characteristics include affiliation country, affiliation/institution, h-index, gender, and gender ratio. We will transform the affiliation country into a count variable of the number of unique countries. Similarly, we will transform the affiliation/institutions into a count of the number of different affiliations across authors. We will use the h-index of the first and last authors for each article. We will use h-index with and without self-citation if this metric is available through the ICSR system. Last, Elsevier has noted that their inferred gender column has a 97% accuracy, and we will use inferred gender of the first and last authors for each article. From this variable, we will additionally calculate the gender ratio (percent male) as a single variable for each article. 
 
 ## Sampling Plan
 
@@ -37,15 +37,20 @@ While Scopus includes articles from 1788 to present, we will limit our sample to
 
 ## Power 
 
-Given the large size of the Scopus dataset, all analyses are expected to achieve the required 95% power. 
+Given the large size of the Scopus dataset, all analyses are expected to achieve the required 95% power. Analyses using the *pwr* library [CITE] indicate that planned regressions have the ability to detect effects at $R^2$ < .001 at 95% power using a 95% confidence interval. 
 
-```{r}
-pwr.f2.test(u = NULL, #df num
-            v = NULL, #df denom
+```{r echo = F, include = F}
+pwr.f2.test(u = 1, #df num
+            v = 20000, #df denom
             f2 = NULL, 
             sig.level = 0.05, 
             power = .95)
 
+pwr.f2.test(u = 2, #df num
+            v = 20000, #df denom
+            f2 = NULL, 
+            sig.level = 0.05, 
+            power = .95)
 ```
 
 
@@ -55,7 +60,7 @@ pwr.f2.test(u = NULL, #df num
 
 Missing data will be excluded for the analyses in which the data is missing only. We will otherwise assume all data is accurate. In all analyses, we will examine the cell counts for each categorical random variable in order to collapse small cell sizes (i.e., *n* < 5). No articles will be considered an outlier, as all publication data is expected to be part of the population. 
 
-In each relevant analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r > .90, we will note these correlations and only use one of the proposed variables. The size of the dataset implies the assumption of normality. In our analyses, a linear trend is the main focus of interest, and we will note any obvious non-linear trends. Last, we will note any violations of homoscedasticity. In order to feasibly examine these two assumptions (linearity, homoscedasticity), we will first run all analyses with *n* = 20,000 randomly selected data points and plot the residuals versus the predicted values for each analysis. We will summarize those findings in a supplemental file denoting potential deviations.
+In each relevant analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r > .90, we will note these correlations and only use one of the proposed variables. The size of the dataset implies the assumption of normality. In our analyses, a linear trend is the main focus of interest, and we will note any obvious non-linear trends. Last, we will note any violations of homoscedasticity. In order to feasibly examine these two assumptions (linearity, homoscedasticity), we will first run all analyses with the default randomly selected data points and plot the residuals versus the predicted values for each analysis. We will summarize those findings in a supplemental file denoting potential deviations.
 
 ### Decision Criteria
 
@@ -101,7 +106,7 @@ We will use correlations to determine multicollinearity for any analyses with mo
 
 ## Research Question 1a: What is the pattern of team size distribution within various disciplines over time?
 
-- Descriptive Statistics:
+### Descriptive Statistics:
 
 We shall present a graph! But we shall also talk about the ones with the biggest discrepancies between the mean and the median. 
 
@@ -124,8 +129,7 @@ For example, in this pilot data, we are going to say these have crazy values:
 ```{r}
 hyp1a %>% filter(mean - median > 5)
 ```
-
-- Model Statistics: 
+### Model Statistics Overall
 
 ```{r}
 hyp1a_model <- DF2 %>% filter(grepl("hyp1a", model))
@@ -142,28 +146,57 @@ hyp1a_model <- hyp1a_model %>%
 
 hyp1a_model$sample[is.na(hyp1a_model$subjareas)] <- sum(hyp1a_model$sample, na.rm = T)
 
-# get CIs effects
+# get CIs effects (df = N - k - 1)
+hyp1a_model$critical <- qt(.05/2, hyp1a_model$sample - 2 - 1, lower.tail = F)
+hyp1a_model$lower <- hyp1a_model$coef - hyp1a_model$critical*hyp1a_model$se
+hyp1a_model$upper <- hyp1a_model$coef + hyp1a_model$critical*hyp1a_model$se
 
 # get CIs R2
+hyp1a_model$r2lower <- hyp1a_model$r2upper <- NA
+for(i in 1:nrow(hyp1a_model)){
+  temp <- ci.R2(R2 = hyp1a_model$r2[i], 
+        df.1 = 1, 
+        df.2 = hyp1a_model$sample[i] - 2 - 1)
+  hyp1a_model$r2lower[i] <- temp$Lower.Conf.Limit.R2
+  hyp1a_model$r2upper[i] <- temp$Upper.Conf.Limit.R2
+}
 ```
 
+Does the confidence include zero? We will present *b* = `r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(coef)`, 95% CI [`r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(lower)`, `r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(upper)`]. 
 
-Overall
+### Model Statistics by Subject Area
 
+```{r}
+ggplot(hyp1a_model %>% filter(!is.na(subjareas)), aes(subjareas, coef)) + 
+  geom_point(aes(size = sample)) + 
+  geom_pointrange(aes(ymin=lower, ymax=upper)) + 
+  scale_size_continuous(name = "Sample Size") + 
+  # geom_point(aes(subjareas, mean, color = subjareas)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        legend.position = "bottom") + 
+  xlab("Discipline Areas") + 
+  ylab("Coefficient and 95% Confidence Interval")
+```
 
+## Research Question 1b: Is team size related to article impact? 
 
+### Descriptive Statistics Citation Count
+### Model Statistics Overall Citation Count
+### Model Statistics by Subject Area Citation Count
 
+### Descriptive Statistics Weighted Citation Count
+### Model Statistics Overall Weighted Citation Count
+### Model Statistics by Subject Area Weighted Citation Count
 
-
-
-
-Research Question 1b: Is team size related to article impact? 
- 
 For this research question, we will examine the impact of team size on article publication metrics for impact. Our hypothesis is that team size impacts article metrics (non-directional). We will run these analyses once for each dependent variable of citation count and weighted citation five year count. We will calculate the mean, median, and interquartile range of each publication metric by discipline. We will visualize these values instead of comparing them directly. 
 
 To determine the impact of team size on publication metrics, we will use a linear model of publication metrics predicted by time (covariate) and team size. We will include time as a covariate, as we expect that older articles will potentially have more or different metrics because they have been around longer to cite. We will examine if the confidence interval of the team size slope parameter is different from zero. Last, we will calculate the slope for team size for each discipline separately. We will visualize these differences and the confidence intervals. 
  
-Research Question 2: What characteristics of team composition have the greatest influence on article metrics? 
+## Research Question 2: What characteristics of team composition have the greatest influence on article metrics? 
+
+### Model Statistics Overall
+### Model Statistics by Subject Area 
  
 For this research question, we will continue to use the model from the previous research question and add other article metrics to determine their contribution to the model. Our hypothesis is that each variable has an impact on the metrics variables (non-directional). Each author independent variable will be modeled separately and compared using confidence intervals as described above for which variable had the strongest impact on publication metrics. 
 
