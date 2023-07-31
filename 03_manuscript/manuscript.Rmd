@@ -386,7 +386,7 @@ expected to achieve the required 95% power. Analyses using the pwr
 library49 indicate that planned regressions have the ability to detect
 effects at R2 \< .00001 at 95% power using a 95% confidence interval.
 
-```{r power-analysis, echo = F, include = F}
+```{r power-analysis, echo = F, include = F, eval = F}
 pwr.f2.test(u = 1, #df num
             v = (DF %>% filter(subjareas != "undefined") %>% pull(sample) %>% min)*100, #df denom
             f2 = NULL, 
