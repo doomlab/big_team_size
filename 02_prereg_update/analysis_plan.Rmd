@@ -1,0 +1,404 @@
+---
+title: "Analysis Plan"
+author: "Erin M. Buchanan"
+date: 'Last Knitted: `r Sys.Date()`'
+output: word_document
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, include = TRUE)
+library(pwr)
+library(rio)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(MBESS)
+library(cowplot)
+```
+
+```{r}
+DF <- import("descriptives.xlsx")
+DF2 <- import("model.xlsx")
+```
+
+# Methods
+
+## Design
+
+This study is an archival data investigation into scholarly publication records using Elsevier's curated database Scopus. This study will be conducted through access to Elsevier's International Center for the Study of Research Lab (ICSR; <https://www.elsevier.com/icsr>). The ICSR is designed to support researchers' in their empirical study of meta-science on large datasets using the Databricks platform running Apache Spark architecture for big-data analyses. Through ICSR, researchers can obtain access to full publication metadata from Scopus including article metrics, author(s), and affiliation information [@boyle2006]. Scopus is a global database on abstracts and citations, containing a wide representation of content including articles, books, and conference proceedings. Scopus contains over 80 million entries from 1788 to present curated by a team of experts to ensure quality metadata and inclusion of appropriate publications. All variables extracted from this dataset are described below.
+
+### Variables
+
+Article characteristics include the year of publication, number of authors (team size), and discipline. Discipline will be defined at the All Science Journal Classification (ASJC; <https://service.elsevier.com/app/answers/detail/a_id/15181/supporthub/scopus/>) using the subject area codes, resulting in 27 different discipline areas. Metric characteristics include citation count (number of times an article was cited within the current data snapshot) and weighted citations. Field weighted citations indicates the number of citations in the last five years. We will check if the five year count is excluded for newer articles, and if not, we will exclude all publications that have not been available for five years to ensure this metric is consistent. Author characteristics include affiliation country, affiliation/institution, h-index, gender, and gender ratio. We will transform the affiliation country into a count variable of the number of unique countries. Similarly, we will transform the affiliation/institutions into a count of the number of different affiliations across authors. We will use the h-index of the first and last authors for each article. We will use h-index with and without self-citation if this metric is available through the ICSR system. Last, Elsevier has noted that their inferred gender column has a 97% accuracy, and we will use inferred gender of the first and last authors for each article. From this variable, we will additionally calculate the gender ratio (percent male) as a single variable for each article.
+
+**Update**: We will use the larger subject areas (Physical, Life, Health, Social Sciences, and Multidisciplinary) due to constraints on the number of analyses and time taken to run all 27 areas on the Databricks server.
+
+## Sampling Plan
+
+While Scopus includes articles from 1788 to present, we will limit our sample to journal articles published from 1970 until present. Scopus indicates that articles form 1970 to present include reference information, which will be required for calculation of several of the variables described above. Only journal articles from this time period will be included. No other exclusions will apply. We will include the date of analysis to indicate what data was available at the time analysis.
+
+**Update**: We will sample from 25% of the Scopus dataset from 1970 until present. This size limitation is due to the amount of time and memory necessary to run all analyses including h-index calculation.
+
+## Power
+
+Given the large size of the Scopus dataset, all analyses are expected to achieve the required 95% power. Analyses using the *pwr* library [@champely2017] indicate that planned regressions have the ability to detect effects at $R^2$ \< .00001 at 95% power using a 95% confidence interval.
+
+```{r echo = F, include = F}
+pwr.f2.test(u = 1, #df num
+            v = (DF %>% filter(subjareas != "undefined") %>% pull(sample) %>% min)*100, #df denom
+            f2 = NULL, 
+            sig.level = 0.05, 
+            power = .95)
+
+pwr.f2.test(u = 2, #df num
+            v = (DF %>% filter(subjareas != "undefined") %>% pull(sample) %>% min)*100, #df denom
+            f2 = NULL, 
+            sig.level = 0.05, 
+            power = .95)
+
+pwr.f2.test(u = 3, #df num
+            v = (DF %>% filter(subjareas != "undefined") %>% pull(sample) %>% min)*100, #df denom
+            f2 = NULL, 
+            sig.level = 0.05, 
+            power = .95)
+```
+
+## Analysis Plan
+
+### Data Screening
+
+Missing data will be excluded for the analyses in which the data is missing only. We will otherwise assume all data is accurate. In all analyses, we will examine the cell counts for each categorical variable in order to collapse small cell sizes (i.e., *n* \< 5). No articles will be considered an outlier, as all publication data is expected to be part of the population.
+
+In each relevant analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r \> .90, we will note these correlations and only use one of the proposed variables. The size of the dataset implies the assumption of normality. In our analyses, a linear trend is the main focus of interest, and we will note any obvious non-linear trends. Last, we will note any violations of homoscedasticity. In order to feasibly examine these two assumptions (linearity, homoscedasticity), we will first run all analyses with the default (*n* \>= 600,000) randomly selected data points and plot the residuals versus the predicted values for each analysis. We will summarize those findings in a supplemental file denoting potential deviations.
+
+**Update:** This analysis was conducted with the original pre-registration.
+
+### Decision Criteria
+
+The large sample size will likely indicate all predictors significant at the traditional *p* value criterion. For individual predictors, we will use the 95% confidence intervals of the slope to indicate if the effect is non-zero (lower bound greater than .001). The difference between effects will be determined by examining the confidence intervals of $R^2$ to three decimal places. If they do not overlap, we will state that they are different.
+
+### Research Questions
+
+All analyses will be performed using *pyspark* [@pyspark] within the Databricks system. Visualization and presentation of analyses will be performed using *R* and *ggplot2* [@R-ggplot2]. We will report $R^2$ and its 95% confidence interval for each model as an effect size using the *MOTE* package [@buchanan2019].
+
+Research Question 1a: What is the pattern of team size distribution within various disciplines over time?
+
+**Update:** Discipline is defined as the five areas: Physical, Health, Life, Social, and Multidisciplinary. Note that papers can fit into multiple categories, and these analyses are therefore separated for each analysis.
+
+We will first calculate the mean, median, and interquartile range of team size by discipline. We will not explicitly compare discipline intercepts in a *post hoc* format with any form of test. Instead we will use visualization techniques to display the distribution and their interquartile range for readers to examine (i.e., a forest plot).
+
+In order to determine if team sizes change overall across time, we will use a linear model of team size predicted by year of publication in which each article is only represented once, regardless of discipline. We will examine if the confidence interval of the slope parameter is different from zero to determine if the predictor was significant. Last, we will calculate each discipline's slope and confidence interval using a linear model of team size predicted by year of publication. Again, we will provide these slopes in a visualization for readers to examine with no official *post hoc* comparison. While a multilevel model would allow us to embed all disciplines within one model, no *pyspark* multilevel model implementation exists to model data at this scale.
+
+Research Question 1b: Is team size related to article impact?
+
+For this research question, we will examine the impact of team size on article publication metrics for impact. Our hypothesis is that team size impacts article metrics (non-directional). We will run these analyses once for each dependent variable of citation count and weighted citation five year count. We will calculate the mean, median, and interquartile range of each publication metric by discipline. We will visualize these values instead of comparing them directly.
+
+To determine the impact of team size on publication metrics, we will use a linear model of publication metrics predicted by time (covariate) and team size. We will include time as a covariate, as we expect that older articles will potentially have more or different metrics because they have been around longer to cite. We will examine if the confidence interval of the team size slope parameter is different from zero. Last, we will calculate the slope for team size for each discipline separately. We will visualize these differences and the confidence intervals.
+
+Research Question 2: What characteristics of team composition have the greatest influence on article metrics?
+
+For this research question, we will continue to use the model from the previous research question and add other article metrics to determine their contribution to the model. Our hypothesis is that each variable has an impact on the metrics variables (non-directional). Each author independent variable will be modeled separately and compared using confidence intervals as described above for which variable had the strongest impact on publication metrics.
+
+Using the linear model from the previous research question, we will add each author independent variable (affiliation country count, affiliation/institution count, h-index, gender, and gender ratio) in separate models to calculate their slope. We will determine if these slopes were important by examining if their confidence interval was greater than zero. We have to examine the effects of each author metric separately. When examining first and/or last author information, the single author paper presents a unique problem because they are both first and last author. Therefore, these cannot be included in the same model. In order not to use the same variance twice, single author papers will be treated as first author only, and NA for last author analyses. If these were included in the same model, all single author papers would be dropped, which would bias the results. We will then compare each overall $R^2$ to determine if their confidence intervals overlap. This analysis will indicate which author variable provides the most predictive information (since all other covariates are the same for each analysis, only the author variable is different). Last, we will calculate each author independent variable separated by discipline and then visualize those $R^2$ and confidence intervals for each variable.
+
+## Data availability
+
+While we cannot provide access to the full dataset because it is only accessible through access granted by Elsevier, we will provide our analysis code via GitHub and the Open Science Framework. Persons interested in replicating or extending the current work can do so through using the ICSR lab Databricks platform.
+
+## Code availability
+
+The code to run all analyses in the Databricks platform, as well as the code generated for this report can be found at: <https://osf.io/g4qnp/?view_only=d50da32d11cd47f889ce74cac954d2d7>.
+
+# Results
+
+## Data Screening
+
+We will use the plots shown with each of the descriptive graphs to answer if individual subject areas are linear and homoscedastic. Likely, we are going to talk about how the residuals are mostly fine, minus some very big outliers of the big team papers that show up with large residuals. Mostly that's because it's easy to predict 2-5 authors, and then boom! a 500 person paper is really wrong. We will use correlations to determine multicollinearity for any analyses with more than one independent variable. The correlations for each analysis will also be reported from the overall report. All this information will be put into a supplemental file.
+
+## Research Question 1a: What is the pattern of team size distribution within various disciplines over time?
+
+### Descriptive Statistics:
+
+We shall present a graph!
+
+```{r}
+hyp1a <- DF %>% filter(model == "hyp1a") %>% filter(subjareas != "undefined")
+hyp1a[ , c("mean", "sd", "median", "iqr_25", "iqr_75")] <- apply(hyp1a[ , c("mean", "sd", "median", "iqr_25", "iqr_75")], 2, as.numeric)
+
+ggplot(hyp1a, aes(subjareas, median)) + 
+  geom_point(aes(size = sample)) + 
+  geom_pointrange(aes(ymin=iqr_25, ymax=iqr_75)) + 
+  scale_size_continuous(name = "Sample Size") + 
+  # geom_point(aes(subjareas, mean, color = subjareas)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        legend.position = "bottom") + 
+  xlab("Discipline Areas") + 
+  ylab("Median and IQR")
+```
+
+For example, in this pilot data, we will point out the very big SDs:
+
+```{r}
+hyp1a %>% filter(sd > 10)
+```
+
+### Model Statistics Overall
+
+```{r}
+hyp1a_model <- DF2 %>% filter(grepl("hyp1a", model))
+
+# add predictor information
+hyp1a_model$predictor <- rep(c("team_size", "intercept"), nrow(hyp1a_model)/2)
+hyp1a_model <- hyp1a_model %>% 
+  filter(predictor == "team_size") %>% 
+  separate(col = "model", 
+           into = c("model", "subjareas"), 
+           sep = "_",
+           fill = "right") %>% 
+  left_join(hyp1a, by = c("subjareas" = "subjareas"))
+
+hyp1a_model$sample[is.na(hyp1a_model$subjareas)] <- sum(hyp1a_model$sample, na.rm = T)
+
+# get CIs effects (df = N - k - 1)
+hyp1a_model$critical <- qt(.05/2, hyp1a_model$sample - 2 - 1, lower.tail = F)
+hyp1a_model$lower <- hyp1a_model$coef - hyp1a_model$critical*hyp1a_model$se
+hyp1a_model$upper <- hyp1a_model$coef + hyp1a_model$critical*hyp1a_model$se
+
+# get CIs R2
+hyp1a_model$r2lower <- hyp1a_model$r2upper <- NA
+for(i in 1:nrow(hyp1a_model)){
+  temp <- ci.R2(R2 = hyp1a_model$r2[i], 
+        df.1 = 1, 
+        df.2 = hyp1a_model$sample[i] - 2 - 1)
+  hyp1a_model$r2lower[i] <- temp$Lower.Conf.Limit.R2
+  hyp1a_model$r2upper[i] <- temp$Upper.Conf.Limit.R2
+}
+```
+
+Does the confidence include zero? We will present *b* = `r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(coef)`, 95% CI [`r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(lower)`, `r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(upper)`].
+
+### Model Statistics by Subject Area
+
+```{r}
+ggplot(hyp1a_model %>% filter(!is.na(subjareas)), aes(subjareas, coef)) + 
+  geom_point(aes(size = sample)) + 
+  geom_pointrange(aes(ymin=lower, ymax=upper)) + 
+  scale_size_continuous(name = "Sample Size") + 
+  # geom_point(aes(subjareas, mean, color = subjareas)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        legend.position = "bottom") + 
+  xlab("Discipline Areas") + 
+  ylab("Coefficient and 95% Confidence Interval")
+```
+
+## Research Question 1b: Is team size related to article impact?
+
+### Descriptive Statistics Citation Count
+
+But wait! Another graph!
+
+```{r}
+hyp1b <- DF %>% 
+  filter(grepl("hyp1b", model)) %>% 
+  filter(subjareas != "undefined") %>% 
+  separate(col = model, into = c("model", "DV"), sep = "_")
+
+hyp1b[ , c("mean", "sd", "median", "iqr_25", "iqr_75")] <- apply(hyp1b[ , c("mean", "sd", "median", "iqr_25", "iqr_75")], 2, as.numeric)
+
+ggplot(hyp1b, aes(subjareas, median, color = DV)) + 
+  geom_point(aes(size = sample)) + 
+  geom_pointrange(aes(ymin=iqr_25, ymax=iqr_75)) + 
+  scale_size_continuous(name = "Sample Size") + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        legend.position = "bottom") + 
+  xlab("Discipline Areas") + 
+  ylab("Median and IQR")
+```
+
+Maybe note the top five with the largest mean/median differences?
+
+```{r}
+hyp1b %>% arrange(desc(mean - median)) %>% top_n(5)
+```
+
+### Model Statistics Overall
+
+```{r}
+hyp1b_model <- DF2 %>% filter(grepl("hyp1b", model))
+
+# add predictor information
+hyp1b_model$predictor <- rep(c("Year", "team_size", "intercept"), nrow(hyp1b_model)/3)
+hyp1b_model <- hyp1b_model %>% 
+  filter(predictor == "team_size") %>% 
+  separate(col = "model", 
+           into = c("model", "DV", "subjareas"), 
+           extra = "merge",
+           sep = "_",
+           fill = "right") %>% 
+  left_join(hyp1b, by = c("subjareas" = "subjareas", "DV" = "DV"))
+
+hyp1b_model$sample[is.na(hyp1b_model$subjareas)] <- sum(hyp1b_model$sample, na.rm = T)/2
+
+# get CIs effects (df = N - k - 1)
+hyp1b_model$critical <- qt(.05/2, hyp1b_model$sample - 2 - 1, lower.tail = F)
+hyp1b_model$lower <- hyp1b_model$coef - hyp1b_model$critical*hyp1b_model$se
+hyp1b_model$upper <- hyp1b_model$coef + hyp1b_model$critical*hyp1b_model$se
+
+# get CIs R2
+hyp1b_model$r2lower <- hyp1b_model$r2upper <- NA
+for(i in 1:nrow(hyp1b_model)){
+  temp <- ci.R2(R2 = hyp1b_model$r2[i], 
+        df.1 = 1, 
+        df.2 = hyp1b_model$sample[i] - 2 - 1)
+  hyp1b_model$r2lower[i] <- temp$Lower.Conf.Limit.R2
+  hyp1b_model$r2upper[i] <- temp$Upper.Conf.Limit.R2
+}
+```
+
+Does the confidence include zero? We will present:
+
+-   Citation Count = *b* = `r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "CitationCount") %>% pull(coef)`, 95% CI [`r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "CitationCount") %>% pull(lower)`, `r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "CitationCount") %>% pull(upper)`]
+-   Citation 5ys = *b* = `r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "Citation5y") %>% pull(coef)`, 95% CI [`r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "Citation5y") %>% pull(lower)`, `r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "Citation5y") %>% pull(upper)`]
+
+### Model Statistics by Subject Area
+
+```{r}
+ggplot(hyp1b_model %>% filter(!is.na(subjareas)), aes(subjareas, coef, color = DV)) + 
+  geom_point(aes(size = sample)) + 
+  geom_pointrange(aes(ymin=lower, ymax=upper)) + 
+  scale_size_continuous(name = "Sample Size") + 
+  # geom_point(aes(subjareas, mean, color = subjareas)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), 
+        legend.position = "bottom") + 
+  xlab("Discipline Areas") + 
+  ylab("Coefficient and 95% Confidence Interval")
+```
+
+## Research Question 2: What characteristics of team composition have the greatest influence on article metrics?
+
+### Model Statistics Overall
+
+```{r}
+hyp2_model <- DF2 %>% filter(grepl("hyp2", model))
+hyp2_model$model <- gsub("country_count", "countrycount", hyp2_model$model)
+hyp2_model$model <- gsub("inst_count", "instcount", hyp2_model$model)
+hyp2_model$model <- gsub("gender_percent", "genderpercent", hyp2_model$model)
+hyp2_model$model <- gsub("HIndex_noself", "HIndexnoself", hyp2_model$model)
+hyp2_model$model <- gsub("IPG_index", "IPGindex", hyp2_model$model)
+
+# add predictor information
+hyp2_model$predictor <- rep(c("Year", "team_size", "author_var", "intercept"), nrow(hyp2_model)/4)
+
+hyp2_model <- hyp2_model %>% 
+  filter(predictor == "author_var") %>% 
+  separate(col = "model", 
+           into = c("model", "DV", "IV", "subjareas"), 
+           extra = "merge",
+           sep = "_",
+           fill = "right") %>% 
+  left_join(hyp1b, by = c("subjareas" = "subjareas", "DV" = "DV"))
+
+hyp2_model$sample[is.na(hyp2_model$subjareas)] <- hyp1b_model$sample[is.na(hyp1b_model$subjareas)][1]
+# get CIs effects (df = N - k - 1)
+hyp2_model$critical <- qt(.05/2, hyp2_model$sample - 2 - 1, lower.tail = F)
+hyp2_model$lower <- hyp2_model$coef - hyp2_model$critical*hyp2_model$se
+hyp2_model$upper <- hyp2_model$coef + hyp2_model$critical*hyp2_model$se
+
+# get CIs R2
+hyp2_model$r2lower <- hyp2_model$r2upper <- NA
+for(i in 1:nrow(hyp2_model)){
+  temp <- ci.R2(R2 = hyp2_model$r2[i], 
+        df.1 = 1, 
+        df.2 = hyp2_model$sample[i] - 2 - 1)
+  hyp2_model$r2lower[i] <- temp$Lower.Conf.Limit.R2
+  hyp2_model$r2upper[i] <- temp$Upper.Conf.Limit.R2
+}
+
+# mark all the first versus last authors
+hyp2_model <- unique(hyp2_model[ , -1]) #drop row.x
+hyp2_model <- 
+  hyp2_model %>% 
+  group_by(DV, IV, subjareas) %>% 
+  mutate(author_no = row_number())
+```
+
+We shall make a picture to denote which are different using $R^2$ as the metric since they are all different scales.
+
+```{r}
+hyp2_model$IV2 <- paste(hyp2_model$IV, hyp2_model$author_no)
+hyp2_model$IV2 <- factor(hyp2_model$IV2,
+                         levels = c("countrycount 1", "genderpercent 1", 
+                                    "instcount 1", 
+                                    "HIndex 1", "HIndex 2", 
+                                    "HIndexnoself 1", "HIndexnoself 2",
+                                    "IPGindex 1", "IPGindex 2"),
+                         labels = c("Country Count", "Gender Percent", 
+                                    "Institution Count", "h-Index First",
+                                    "h-Index Last", "h-Index No-Self First",
+                                    "h-Index No-Self Last", "Gender First", 
+                                    "Gender Last"))
+
+ggplot(hyp2_model %>% filter(is.na(subjareas)), aes(IV2, r2, color = DV )) + 
+  geom_point() + 
+  geom_pointrange(aes(ymin=r2lower, ymax=r2upper)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5), 
+        legend.position = "bottom") + 
+  xlab("Author Variable") + 
+  ylab("Effect Size") 
+```
+
+### Model Statistics by Subject Area
+
+Here's the statistics by subject area, but this graph may be crazy, we shall see. Right now this data is made up because it's still running online for the temporary data.
+
+```{r}
+cite_count <- 
+  ggplot(hyp2_model %>% 
+         filter(!is.na(subjareas)) %>% 
+         filter(DV == "CitationCount"), aes(IV2, r2, color = subjareas)) + 
+  geom_point(aes(size = sample)) +  
+  geom_pointrange(aes(ymin=r2lower, ymax=r2upper)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5), 
+        legend.position = "bottom") + 
+  xlab("Author Variable") + 
+  #ylab("Effect Size") + 
+  coord_flip() +
+  theme(legend.position = "none") + 
+  scale_size(guide = 'none') + 
+  ggtitle("A. Citation Count Effect Sizes")
+
+cite_5y <- 
+  ggplot(hyp2_model %>% 
+         filter(!is.na(subjareas)) %>% 
+         filter(DV == "Citation5y"), aes(IV2, r2, color = subjareas)) + 
+  geom_point(aes(size = sample)) +  
+  geom_pointrange(aes(ymin=r2lower, ymax=r2upper)) + 
+  theme_classic() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5), legend.position = "bottom") + 
+  xlab("Author Variable") + 
+  ylab("Effect Size") +
+  coord_flip() + 
+  scale_size(guide = 'none') + 
+  scale_color_discrete(name = "Subject Areas") + 
+  ggtitle("B. Citation 5 Years Effect Sizes")
+
+plot_grid(cite_count + 
+            scale_y_continuous(name="Effect Size", limits=c(0, .20)) + 
+            theme(axis.title.x = element_blank(),
+           axis.text.x = element_blank(), 
+           axis.ticks.x = element_blank()), 
+          cite_5y + 
+            theme(legend.position = "none") + 
+            scale_y_continuous(name="Effect Size", limits=c(0, .20)),
+          # get_legend(cite_5y),
+          nrow = 2)
+
+plot_grid(get_legend(cite_5y))
+```
