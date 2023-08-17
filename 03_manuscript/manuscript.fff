@@ -1,0 +1,42 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-desc-r1-1.pdf}
+\caption{\label{fig:fig-desc-r1}Boxplot of team size by subject areas. The boxplot represents the median (middle bar), the interquartile range (box), and the mean (dot) for each subject area. The plot was capped at 15 for visualization purposes. The size of the mean point represents the sample size of the number of articles used within the calculation. The size of the box represents the standard deviation of the mean for team size (i.e., larger boxes indicate more variance in the team size).}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-desc-r1b-1.pdf}
+\caption{\label{fig:fig-desc-r1b}Boxplot of citation counts by subject area. The boxplot represents the median (middle bar), the interquartile range (box), and the mean (dot) for overall citations and five year citation count. The plot was capped at 60 citations for visualization purposes. The size of the mean point represents the sample size of the number of articles used within the calculation. The size of the box represents the standard deviation of the mean for citation count (i.e., larger boxes indicate more variance in the citation counts).}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-heatmap-1.pdf}
+\caption{\label{fig:fig-heatmap}Heatmap of results for coefficients of team size predicting year (top), and team size predicting citation counts while controlling for year (bottom). The effect sizes are also presented for comparison across subject areas.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-hyp2-1.pdf}
+\caption{\label{fig:fig-hyp2}Author variable coefficients (top) and effect sizes (bottom) predicting citation counts and five year citation counts. 95\% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-hyp2-effect-1.pdf}
+\caption{\label{fig:fig-hyp2-effect}Author variable coefficients predicting citation counts and five year citation counts separated by subject area. 95\% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference.}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-hyp2-coef-1.pdf}
+\caption{\label{fig:fig-hyp2-coef}Author variable coefficients predicting citation counts and five year citation counts separated by subject area. 95\% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference.}
+\end{figure*}

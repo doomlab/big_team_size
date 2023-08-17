@@ -3,7 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  man]{apa6}
+  man,floatsintext]{apa6}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
@@ -158,13 +158,7 @@
     {}{\InnerPatchFailed}%
   }
 {}{\PatchFailed}
-\keywords{keywords\newline\indent Word count: X}
-\DeclareDelayedFloatFlavor{ThreePartTable}{table}
-\DeclareDelayedFloatFlavor{lltable}{table}
-\DeclareDelayedFloatFlavor*{longtable}{table}
-\makeatletter
-\renewcommand{\efloat@iwrite}[1]{\immediate\expandafter\protected@write\csname efloat@post#1\endcsname{}}
-\makeatother
+\keywords{collaboration, publication, citation rates, authorship}
 \usepackage{lineno}
 
 \linenumbers
@@ -179,7 +173,7 @@
   pdftitle={Team Science: Examination of Factors Associated with Citation Metrics},
   pdfauthor={Kelly Cuccolo1, Jordan Wagge2, John Edlund3, \& Erin M. Buchanan4},
   pdflang={en-EN},
-  pdfkeywords={keywords},
+  pdfkeywords={collaboration, publication, citation rates, authorship},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
@@ -203,7 +197,7 @@ Correspondence concerning this article should be addressed to Erin M. Buchanan. 
 \affiliation{\vspace{0.5cm}\textsuperscript{1} Michigan Virtual\\\textsuperscript{2} Avila University\\\textsuperscript{3} Rochester Institute of Technology\\\textsuperscript{4} Harrisburg University of Science and Technology}
 
 \abstract{%
-Specific disciplines have reported recent increases in scientific collaboration (i.e., co-authorship), which may be related to article metric benefits (i.e., increased citation rates). However, it is currently unclear what disciplines have seen increases in collaboration, and if this increase in collaboration is associated with increased citation rates. Additionally, little is known about how demographic characteristics of the authorship team (e.g., h-index, gender, number of participating institutions) may influence article metrics in tandem with team size. Understanding the impact of collaboration patterns across time and on article metrics is critical given the importance of these factors in hiring/tenure decisions, and the general growth of the scientific enterprise. We will use metadata provided by Elsevier's International Center for the Study of Research (ICSR) lab to investigate collaboration patterns across disciplines over time and to understand factors that influence article metrics. The broad research questions are: 1.) What is the pattern of team size distribution within various disciplines over time, and is team size related to article impact? 2.) What characteristics of team composition have the greatest influence on article metrics?
+Specific disciplines have reported recent increases in scientific collaboration (i.e., co-authorship), which may be related to article metric benefits (i.e., increased citation rates). However, it is currently unclear what disciplines have seen increases in collaboration, and if this increase in collaboration is associated with increased citation rates. Additionally, little is known about how demographic characteristics of the authorship team (e.g., \emph{h}-index, gender, number of participating institutions) may influence article metrics in tandem with team size. Understanding the impact of collaboration patterns across time and on article metrics is critical given the importance of these factors in hiring and tenure decisions, and the general growth of the scientific enterprise. We used metadata provided by Elsevier's International Center for the Study of Research (ICSR) lab to investigate collaboration patterns across disciplines over time and to understand factors that influence article metrics. XX what did we find XX
 }
 
 
@@ -211,916 +205,199 @@ Specific disciplines have reported recent increases in scientific collaboration 
 \begin{document}
 \maketitle
 
-Scientific collaboration (i.e., co-authorship) has been increasing in
-many fields of study such as biomedical sciences1, medicine2, and
-psychology3. Notably, scientific collaboration is one factor that may
-positively influence article metrics (e.g., citation rates4,5), although
-the extent of this effect may vary by field (e.g., physics6). Within
-scientific collaboration, additional characteristics of the authorship
-team may exert influence on these metrics. Authorship team diversity is
-a key factor one may consider when looking at the impact of
-collaboration on article metrics. Author diversity, broadly speaking,
-has been associated with positive outcomes such as publication in high
-impact factor journals, rates of citations, and funding7,8. It is
-important to note that author diversity can be conceptualized along a
-continuum of factors such as: gender, physical location (e.g.~United
-States, Brazil), institutional affiliation, discipline, and rank (e.g.,
-associate faculty). Evidence suggests an impact of international
-collaboration, rank, and gender on article metrics in fields such as
-sport science research9, physics6, and psychology10, respectively,but a
-gap exists in which the cumulation of these factors over time and across
-disciplines has not yet been addressed. As such, this project aims to
-understand: 1a.) What is the pattern of team size distribution within
-various disciplines over time, 1b.) is team size related to article
-impact?, and 2.) What characteristics of team composition have the
-greatest influence on article metrics?
+Scientific collaboration (i.e., co-authorship) has been increasing in many fields of study such as biomedical sciences\textsuperscript{1}, medicine\textsuperscript{2}, and psychology\textsuperscript{3}. Notably, scientific collaboration is one factor that may positively influence article metrics (e.g., citation rates\textsuperscript{4,5}), although the extent of this effect may vary by field (e.g., physics\textsuperscript{6}). Within scientific collaboration, additional characteristics of the authorship team may exert influence on these metrics. Authorship team diversity is a key factor one may consider when looking at the impact of collaboration on article metrics. Author diversity, broadly speaking, has been associated with positive outcomes such as publication in high impact factor journals, rates of citations, and funding\textsuperscript{7,8}. It is important to note that author diversity can be conceptualized along a continuum of factors such as: gender, physical location (e.g.~United States, Brazil), institutional affiliation, discipline, and rank (e.g., associate faculty). Evidence suggests an impact of international collaboration, rank, and gender on article metrics in fields such as sport science research\textsuperscript{9}, physics\textsuperscript{6}, and psychology\textsuperscript{10}, respectively, but a gap exists in which the accumulation of these factors over time and across disciplines has not yet been addressed. As such, this project aims to understand: 1a.) What is the pattern of team size distribution within various disciplines over time, 1b.) is team size related to article impact?, and 2.) What characteristics of team composition have the greatest influence on article metrics?
 
-\emph{Question 1}. What is the pattern of team size distribution within
-various disciplines over time, and is team size related to article
-impact?
+\emph{Question 1}. What is the pattern of team size distribution within various disciplines over time, and is team size related to article impact?
 
-Science is becoming increasingly collaborative; evidence for this trend
-includes an increase in co-authored peer-reviewed publications (compared
-to single-authored)5 as well as initiatives, calls, and funding
-opportunities for collaborative research from both private and
-public/government sectors. Further, some argue that scientific
-collaboration and large interdisciplinary/international teams are needed
-to effectively address modern societal questions and problems11. Indeed,
-team size (i.e., number of co-authors) has been increasing in recent
-years1 across various disciplines including science and engineering,
-social sciences, and arts and humanities5. While some research suggests
-an overall trend towards collaboration5 these findings do not appear to
-apply to all disciplines equally.
+Science is becoming increasingly collaborative; evidence for this trend includes an increase in co-authored peer-reviewed publications (compared to single-authored)\textsuperscript{5} as well as initiatives, calls, and funding opportunities for collaborative research from both private and public/government sectors. Further, some argue that scientific collaboration and large interdisciplinary/international teams are needed to effectively address modern societal questions and problems\textsuperscript{11}. Indeed, team size (i.e., number of co-authors) has been increasing in recent years\textsuperscript{1} across various disciplines including science and engineering, social sciences, and arts and humanities\textsuperscript{5}. While some research suggests an overall trend towards collaboration\textsuperscript{5} these findings do not appear to apply to all disciplines equally.
 
-Within the natural/physical sciences, subdisciplines vary in their
-collaborative growth. For instance, average team size in physics has
-reportedly doubled over the last 45 years, whereas for mathematics, the
-growth appears slower - with the average team size rising from 1.22 to
-1.845. Grossman12 corroborates this effect, noting that for mathematics
-the average number of collaborators has grown since the 1940s with 1 in
-8 papers having 2+ authors. On the other hand, a review of four major
-musculoskeletal science journals13 noted approximately a doubling in the
-number of co-authors on a publication (3.67--7.3) over the last 30
-years. Likewise, biology has noted decreases in single-authored papers
-across specific subareas (i.e., Ecology, Genetics, Zoology and
-Botany14).
+Within the natural/physical sciences, subdisciplines vary in their collaborative growth. For instance, average team size in physics has reportedly doubled over the last 45 years, whereas for mathematics, the growth appears slower - with the average team size rising from 1.22 to 1.845. Grossman\textsuperscript{12} corroborates this effect, noting that for mathematics the average number of collaborators has grown since the 1940s with 1 in 8 papers having 2+ authors. On the other hand, a review of four major musculoskeletal science journals\textsuperscript{13} noted approximately a doubling in the number of co-authors on a publication (3.67--7.3) over the last 30 years. Likewise, biology has noted decreases in single-authored papers across specific subareas (i.e., Ecology, Genetics, Zoology and Botany)\textsuperscript{14}.
 
-Among the social sciences, a pattern of increasingly collaborative
-authorship emerges. For example, sociology has reported increases in
-both collaboration and the average number of authors per publication
-during the period from 1935 to 200515. Specific publication outlets in
-psychology (e.g., Journal of Applied Psychology16) have seen increases
-in co-authored and decreases in solo-authored papers. Specific subfields
-of psychology have also noted similar changes in authorship trends
-(e.g., industrial-organizational psychology17). Various branches of
-business, such as economics18 and finance19 have also noted increases in
-co-authorship.
+Among the social sciences, a pattern of increasingly collaborative authorship emerges. For example, sociology has reported increases in both collaboration and the average number of authors per publication during the period from 1935 to 2005\textsuperscript{15}. Specific publication outlets in psychology (e.g., Journal of Applied Psychology)\textsuperscript{16} have seen increases in co-authored and decreases in solo-authored papers. Specific subfields of psychology have also noted similar changes in authorship trends (e.g., industrial-organizational psychology)\textsuperscript{17}. Various branches of business, such as economics\textsuperscript{18} and finance\textsuperscript{19} have also noted increases in co-authorship.
 
-Practically speaking, collaboration might offer important benefits to
-authors, as number of authors appears to be associated with article
-impact (i.e., citation rates). Among publications indexed in the annual
-volumes of the Web of Knowledge (Thomson-Reuters) in 2007, single author
-papers received an average of 2.91 citations while multi-author papers
-exhibited an average of 5.3920; this difference was consistent when
-examining citation averages from 1998 to 2007. Further probing this
-relationship it appears that the number of citations increases with the
-number of authors, up to a point (approx. 20 authors) after which the
-relationship becomes inconsistent. As such, collaboration may be
-rewarded by increased impact.
+Practically speaking, collaboration might offer important benefits to authors, as number of authors appears to be associated with article impact (i.e., citation rates). Among publications indexed in the annual volumes of the Web of Knowledge (Thomson-Reuters) in 2007, single author papers received an average of 2.91 citations while multi-author papers exhibited an average of 5.39\textsuperscript{20}; this difference was consistent when examining citation averages from 1998 to 2007. Further probing this relationship it appears that the number of citations increases with the number of authors, up to a point (approx. 20 authors) after which the relationship becomes inconsistent. As such, collaboration may be rewarded by increased impact.
 
-While most of the available research points to a positive relationship
-between collaboration and citations, the available research tends to
-examine manuscripts published in a narrow time frame (i.e., ten
-years21), and often looks at fields in isolation, specific journals17,
-and/or specific geographical regions22. As such, it is unclear how
-various disciplines have embraced collaboration over time and whether
-there has been any associated impact.
+While most of the available research points to a positive relationship between collaboration and citations, the available research tends to examine manuscripts published in a narrow time frame (i.e., ten years)\textsuperscript{21}, and often looks at fields in isolation, specific journals\textsuperscript{17}, and/or specific geographical regions\textsuperscript{22}. As such, it is unclear how various disciplines have embraced collaboration over time and whether there has been any associated impact.
 
-\emph{Question 2}. What characteristics of team composition have the greatest
-influence on article metrics?
+\emph{Question 2}. What characteristics of team composition have the greatest influence on article metrics?
 
-Although several disciplines report increases in co-authorship over the
-past several decades, it is important to ask the question about who is
-publishing, and with whom. Generally speaking, despite increases in
-women's representation in academia, women still are underrepresented
-when it comes to publishing co- and solo-authored papers23. In addition
-to authoring a smaller proportion of published work, research suggests
-women are also less likely to hold prominent authorship positions24,25.
-For example, women are underrepresented in regard to publishing articles
-in specific areas of medicine26,27, STEM fields (e.g., mathematics28),
-and social sciences28,29, although the extent of these differences
-varies by subfield (e.g., computational biology, as compared to biology
-in general29). Furthermore, women are less likely to receive credit for
-their contributions to empirical/scholarly written work30.
-Interestingly, women are less likely to collaborate with previous
-co-authors compared to men31; although it is not clear why this is the
-case, it could have important implications for their careers as novel
-teams tend to produce higher-impact work32.
+Although several disciplines report increases in co-authorship over the past several decades, it is important to ask the question about who is publishing, and with whom. Generally speaking, despite increases in women's representation in academia, women still are underrepresented when it comes to publishing co- and solo-authored papers\textsuperscript{23}. In addition to authoring a smaller proportion of published work, research suggests women are also less likely to hold prominent authorship positions\textsuperscript{24,25}. For example, women are underrepresented in regard to publishing articles in specific areas of medicine\textsuperscript{26,27}, STEM fields (e.g., mathematics\textsuperscript{28}), and social sciences\textsuperscript{28,29}, although the extent of these differences varies by subfield (e.g., computational biology, as compared to biology in general)\textsuperscript{29}. Furthermore, women are less likely to receive credit for their contributions to empirical/scholarly written work\textsuperscript{30}. Interestingly, women are less likely to collaborate with previous co-authors compared to men\textsuperscript{31}; although it is not clear why this is the case, it could have important implications for their careers as novel teams tend to produce higher-impact work\textsuperscript{32}.
 
-Compounding this lack of representation is a body of research suggesting
-that women's contributions to science via peer-reviewed publications are
-often perceived to have lesser value than publications authored by men.
-After controlling for year of publication, publication outlet, focus,
-theoretical framework, methodology, tenure status, and institutional
-affiliation, women were still cited less than men33. Relevant to this
-manuscript is the body of research examining the association between
-gender and citation rates. Previous work has noted that in specific
-fields, men are less likely to cite women's work and work authored by
-women typically receives fewer citations overall34,35. This difference
-in likelihood of accumulating citations could influence a researchers'
-impact36, which is often considered important for career advances.
+Compounding this lack of representation is a body of research suggesting that women's contributions to science via peer-reviewed publications are often perceived to have lesser value than publications authored by men. After controlling for year of publication, publication outlet, focus, theoretical framework, methodology, tenure status, and institutional affiliation, women were still cited less than men\textsuperscript{33}. Relevant to this manuscript is the body of research examining the association between gender and citation rates. Previous work has noted that in specific fields, men are less likely to cite women's work and work authored by women typically receives fewer citations overall\textsuperscript{34,35}. This difference in likelihood of accumulating citations could influence a researchers' impact\textsuperscript{36}, which is often considered important for career advances.
 
-One objective measure of a scholar's output and impact is the
-``h-index''37. The h-index combines the number of articles published with
-the number of citations received for those articles. This approach
-attempts to balance high-impact articles with the number of articles
-published. Specifically, the h-score is the number of articles (X) that
-receive X citations. The h-index is one of the most widely used and
-accepted measures of a scholar's impact38. Fields such as psychology
-have observed gender differences pertaining to h-indices which favor
-men. Women professors have a significantly lower h-index than men, with
-a difference of approximately four points. After controlling for the
-year of first publication, gender shares approximately 2.6\% of the
-variance with h-index10. This effect was examined relative to mean
-salaries for full professors, and practically, translated to an
-astounding effect of a \$13,100 a year difference between men and
-women10.
+One objective measure of a scholar's output and impact is the ``\emph{h}-index''\textsuperscript{37}. The \emph{h}-index combines the number of articles published with the number of citations received for those articles. This approach attempts to balance high-impact articles with the number of articles published. Specifically, the \emph{h}-score is the number of articles (X) that receive X citations. The \emph{h}-index is one of the most widely used and accepted measures of a scholar's impact\textsuperscript{38}. Fields such as psychology have observed gender differences pertaining to \emph{h}-indices which favor men. Women professors have a significantly lower \emph{h}-index than men, with a difference of approximately four points. After controlling for the year of first publication, gender shares approximately 2.6\% of the variance with \emph{h}-index\textsuperscript{10}. This effect was examined relative to mean salaries for full professors, and practically, translated to an astounding effect of a \$13,100 a year difference between men and women\textsuperscript{10}.
 
-It is important to note that there is evidence of increasing equity
-between genders in certain fields; in international relations, for
-example, the gap between men and women's manuscript submissions and
-publications are narrowing and there appears to be no significant
-relationship between gender and citation count39. Notable, is that the
-calculation of h-indices may be particularly biased by self-citations
-and years without publication. Higher rates of citations received by men
-were partially explained by high rates of self-citation which altered
-scores up to 14 extra h-index points. Women also engaged in
-self-citation, although less so, and only impacting their h-index by up
-to 5 points34. Although there are alternatives to the h-index that
-account for self-citations (e.g.~the b-index40), the h-index is popular
-and generally accepted as a robust bibliometric tool.
+It is important to note that there is evidence of increasing equity between genders in certain fields; in international relations, for example, the gap between men and women's manuscript submissions and publications are narrowing and there appears to be no significant relationship between gender and citation count\textsuperscript{39}. Notable, is that the calculation of \emph{h}-indices may be particularly biased by self-citations and years without publication. Higher rates of citations received by men were partially explained by high rates of self-citation which altered scores up to 14 extra \emph{h}-index points. Women also engaged in self-citation, although less so, and only impacting their \emph{h}-index by up to 5 points\textsuperscript{34}. Although there are alternatives to the \emph{h}-index that account for self-citations (e.g.~the \emph{b}-index\textsuperscript{40}), the \emph{h}-index is popular and generally accepted as a robust bibliometric tool.
 
-Given the arguments regarding the necessity of scientific collaboration
-and large international teams to address modern societal questions and
-problems11 it may be intuitive that institutional and geographical
-diversity is on the rise. One source notes an increase in articles that
-have the presence of both a U.S. author and at least one international
-co-author for psychology41. Similar increases in the fraction of
-internationally co-authored papers (i.e., ratio of co-authored articles
-with international institutions to the total number of co-authored
-articles with domestic and international institutions) were noted in
-other scientific disciplines such as mathematics, biology, medicine, and
-engineering42. However, while it appears most fields are increasing
-international engagement, applied fields (especially medical sciences)
-have higher rates of growth43.
+Given the arguments regarding the necessity of scientific collaboration and large international teams to address modern societal questions and problems\textsuperscript{11}, it may be intuitive that institutional and geographical diversity is on the rise. One source notes an increase in articles that have the presence of both a U.S. author and at least one international co-author for psychology\textsuperscript{41}. Similar increases in the fraction of internationally co-authored papers (i.e., ratio of co-authored articles with international institutions to the total number of co-authored articles with domestic and international institutions) were noted in other scientific disciplines such as mathematics, biology, medicine, and engineering\textsuperscript{42}. However, while it appears most fields are increasing international engagement, applied fields (especially medical sciences) have higher rates of growth\textsuperscript{43}.
 
-Collaboration involving those outside of
-one's home institution and country may significantly impact article
-metrics, which may be one reason for the increasing rates of
-international collaboration. For instance, for UK institutions indexed
-in the Science Citation Index between 1981 and 1994, collaboration
-within one's home university or country resulted in a small increase in
-average impact (0.75 citations) whereas collaboration outside of one's
-home country resulted in a more moderate increase (1.6 citations)44.
-Indeed, both well-established and young institutions benefit from
-international collaboration as evidenced by a citation per paper
-increase when the authorship team is international45. This benefit is
-corroborated by the observation that international co-authorship
-publications are over-represented in the ESI global top 10 \% highly
-cited publications relative to all journal publications from the same
-institution45. Indeed, article impact in terms of citations per paper
-seem to be greatest for those manuscripts with multiple domestic and
-international collaborators, and smallest for those with no
-institutional collaboration.
+Collaboration involving those outside of one's home institution and country may significantly impact article metrics, which may be one reason for the increasing rates of international collaboration. For instance, for UK institutions indexed in the Science Citation Index between 1981 and 1994, collaboration within one's home university or country resulted in a small increase in average impact (0.75 citations) whereas collaboration outside of one's home country resulted in a more moderate increase (1.6 citations)\textsuperscript{44}. Indeed, both well-established and young institutions benefit from international collaboration as evidenced by a citation per paper increase when the authorship team is international\textsuperscript{45}. This benefit is corroborated by the observation that international co-authorship publications are over-represented in the ESI global top 10 \% highly cited publications relative to all journal publications from the same institution\textsuperscript{45}. Indeed, article impact in terms of citations per paper seem to be greatest for those manuscripts with multiple domestic and international collaborators, and smallest for those with no institutional collaboration.
 
-However, this trend may not be consistent
-across fields, journals, and/or countries, and warrants further
-investigation (e.g., physics6,46). For example, international
-collaboration generally increases citation rates in the field of sports
-science but the extent of this effect varies by which countries are
-collaborating9. Collaboration between the United States and Canada for
-instance, produced a mean citation rate greater than the domestic mean
-observed citation rate of each country respectively, whereas
-collaboration between the United Kingdom and Greece produced a mean
-citation rate that was lower than the domestic mean observed citation
-rate of each country respectively. Furthermore, when examining the
-benefits of international collaboration on citation count for american
-authors publishing in the top three interdisciplinary journals
-(Proceedings of the National Academy of Sciences {[}PNAS{]}, Nature, and
-Science), there is an increased citation rate for international
-collaboration when compared to American-only authored papers46. It is
-important to note that this effect was the result of a significant
-increase in citation rate for international papers published in PNAS
-only. When examining each journal independently, no benefit of
-international collaboration was found for Science or Nature. Given the
-accelerated growth of international collaboration across various fields
-over time43,47, it is increasingly important to understand the influence
-of this diversity on article metrics.
+However, this trend may not be consistent across fields, journals, and/or countries, and warrants further investigation (e.g., physics)\textsuperscript{6,46}. For example, international collaboration generally increases citation rates in the field of sports science but the extent of this effect varies by which countries are collaborating\textsuperscript{9}. Collaboration between the United States and Canada for instance, produced a mean citation rate greater than the domestic mean observed citation rate of each country respectively, whereas collaboration between the United Kingdom and Greece produced a mean citation rate that was lower than the domestic mean observed citation rate of each country respectively. Furthermore, when examining the benefits of international collaboration on citation count for american authors publishing in the top three interdisciplinary journals (\emph{Proceedings of the National Academy of Sciences} {[}PNAS{]}, \emph{Nature}, and \emph{Science}), there is an increased citation rate for international collaboration when compared to American-only authored papers\textsuperscript{46}. It is important to note that this effect was the result of a significant increase in citation rate for international papers published in \emph{PNAS} only. When examining each journal independently, no benefit of international collaboration was found for \emph{Science} or \emph{Nature}. Given the accelerated growth of international collaboration across various fields over time\textsuperscript{43,47}, it is increasingly important to understand the influence of this diversity on article metrics.
 
-The majority of work examining
-team characteristics and article metrics have focused on a specific
-field6, and/or a limited/restricted number of team characteristics
-(e.g., size5). Empirical data comparing the impact of diverse/multiple
-team characteristics on article metrics within a given field is
-limited2,6,9,12,14. Along a similar vein, empirical data comparing the
-impact of team characteristics on article metrics across fields is also
-limited (for notable exceptions, see Larivière et al4 or Wuchty et al5).
-Comparing outcomes within and across fields can allow for an increased
-understanding of these fields' scientific culture. Practically,
-understanding factors associated with an article's impact can be
-important for researchers' outreach, as well as planning for the job
-market and tenure review.
+The majority of work examining team characteristics and article metrics have focused on a specific field\textsuperscript{6}, and/or a limited/restricted number of team characteristics (e.g., size)\textsuperscript{5}. Empirical data comparing the impact of diverse/multiple team characteristics on article metrics within a given field is limited\textsuperscript{2,6,9,12,14}. Along a similar vein, empirical data comparing the impact of team characteristics on article metrics across fields is also limited (for notable exceptions, see Larivière et al\textsuperscript{4} or Wuchty et al\textsuperscript{5}). Comparing outcomes within and across fields can allow for an increased understanding of these fields' scientific culture. Practically, understanding factors associated with an article's impact can be important for researchers' outreach, as well as planning for the job market and tenure review.
 
 \hypertarget{method}{%
-\subsection{Method}\label{method}}
+\section{Method}\label{method}}
 
 \hypertarget{ethics-information}{%
-\subsubsection{Ethics Information}\label{ethics-information}}
+\subsection{Ethics Information}\label{ethics-information}}
 
-All of the data for
-this manuscript is drawn from peer reviewed journals. All of the
-extracted meta-data from the individual publications is de-identified in
-the database. As such, per US Federal Guidelines, this research is not
-subject to human ethics review boards (§46.101, (b) (4)).
+All of the data for this manuscript is drawn from peer reviewed journals. All of the extracted meta-data from the individual publications is de-identified in the database. As such, per US Federal Guidelines, this research is not subject to human ethics review boards (§46.101, (b) (4)).
 
 \hypertarget{design}{%
-\subsubsection{Design}\label{design}}
+\subsection{Design}\label{design}}
 
-This
-study is an archival data investigation into scholarly publication
-records using Elsevier's curated database Scopus. This study will be
-conducted through access to Elsevier's International Center for the
-Study of Research Lab (ICSR; \url{https://www.elsevier.com/icsr}). The ICSR
-is designed to support researchers' in their empirical study of
-meta-science on large datasets using the Databricks platform running
-Apache Spark architecture for big-data analyses. Through ICSR,
-researchers can obtain access to full publication metadata from Scopus
-including article metrics, author(s), and affiliation information.
-Scopus is a global database on abstracts and citations, containing a
-wide representation of content including articles, books, and conference
-proceedings48. Scopus contains over 80 million entries from 1788 to
-present curated by a team of experts to ensure quality metadata and
-inclusion of appropriate publications. All variables extracted from this
-dataset are described below.
+This study was an archival data investigation into scholarly publication records using Elsevier's curated database Scopus. This study was conducted through access to Elsevier's International Center for the Study of Research Lab (ICSR; \url{https://www.elsevier.com/icsr}). The ICSR is designed to support researchers' in their empirical study of meta-science on large datasets using the Databricks platform running Apache Spark architecture for big-data analyses. Through ICSR, researchers can obtain access to full publication metadata from Scopus including article metrics, author(s), and affiliation information. Scopus is a global database on abstracts and citations, containing a wide representation of content including articles, books, and conference proceedings\textsuperscript{48}. Scopus contains over 80 million entries from 1788 to present curated by a team of experts to ensure quality metadata and inclusion of appropriate publications. All variables extracted from this dataset are described below.
 
 \hypertarget{variables}{%
-\paragraph{Variables}\label{variables}}
+\subsubsection{Variables}\label{variables}}
 
-Article characteristics include
-the year of publication, number of authors (team size), and discipline.
-Discipline will be defined at the All Science Journal Classification
-(ASJC;
-\url{https://service.elsevier.com/app/answers/detail/a_id/15181/supporthub/scopus/})
-using the subject area codes, resulting in 27 different discipline
-areas. Metric characteristics include citation count (number of times an
-article was cited within the current data snapshot) and weighted
-citations. Field weighted citations indicates the number of citations in
-the last five years. We will check if the five-year count is excluded
-for newer articles, and if not, we will exclude all publications that
-have not been available for five years to ensure this metric is
-consistent.
+Article characteristics included the year of publication, number of authors (team size), and discipline. Discipline will be defined at the All Science Journal Classification (ASJC; \url{https://service.elsevier.com/app/answers/detail/a_id/15181/supporthub/scopus/}) using the five global subject area codes (Health, Physical, Life, Social Sciences, and Multidisciplinary){[}\^{}We originally planned on using the 27 subfields within the ASJC. However, we updated our preregistration to use only five of the larger subfields due to computational constraints{]}. Metric characteristics included citation count (number of times an article was cited within the current data snapshot) and weighted citations. Field weighted citations indicates the number of citations in the last five years. We excluded articles within the last five years for the field weighted citation counts to ensure consistency for this variable.
 
-Author characteristics include affiliation country,
-affiliation/institution, h-index, gender, and gender ratio. We will
-transform the affiliation country into a count variable of the number of
-unique countries. Similarly, we will transform the
-affiliation/institutions into a count of the number of different
-affiliations across authors. We will use the h-index of the first and
-last authors for each article. We will use h-index with and without
-self-citation. Last, Elsevier has noted that their inferred gender
-column has a 97\% accuracy, and we will use inferred gender of the first
-and last authors for each article. From this variable, we will
-additionally calculate the gender ratio (number of inferred male / total
-authors) as a single variable for each article.
-
-\emph{Update}: We will use the larger subject areas (Physical, Life, Health,
-Social Sciences, and Multidisciplinary) due to constraints on the number
-of analyses and time taken to run all 27 areas on the Databricks server.
+Author characteristics included affiliation country, affiliation/institution, \emph{h}-index, gender, and gender ratio. We transformed affiliation country into a count variable of the number of unique countries. Similarly, we transformed affiliation/institutions into a count of the number of different affiliations across authors. We used the \emph{h}-index of the first and last authors for each article, with and without self-citation. Last, Elsevier has noted that their inferred gender column has a 97\% accuracy, and we used the inferred gender of the first and last authors for each article. From this variable, we additionally calculated the gender ratio (number of inferred male / total authors) as a single variable for each article.
 
 \hypertarget{sampling-plan}{%
-\paragraph{Sampling Plan}\label{sampling-plan}}
+\subsubsection{Sampling Plan}\label{sampling-plan}}
 
-While Scopus includes articles from 1788 to present, we
-will limit our sample to journal articles published from 1970 until
-present. Scopus indicates that articles from 1970 to present include
-reference information, which will be required for calculation of several
-of the variables described above. Only journal articles from this time
-period will be included. No other exclusions will apply. We will include
-the date of analysis to indicate what data was available at the time
-analysis.
-
-\emph{Update}: We will sample from 25\% of the Scopus dataset from
-1970 until present. This size limitation is due to the amount of time
-and memory necessary to run all analyses including h-index calculation.
+While Scopus includes articles from 1788 to present, we limited our sample to journal articles published from 1970 until present. Scopus indicates that articles from 1970 to present include reference information, which will be required for calculation of several of the variables described above. Only journal articles from this time period will be included sampled at a rate of 25\% of eligible articles. We will include the date of analysis to indicate what data was available at the time analysis{[}\^{}We originally included all articles from 1970 and forward. Due to computational constraints, we randomly sampled 25\% of eligible articles during this time span to constrain the run time of our code and memory necessary to calculate \emph{h}-index. It is important to note that we did \emph{not} calculate \emph{h}-index on the randomly sampled dataset. These values were calculated on the full data and then merged with the randomly sampled data to ensure \emph{h}-indices were appropriate for authors on the randomly sampled data{]}.
 
 \hypertarget{power}{%
-\paragraph{Power}\label{power}}
+\subsubsection{Power}\label{power}}
 
-Given the large size of the Scopus dataset, all analyses are
-expected to achieve the required 95\% power. Analyses using the pwr
-library49 indicate that planned regressions have the ability to detect
-effects at R2 \textless{} .00001 at 95\% power using a 95\% confidence interval.
+Given the large size of the Scopus dataset, all analyses are expected to achieve the required 95\% power. Analyses using the \emph{pwr} library\textsuperscript{49} indicate that planned regressions have the ability to detect effects at \(R^2\) \textless{} .00001 at 95\% power using a 95\% confidence interval.
 
 \hypertarget{analysis-plan}{%
-\subsubsection{Analysis Plan}\label{analysis-plan}}
-
-\hypertarget{pilot-code}{%
-\paragraph{Pilot Code}\label{pilot-code}}
-
-We were allowed to use a small subset of cases
-(1\%) to create the analysis code for the proposed research questions.
-All code will be available through GitHub and the Open Science
-Framework.
-
-\hypertarget{data-screening}{%
-\paragraph{Data Screening}\label{data-screening}}
-
-Missing data will be excluded for the analyses
-in which the data is missing only. We will otherwise assume all data is
-accurate. In all analyses, we will examine the cell counts for each
-categorical variable in order to collapse small cell sizes (i.e., n \textless{}
-5). No articles will be considered an outlier, as all publication data
-is expected to be part of the population.
-
-In each relevant analysis, we
-will examine for multicollinearity of the IVs, as team size may
-positively correlate with count variables calculated in later research
-questions. If values are multicollinear, r \textgreater{} .90, we will note these
-correlations and only use one of the proposed variables. The size of the
-dataset implies the assumption of normality. In our analyses, a linear
-trend is the main focus of interest, and we will note any obvious
-non-linear trends. Last, we will note any violations of
-homoscedasticity. In order to feasibly examine these two assumptions
-(linearity, homoscedasticity), we will first run all analyses with the
-default (n \textgreater= 600,000) randomly selected data points and plot the
-residuals versus the predicted values for each analysis. We will
-summarize those findings in a supplemental file denoting potential
-deviations.
-
-\emph{Update}: This analysis was completed on the original pre-registration.
-
-\hypertarget{decision-criteria}{%
-\paragraph{Decision Criteria}\label{decision-criteria}}
-
-The large sample size will likely indicate all predictors significant at
-the traditional p value criterion. For individual predictors, we will
-use the 95\% confidence intervals of the slope to indicate if the effect
-is non-zero (i.e., confidence interval does not include zero rounded to
-three decimals). The difference between effects will be determined by
-examining the confidence intervals of R2 to three decimal places. If
-they do not overlap, we will state that they are different.
-
-\hypertarget{research-questions}{%
-\paragraph{Research Questions}\label{research-questions}}
-
-All analyses will be performed using pyspark50 within the Databricks
-system. Visualization and presentation of analyses will be performed
-using R and ggplot251. We will report R2 and its 95\% confidence interval
-for each model as an effect size using the MOTE package52. Research
-
-\emph{Question 1a: What is the pattern of team size distribution within various disciplines over time?} We will first calculate the mean, median,
-and interquartile range of team size by discipline. We will not
-explicitly compare discipline intercepts in a post hoc format with any
-form of test. Instead we will use visualization techniques to display
-the distribution and their interquartile range for readers to examine
-(i.e., a forest plot).
-
-In order to determine if team sizes change
-overall across time, we will use a linear model of team size predicted
-by year of publication in which each article is only represented once,
-regardless of discipline. We will examine if the confidence interval of
-the slope parameter is different from zero to determine if the predictor
-was significant. Last, we will calculate each discipline's slope and
-confidence interval using a linear model of team size predicted by year
-of publication. Again, we will provide these slopes in a visualization
-for readers to examine with no official post hoc comparison. While a
-multilevel model would allow us to embed all disciplines within one
-model, no pyspark multilevel model implementation exists to model data
-at this scale.
-
-\emph{Research Question 1b: Is team size related to article impact?} For this
-research question, we will examine the impact of team size on article
-publication metrics for impact. Our hypothesis is that team size impacts
-article metrics (non-directional). We will run these analyses once for
-each dependent variable of citation count and weighted citation five
-year count. We will calculate the mean, median, and interquartile range
-of each publication metric by discipline. We will visualize these values
-instead of comparing them directly.
-
-To determine the impact of team size
-on publication metrics, we will use a linear model of publication
-metrics predicted by time (covariate) and team size. We will include
-time as a covariate, as we expect that older articles will potentially
-have more or different metrics because they have been around longer to
-cite. We will examine if the confidence interval of the team size slope
-parameter is different from zero. Last, we will calculate the slope for
-team size for each discipline separately. We will visualize these
-differences and the confidence intervals.
-
-\emph{Research Question 2: What characteristics of team composition have the greatest influence on article metrics?} For this research question, we will continue to use the
-model from the previous research question and add other article metrics
-to determine their contribution to the model. Our hypothesis is that
-each variable has an impact on the metrics variables (non-directional).
-Each author independent variable will be modeled separately and compared
-using confidence intervals as described above for which variable had the
-strongest impact on publication metrics.
-
-Using the linear model from the
-previous research question, we will add each author independent variable
-(affiliation country count, affiliation/institution count, h-index,
-gender, and gender ratio) in separate models to calculate their slope.
-We will determine if these slopes were important by examining if their
-confidence interval was greater than zero. We have to examine the
-effects of each author metric separately. When examining first and/or
-last author information, the single author paper presents a unique
-problem because they are both first and last author. Therefore, these
-cannot be included in the same model. In order not to use the same
-variance twice, single author papers will be treated as first author
-only, and missing data for last author analyses. If these were included
-in the same model, all single author papers would be dropped, which
-would bias the results. We will then compare each overall R2 to
-determine if their confidence intervals overlap. This analysis will
-indicate which author variable provides the most predictive information
-(since all other covariates are the same for each analysis, only the
-author variable is different). Last, we will calculate each author
-independent variable separated by discipline and then visualize those R2
-and confidence intervals for each variable.
+\subsection{Analysis Plan}\label{analysis-plan}}
 
 \hypertarget{data-availability}{%
-\subsection{Data Availability}\label{data-availability}}
+\subsubsection{Data Availability}\label{data-availability}}
 
-While we
-cannot provide access to the full dataset because it is only accessible
-through access granted by Elsevier, we will provide our analysis code
-via GitHub and the Open Science Framework. Persons interested in
-replicating or extending the current work can do so through using the
-ICSR lab Databricks platform. ICSR has stated to the authors of the
-paper that they will guarantee access to researchers who want to follow
-up or reproduce our results.
+While we cannot provide access to the full dataset because it is only accessible through access granted by Elsevier, we will provide our analysis code via GitHub and the Open Science Framework. Persons interested in replicating or extending the current work can do so through using the ICSR lab Databricks platform. ICSR has stated to the authors of the paper that they will guarantee access to researchers who want to follow up or reproduce our results.
 
 \hypertarget{code-availability}{%
-\subsection{Code Availability}\label{code-availability}}
+\subsubsection{Code Availability}\label{code-availability}}
 
-The code to run all
-analyses in the Databricks platform, as well as the code generated for
-this report can be found at:
-\url{https://osf.io/g4qnp/?view_only=d50da32d11cd47f889ce74cac954d2d7}.
+We were allowed to use a small subset of cases (1\%) to create the analysis code for the proposed research questions. This code and output is avaliable at \url{https://osf.io/g4qnp/} and \url{https://github.com/doomlab/big_team_size}. Our study was preregistered at \url{https://osf.io/j63fd}, which includes an update due to deviations from the original plan. The code used to create this manuscript with the \emph{papaja} package\textsuperscript{50} can be found online as well.
 
-\textbf{Update}: We will sample from 25\% of the Scopus dataset from 1970 until present. This size limitation is due to the amount of time and memory necessary to run all analyses including h-index calculation.
+\hypertarget{data-screening}{%
+\subsubsection{Data Screening}\label{data-screening}}
 
-\hypertarget{analysis-plan-1}{%
-\subsection{Analysis Plan}\label{analysis-plan-1}}
+Missing data was excluded for the analyses in which the data was missing only. We assumed all data is accurate. In all analyses, we examined the cell counts for each categorical variable in order to collapse small cell sizes (i.e., \emph{n} \textless{} 5). No articles will be considered an outlier, as all publication data was expected to be part of the population.
 
-\hypertarget{data-screening-1}{%
-\subsubsection{Data Screening}\label{data-screening-1}}
+In each relevant analysis, we examined for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, \emph{r} \textgreater{} .90, we planned to note these correlations and only use one of the proposed variables. No values reached this criteria for the five subject areas. The size of the dataset implied the assumption of normality. In our analyses, a linear trend was the main focus of interest, and we did not note any non-linear trends. Last, nearly all scatter plots indicated heteroscedasticity. Please see Appendix A for further details.
 
-Missing data will be excluded for the analyses in which the data is missing only. We will otherwise assume all data is accurate. In all analyses, we will examine the cell counts for each categorical variable in order to collapse small cell sizes (i.e., \emph{n} \textless{} 5). No articles will be considered an outlier, as all publication data is expected to be part of the population.
+\hypertarget{decision-criteria}{%
+\subsubsection{Decision Criteria}\label{decision-criteria}}
 
-In each relevant analysis, we will examine for multicollinearity of the IVs, as team size may positively correlate with count variables calculated in later research questions. If values are multicollinear, r \textgreater{} .90, we will note these correlations and only use one of the proposed variables. The size of the dataset implies the assumption of normality. In our analyses, a linear trend is the main focus of interest, and we will note any obvious non-linear trends. Last, we will note any violations of homoscedasticity. In order to feasibly examine these two assumptions (linearity, homoscedasticity), we will first run all analyses with the default (\emph{n} \textgreater= 600,000) randomly selected data points and plot the residuals versus the predicted values for each analysis. We will summarize those findings in a supplemental file denoting potential deviations.
+The large sample size was expected to indicate all predictors significant at the traditional \emph{p} value criterion. For individual predictors, we used the 95\% confidence intervals of the slope to indicate if the effect is non-zero (i.e., confidence interval does not include zero rounded to three decimals). The difference between effects will be determined by examining the confidence intervals of \(R^2\) to three decimal places calculated with the \emph{MBESS} library\textsuperscript{51}. If they do not overlap, we will state that they are different.
 
-\hypertarget{decision-criteria-1}{%
-\subsubsection{Decision Criteria}\label{decision-criteria-1}}
+\hypertarget{research-questions}{%
+\subsubsection{Research Questions}\label{research-questions}}
 
-The large sample size will likely indicate all predictors significant at the traditional \emph{p} value criterion. For individual predictors, we will use the 95\% confidence intervals of the slope to indicate if the effect is non-zero (lower bound greater than .001). The difference between effects will be determined by examining the confidence intervals of \(R^2\) to three decimal places. If they do not overlap, we will state that they are different.
+All analyses will be performed using \emph{pyspark}\textsuperscript{52} within the Databricks system. Visualization and presentation of analyses were included using \emph{R}\textsuperscript{53}, \emph{dplyr}\textsuperscript{54}, \emph{rio}\textsuperscript{55}, \emph{tidyr}\textsuperscript{56}, \emph{patchwork}\textsuperscript{57}, and \emph{ggplot2}\textsuperscript{58}.
 
-\hypertarget{research-questions-1}{%
-\subsubsection{Research Questions}\label{research-questions-1}}
+\emph{Research Question 1a: What is the pattern of team size distribution within various disciplines over time?}
 
-All analyses will be performed using \emph{pyspark} (\textbf{pyspark?}) within the Databricks system. Visualization and presentation of analyses will be performed using \emph{R} and \emph{ggplot2} (Wickham, 2016). We will report \(R^2\) and its 95\% confidence interval for each model as an effect size using the \emph{MOTE} package (\textbf{buchanan2019?}).
+We first calculated the mean, median, and interquartile range of team size by subject area. We did not explicitly compare discipline intercepts in a \emph{posthoc} format with any form of test. Instead, we present visualizations to display the distribution and their interquartile range for readers to examine.
 
-\hypertarget{research-question-1a-what-is-the-pattern-of-team-size-distribution-within-various-disciplines-over-time}{%
-\paragraph{Research Question 1a: What is the pattern of team size distribution within various disciplines over time?}\label{research-question-1a-what-is-the-pattern-of-team-size-distribution-within-various-disciplines-over-time}}
+In order to determine if team sizes change overall across time, we used a linear model of team size predicted by year of publication in which each article was only represented once, regardless of discipline. We examined if the confidence interval of the slope parameter was different from zero to determine if the predictor was significant. Last, we calculated each subject area's slope and confidence interval using a linear model of team size predicted by year of publication. Again, we provide these slopes in a visualization for readers to examine with no official \emph{post hoc} comparison. While a multilevel model would allow us to embed all disciplines within one model, no \emph{pyspark} multilevel model implementation exists to model data at this scale.
 
-\textbf{Update:} Discipline is defined as the five areas: Physical, Health, Life, Social, and Multidisciplinary. Note that papers can fit into multiple categories, and these analyses are therefore separated for each analysis.
+\emph{Research Question 1b: Is team size related to article impact?}
 
-We will first calculate the mean, median, and interquartile range of team size by discipline. We will not explicitly compare discipline intercepts in a \emph{post hoc} format with any form of test. Instead we will use visualization techniques to display the distribution and their interquartile range for readers to examine (i.e., a forest plot).
+For this research question, we examined the impact of team size on article publication metrics for impact. Our hypothesis was that team size impacts article metrics (non-directional). We ran these analyses once for each dependent variable of citation count and weighted citation five year count. We calculated the mean, median, and interquartile range of each publication metric by discipline. We provide visualizations of these values instead of comparing them directly.
 
-In order to determine if team sizes change overall across time, we will use a linear model of team size predicted by year of publication in which each article is only represented once, regardless of discipline. We will examine if the confidence interval of the slope parameter is different from zero to determine if the predictor was significant. Last, we will calculate each discipline's slope and confidence interval using a linear model of team size predicted by year of publication. Again, we will provide these slopes in a visualization for readers to examine with no official \emph{post hoc} comparison. While a multilevel model would allow us to embed all disciplines within one model, no \emph{pyspark} multilevel model implementation exists to model data at this scale.
+To determine the impact of team size on publication metrics, we used a linear model of publication metrics predicted by time of publication (covariate) and team size. We included time as a covariate, as we expected that older articles will potentially have more or different metrics because they have been around longer to cite. We examined if the confidence interval of the team size slope parameter was different from zero. Last, we calculated the slope for team size for each subject area separately. We visualized these differences and the confidence intervals.
 
-\hypertarget{research-question-1b-is-team-size-related-to-article-impact}{%
-\paragraph{Research Question 1b: Is team size related to article impact?}\label{research-question-1b-is-team-size-related-to-article-impact}}
+\emph{Research Question 2: What characteristics of team composition have the greatest influence on article metrics?}
 
-For this research question, we will examine the impact of team size on article publication metrics for impact. Our hypothesis is that team size impacts article metrics (non-directional). We will run these analyses once for each dependent variable of citation count and weighted citation five year count. We will calculate the mean, median, and interquartile range of each publication metric by discipline. We will visualize these values instead of comparing them directly.
+For this research question, we continued to use the model from the previous research question and add other article metrics to determine their contribution to the model. Our hypothesis was that each variable has an impact on the metrics variables (non-directional). Each author independent variable will be modeled separately and compared using confidence intervals as described above to determine which variable had the strongest impact on publication metrics.
 
-To determine the impact of team size on publication metrics, we will use a linear model of publication metrics predicted by time (covariate) and team size. We will include time as a covariate, as we expect that older articles will potentially have more or different metrics because they have been around longer to cite. We will examine if the confidence interval of the team size slope parameter is different from zero. Last, we will calculate the slope for team size for each discipline separately. We will visualize these differences and the confidence intervals.
-
-\hypertarget{research-question-2-what-characteristics-of-team-composition-have-the-greatest-influence-on-article-metrics}{%
-\paragraph{Research Question 2: What characteristics of team composition have the greatest influence on article metrics?}\label{research-question-2-what-characteristics-of-team-composition-have-the-greatest-influence-on-article-metrics}}
-
-For this research question, we will continue to use the model from the previous research question and add other article metrics to determine their contribution to the model. Our hypothesis is that each variable has an impact on the metrics variables (non-directional). Each author independent variable will be modeled separately and compared using confidence intervals as described above for which variable had the strongest impact on publication metrics.
-
-Using the linear model from the previous research question, we will add each author independent variable (affiliation country count, affiliation/institution count, h-index, gender, and gender ratio) in separate models to calculate their slope. We will determine if these slopes were important by examining if their confidence interval was greater than zero. We have to examine the effects of each author metric separately. When examining first and/or last author information, the single author paper presents a unique problem because they are both first and last author. Therefore, these cannot be included in the same model. In order not to use the same variance twice, single author papers will be treated as first author only, and NA for last author analyses. If these were included in the same model, all single author papers would be dropped, which would bias the results. We will then compare each overall \(R^2\) to determine if their confidence intervals overlap. This analysis will indicate which author variable provides the most predictive information (since all other covariates are the same for each analysis, only the author variable is different). Last, we will calculate each author independent variable separated by discipline and then visualize those \(R^2\) and confidence intervals for each variable.
-
-\hypertarget{data-availability-1}{%
-\subsection{Data availability}\label{data-availability-1}}
-
-While we cannot provide access to the full dataset because it is only accessible through access granted by Elsevier, we will provide our analysis code via GitHub and the Open Science Framework. Persons interested in replicating or extending the current work can do so through using the ICSR lab Databricks platform.
-
-\hypertarget{code-availability-1}{%
-\subsection{Code availability}\label{code-availability-1}}
-
-The code to run all analyses in the Databricks platform, as well as the code generated for this report can be found at: \url{https://osf.io/g4qnp/?view_only=d50da32d11cd47f889ce74cac954d2d7}.
+Using the linear model from the previous research question, we added each author independent variable (affiliation country count, affiliation/institution count, \emph{h}-index, gender (male versus female), and gender ratio) in separate models to calculate their slope. We determined if these slopes were important by examining if their confidence interval was greater than zero. We examined the effects of each author metric separately. When examining first and/or last author information, the single author paper presents a unique problem because they are both first and last author. Therefore, these cannot be included in the same model. In order not to use the same variance twice, single author papers will be treated as first author only, and missing data for last author analyses. If these were included in the same model, all single author papers would be dropped, which would bias the results. We will then compare each overall \(R^2\) to determine if their confidence intervals overlap. This analysis was used to indicate which author variable provided the most predictive information (since all other covariates are the same for each analysis, only the author variable is different). Last, we calculated each author independent variable separated by subject area and then visualized those \(R^2\) and confidence intervals for each variable.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-\hypertarget{data-screening-2}{%
-\subsection{Data Screening}\label{data-screening-2}}
-
-all looked fine talk about the results in the supplement here.
-
-\hypertarget{research-question-1a-what-is-the-pattern-of-team-size-distribution-within-various-disciplines-over-time-1}{%
-\subsection{Research Question 1a: What is the pattern of team size distribution within various disciplines over time?}\label{research-question-1a-what-is-the-pattern-of-team-size-distribution-within-various-disciplines-over-time-1}}
+\hypertarget{research-question-1a-what-is-the-pattern-of-team-size-distribution-within-various-disciplines-over-time}{%
+\subsection{Research Question 1a: What is the pattern of team size distribution within various disciplines over time?}\label{research-question-1a-what-is-the-pattern-of-team-size-distribution-within-various-disciplines-over-time}}
 
 \hypertarget{descriptive-statistics}{%
 \subsubsection{Descriptive Statistics}\label{descriptive-statistics}}
 
-\includegraphics{manuscript_files/figure-latex/unnamed-chunk-1-1.pdf}
+Figure \ref{fig:fig-desc-r1} displays the mean, standard deviation, median, and interquartile range for each subject area. The median was generally five to six authors with the exception of the social sciences with a median of three authors per manuscript. Mean values were generally from four to nine authors with the most variability in team size for the physical sciences.
 
-\begin{itemize}
-\tightlist
-\item
-  We see median is approximately the same with social science as lower
-\item
-  Physical has a larger top IQR top range
-\end{itemize}
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-desc-r1-1.pdf}
+\caption{\label{fig:fig-desc-r1}Boxplot of team size by subject areas. The boxplot represents the median (middle bar), the interquartile range (box), and the mean (dot) for each subject area. The plot was capped at 15 for visualization purposes. The size of the mean point represents the sample size of the number of articles used within the calculation. The size of the box represents the standard deviation of the mean for team size (i.e., larger boxes indicate more variance in the team size).}
+\end{figure}
 
-\hypertarget{model-statistics-overall}{%
-\subsubsection{Model Statistics Overall}\label{model-statistics-overall}}
+\hypertarget{model-statistics}{%
+\subsubsection{Model Statistics}\label{model-statistics}}
 
-Does the confidence include zero? We will present \emph{b} = 0.08, 95\% CI {[}0.08, 0.08{]}.
+The regression analysis for team size predicting year was different from zero, \emph{b} = 0.08, 95\% CI {[}0.08, 0.08{]}. This result indicated that team size increases across time, wherein overall team sizes are likely to increase by at least one author every 13 years. Figure \ref{fig:fig-heatmap} shows the results by subject area. All subject area coefficients were greater than zero, where health and life sciences were similar, physical sciences had the highest team size growth, and social sciences had the lowest. The coefficients are presented with their 95\% confidence interval in Appendix A.
 
-\begin{itemize}
-\tightlist
-\item
-  X = team size, Y = year
-\item
-  Team size is increasing across time
-\end{itemize}
-
-\hypertarget{model-statistics-by-subject-area}{%
-\subsubsection{Model Statistics by Subject Area}\label{model-statistics-by-subject-area}}
-
-\includegraphics{manuscript_files/figure-latex/unnamed-chunk-3-1.pdf}
-
-\begin{itemize}
-\tightlist
-\item
-  All above zero
-\item
-  Health and life similar
-\item
-  Social lowest
-\item
-  Physical highest
-\end{itemize}
-
-\hypertarget{research-question-1b-is-team-size-related-to-article-impact-1}{%
-\subsection{Research Question 1b: Is team size related to article impact?}\label{research-question-1b-is-team-size-related-to-article-impact-1}}
+\hypertarget{research-question-1b-is-team-size-related-to-article-impact}{%
+\subsection{Research Question 1b: Is team size related to article impact?}\label{research-question-1b-is-team-size-related-to-article-impact}}
 
 \hypertarget{descriptive-statistics-citation-count}{%
 \subsubsection{Descriptive Statistics Citation Count}\label{descriptive-statistics-citation-count}}
 
-\includegraphics{manuscript_files/figure-latex/unnamed-chunk-4-1.pdf}
+Figure \ref{fig:fig-desc-r1b} displays the mean, standard deviation, median, and interquartile range for the citation counts and five year citation count statistics. Multidisciplinary papers appear to have the highest median and mean citation counts, followed by life and physical sciences, and then social and health sciences. The pattern of results is similar for both overall citation counts and five year citation counts.
 
-\begin{itemize}
-\tightlist
-\item
-  Present mean, median, IQR?
-\item
-  All fairly similar Multi has the highest range of citations
-\end{itemize}
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-desc-r1b-1.pdf}
+\caption{\label{fig:fig-desc-r1b}Boxplot of citation counts by subject area. The boxplot represents the median (middle bar), the interquartile range (box), and the mean (dot) for overall citations and five year citation count. The plot was capped at 60 citations for visualization purposes. The size of the mean point represents the sample size of the number of articles used within the calculation. The size of the box represents the standard deviation of the mean for citation count (i.e., larger boxes indicate more variance in the citation counts).}
+\end{figure}
 
-\hypertarget{model-statistics-overall-1}{%
-\subsubsection{Model Statistics Overall}\label{model-statistics-overall-1}}
+\hypertarget{model-statistics-1}{%
+\subsubsection{Model Statistics}\label{model-statistics-1}}
 
-Does the confidence include zero? We will present:
+Team size was used to predict citation count, while controlling for year, which was different from zero, \emph{b} = 0.12, 95\% CI {[}0.12, 0.13{]}. Five year citations had a similar result, \emph{b} = 0.11, 95\% CI {[}0.11, 0.11{]}. These results indicated that approximately 10 extra authors resulted in at least one more citation count. The bottom of Figure \ref{fig:fig-heatmap} shows the results by subject area. Each subject area showed a coefficient greater than zero, but overall effect size for the physical sciences was not different from zero. Multidisciplinary and social sciences showed the largest effects and coefficients followed by life and health sciences. Each additional team member could represent up to two extra citations for research manuscripts. The coefficients are presented with their 95\% confidence interval in Appendix A.
 
-\begin{itemize}
-\item
-  Citation Count = \emph{b} = 0.12, 95\% CI {[}0.12, 0.13{]}
-\item
-  X = team size, Y = citation count, CV = Year
-\item
-  Citation count is positively related to team size controlling for year
-\item
-  controlling for team size, year is negatively related to citation count
-\item
-  Citation 5ys = \emph{b} = 0.11, 95\% CI {[}0.11, 0.11{]}
-\item
-  X = team size, Y = citation count, CV = Year
-\item
-  Citation count is positively related to team size controlling for year
-\item
-  Controlling for team size, year is positively related to citation count 5 year
-\end{itemize}
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-heatmap-1.pdf}
+\caption{\label{fig:fig-heatmap}Heatmap of results for coefficients of team size predicting year (top), and team size predicting citation counts while controlling for year (bottom). The effect sizes are also presented for comparison across subject areas.}
+\end{figure}
 
-\hypertarget{model-statistics-by-subject-area-1}{%
-\subsubsection{Model Statistics by Subject Area}\label{model-statistics-by-subject-area-1}}
+\hypertarget{research-question-2-what-characteristics-of-team-composition-have-the-greatest-influence-on-article-metrics}{%
+\subsection{Research Question 2: What characteristics of team composition have the greatest influence on article metrics?}\label{research-question-2-what-characteristics-of-team-composition-have-the-greatest-influence-on-article-metrics}}
 
-\includegraphics{manuscript_files/figure-latex/unnamed-chunk-6-1.pdf}
+\hypertarget{model-statistics-overall}{%
+\subsubsection{Model Statistics Overall}\label{model-statistics-overall}}
 
-\begin{itemize}
-\tightlist
-\item
-  All positive, so citation count increases with team size
-\item
-  Least = physical
-\item
-  Most = multidisciplinary
-\item
-  Most all of them have the negative-positive backwards relationship with Year except Multidisciplinary (both negative, so as year goes up citations go down)
-\end{itemize}
+Each author variable was added to the previous model of team size and year predicting citation counts and five year citation counts. Appendix A includes the coefficients for each of the author variables and dependent variable combinations. Figure \ref{fig:fig-hyp2} displays both the coefficients and effect sizes for each independent and dependent variable combination. All coefficients and effect sizes were different from zero. In general, all effects were positive with one exception (gender percent). Increasing numbers of countries and/or institutions would correspond to increasing numbers of citations with a stronger effect for more countries than institutions. \emph{h}-index increases for first or last author increased the number of overall citations. Papers received more citations if the first or last author was male, but the effect was stronger if the first author was male. Last, the only negative predictor was the percent of males included on a manuscript (as compared to female, unknown, and missing values). As the overall proportion of males increased, the number of citations decreased. The coefficients indicate that the effects for each of these variables is stronger (i.e., higher \emph{b} values) for overall citations, but the effect sizes indicate more variance accounted for when explaining five year citation rates.
 
-\hypertarget{research-question-2-what-characteristics-of-team-composition-have-the-greatest-influence-on-article-metrics-1}{%
-\subsection{Research Question 2: What characteristics of team composition have the greatest influence on article metrics?}\label{research-question-2-what-characteristics-of-team-composition-have-the-greatest-influence-on-article-metrics-1}}
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-hyp2-1.pdf}
+\caption{\label{fig:fig-hyp2}Author variable coefficients (top) and effect sizes (bottom) predicting citation counts and five year citation counts. 95\% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference.}
+\end{figure}
 
-\hypertarget{model-statistics-overall-2}{%
-\subsubsection{Model Statistics Overall}\label{model-statistics-overall-2}}
+Last, these analyses were separated by subject area. Figure \ref{fig:fig-hyp2-coef} displays the coefficients, and Figure \ref{fig:fig-hyp2-effect} portrays theeffect sizes for each independent and dependent variable combination. All coefficients and effect sizes were non-zero using our confidence interval criterion. Appendix A includes exact coefficients and effect sizes for each of the author variables and dependent variable combinations. We will examine the patterns of interest below.
 
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
+\textbf{Gender}. These results indicate different effects for gender from the overall statistics. Multidisciplinary statistics for gender are always negative when examining male versus female first and last authors. This result indicates that female authors often see higher citation counts than male authors. The life sciences split into positive and negative - papers receive more citations with a female author in last place, while male authors in the first author slot receive more citations. All other gender comparisons are positive, resulting in male authored papers receiving more citations. Gender percentage also split between negative and positive coefficients. The social sciences largely drive this effect, wherein papers with larger proportion of male authors receive significantly less citations. Health sciences also included negative gender percent predictions. Interestingly, the physical sciences showed a negative effect for proportion of males on five year citation rates, but a positive effect on overall citation rates. The life sciences and multidisciplinary subject areas were both positive effects.
 
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
+\textbf{Country and Institution}. Country and institution counts both increased the number of citations. These effects were always larger for the overall citations than the five year citation counts; however, the effect sizes were again always larger for five year citation models than overall citation models.
 
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
+\textbf{h-index}. The general pattern for \emph{h}-index effects were positive with larger effects for no-self citations versus including self-citations and first author versus last author. Multidisciplinary papers and the social sciences also tended to have the largest increase in citation counts when authors with higher \emph{h}-indices were included on a manuscript. These coefficients were generally stronger for overall citations, but again, the effect sizes were often larger for five year citation patterns.
 
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-hyp2-effect-1.pdf}
+\caption{\label{fig:fig-hyp2-effect}Author variable coefficients predicting citation counts and five year citation counts separated by subject area. 95\% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference.}
+\end{figure}
 
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
+\begin{figure}
+\centering
+\includegraphics{manuscript_files/figure-latex/fig-hyp2-coef-1.pdf}
+\caption{\label{fig:fig-hyp2-coef}Author variable coefficients predicting citation counts and five year citation counts separated by subject area. 95\% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference.}
+\end{figure}
 
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): full precision may not have been
-## achieved in 'pnbeta'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in pf(limit, nu, df2, ncp = LAMBDA.U): convergence failed in 'pnbeta'
-\end{verbatim}
-
-\begin{itemize}
-\item
-  All values are ``significant'' using our rules
-\item
-  Country count: as number of countries included increases, the number of citations increases
-\item
-  Inst count: as the number of institutions included increases, the number of citations increases
-\item
-  Gender percent (percent male): as more males increase, citation count decreases
-\item
-  Hindex: as h-index increases, the number of citations increases for both first and last author, but is more for first
-\item
-  Hindex no self: same effect but you get more citations as the h-index increases without self citations
-\item
-  IPG gender female versus male: as it goes from female to male, we see an increase in citations, more so for the first author over the last (basically dudes get a bump)
-\item
-  Do we want to talk about if team size is wiped out due to the author variable?
-\item
-  Year still has that set of negative effects
-\end{itemize}
-
-We shall make a picture to denote which are different using \(R^2\) as the metric since they are all different scales.
-
-\includegraphics{manuscript_files/figure-latex/unnamed-chunk-8-1.pdf}
-
-\hypertarget{model-statistics-by-subject-area-2}{%
-\subsubsection{Model Statistics by Subject Area}\label{model-statistics-by-subject-area-2}}
-
-Here's the statistics by subject area, but this graph may be crazy, we shall see. Right now this data is made up because it's still running online for the temporary data.
-
-\includegraphics{manuscript_files/figure-latex/unnamed-chunk-9-1.pdf} \includegraphics{manuscript_files/figure-latex/unnamed-chunk-9-2.pdf}
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
 
 \newpage
 
@@ -1128,11 +405,462 @@ Here's the statistics by subject area, but this graph may be crazy, we shall see
 \section{References}\label{references}}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
+\begin{CSLReferences}{0}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-papatheodorou2008}{}}%
+\CSLLeftMargin{1. }%
+\CSLRightInline{Papatheodorou, S. I., Trikalinos, T. A. \& Ioannidis, J. P. A. \href{https://doi.org/10.1016/j.jclinepi.2007.07.017}{Inflated numbers of authors over time have not been just due to increasing research complexity}. \emph{Journal of Clinical Epidemiology} \textbf{61}, 546--551 (2008).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-weeks2004}{}}%
+\CSLLeftMargin{2. }%
+\CSLRightInline{Weeks, W. B., Wallace, A. E. \& Kimberly, B. C. S. \href{https://doi.org/10.1016/j.socscimed.2004.02.029}{Changes in authorship patterns in prestigious US medical journals}. \emph{Social Science \& Medicine} \textbf{59}, 1949--1954 (2004).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-zafrunnishan.reddyv.p.2010}{}}%
+\CSLLeftMargin{3. }%
+\CSLRightInline{Zafrunnisha, N., \& Reddy, V. P. \href{https://www.indianjournals.com/ijor.aspx?target=ijor:pjolis\&volume=5\&issue=1\&article=010}{Citation analysis of ph.d theses in psychology: A quantitative analysis}. (2010).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-lariviuxe8re2015}{}}%
+\CSLLeftMargin{4. }%
+\CSLRightInline{Larivière, V., Gingras, Y., Sugimoto, C. R. \& Tsou, A. \href{https://doi.org/10.1002/asi.23266}{Team size matters: Collaboration and scientific impact since 1900}. \emph{Journal of the Association for Information Science and Technology} \textbf{66}, 1323--1332 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-wuchty2007}{}}%
+\CSLLeftMargin{5. }%
+\CSLRightInline{Wuchty, S., Jones, B. F. \& Uzzi, B. \href{https://doi.org/10.1126/science.1136099}{The increasing dominance of teams in production of knowledge}. \emph{Science} \textbf{316}, 1036--1039 (2007).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hinnant2012}{}}%
+\CSLLeftMargin{6. }%
+\CSLRightInline{Hinnant, C. C. \emph{et al.} \href{https://doi.org/10.1016/j.lisr.2012.03.001}{Author-team diversity and the impact of scientific publications: Evidence from physics research at a national science lab}. \emph{Library \& Information Science Research} \textbf{34}, 249--257 (2012).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-freeman2015}{}}%
+\CSLLeftMargin{7. }%
+\CSLRightInline{Freeman, R. B. \& Huang, W. \href{https://doi.org/10.1086/678973}{Collaborating with People Like Me: Ethnic Coauthorship within the United States}. \emph{Journal of Labor Economics} \textbf{33}, S289--S318 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-nichols2014}{}}%
+\CSLLeftMargin{8. }%
+\CSLRightInline{Nichols, L. G. \href{https://doi.org/10.1007/s11192-014-1319-2}{A topic model approach to measuring interdisciplinarity at the National Science Foundation}. \emph{Scientometrics} \textbf{100}, 741--754 (2014).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-wang2015}{}}%
+\CSLLeftMargin{9. }%
+\CSLRightInline{Wang, L., Thijs, B. \& Glänzel, W. \href{https://doi.org/10.1007/s11192-015-1735-y}{Characteristics of international collaboration in sport sciences publications and its influence on citation impact}. \emph{Scientometrics} \textbf{105}, 843--862 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-geraci2015}{}}%
+\CSLLeftMargin{10. }%
+\CSLRightInline{Geraci, L., Balsis, S. \& Busch, A. J. B. \href{https://doi.org/10.1007/s11192-015-1757-5}{Gender and the h index in psychology}. \emph{Scientometrics} \textbf{105}, 2023--2034 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-samarasekera2009}{}}%
+\CSLLeftMargin{11. }%
+\CSLRightInline{Samarasekera, I. V. \href{https://doi.org/10.1038/462160a}{Universities need a new social contract}. \emph{Nature} \textbf{462}, 160--161 (2009).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-grossman2002}{}}%
+\CSLLeftMargin{12. }%
+\CSLRightInline{Grossman, J. W. Patterns of collaboration in mathematical research. \emph{SIAM News} \textbf{35}, 8--9 (2002).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-russell2019}{}}%
+\CSLLeftMargin{13. }%
+\CSLRightInline{Russell, A. F. \emph{et al.} \href{https://doi.org/10.1007/s00223-018-0492-3}{A Bibliometric Study of Authorship and Collaboration Trends Over the Past 30 Years in Four Major Musculoskeletal Science Journals}. \emph{Calcified Tissue International} \textbf{104}, 239--250 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-nabout2015}{}}%
+\CSLLeftMargin{14. }%
+\CSLRightInline{Nabout, J. C. \emph{et al.} \href{https://doi.org/10.1007/s11192-014-1385-5}{Publish (in a group) or perish (alone): the trend from single- to multi-authorship in biological papers}. \emph{Scientometrics} \textbf{102}, 357--364 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hunter2008}{}}%
+\CSLLeftMargin{15. }%
+\CSLRightInline{Hunter, L. \& Leahey, E. \href{https://doi.org/10.1007/s12108-008-9042-1}{Collaborative Research in Sociology: Trends and Contributing Factors}. \emph{The American Sociologist} \textbf{39}, 290--306 (2008).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kozlowski2017}{}}%
+\CSLLeftMargin{16. }%
+\CSLRightInline{Kozlowski, S. W. J., Chen, G. \& Salas, E. \href{https://doi.org/10.1037/apl0000192}{One hundred years of the Journal of Applied Psychology: Background, evolution, and scientific trends.} \emph{Journal of Applied Psychology} \textbf{102}, 237--253 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-demeuse2014}{}}%
+\CSLLeftMargin{17. }%
+\CSLRightInline{De Meuse, K. P., Tang, K. Y. \& Feil, J. A critical analysis of topical content and authorship trends in applied psychology. \emph{TIP: The Industrial-Organizational Psychologist} \textbf{51}, (2014).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rath2016}{}}%
+\CSLLeftMargin{18. }%
+\CSLRightInline{Rath, K. \& Wohlrabe, K. \href{https://doi.org/10.1080/13504851.2015.1119783}{Recent trends in co-authorship in economics: evidence from RePEc}. \emph{Applied Economics Letters} \textbf{23}, 897--902 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gaunt2014}{}}%
+\CSLLeftMargin{19. }%
+\CSLRightInline{Gaunt, C. \href{https://doi.org/10.1111/acfi.12061}{{\emph{Accounting and Finance}} : authorship and citation trends}. \emph{Accounting \& Finance} \textbf{54}, 441--465 (2014).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-thijs2015}{}}%
+\CSLLeftMargin{20. }%
+\CSLRightInline{Thijs, B., Costas, R. \& Glänzel, W. Multi-authorship and citation advantage, a mythical relationship. (2015) doi:\href{https://doi.org/10.13140/RG.2.1.4052.5920}{10.13140/RG.2.1.4052.5920}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-abu2019}{}}%
+\CSLLeftMargin{21. }%
+\CSLRightInline{Abu, K. S. \& Verma, S. \href{https://au-ezproxy1.avila.edu/login?url=https://www.proquest.com/scholarly-journals/authorship-trends-collaborative-patterns-on/docview/2216882917/se-2}{Authorship trends and collaborative patterns on annals of library and information studies}. \emph{Library Philosophy and Practice} 1--11 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-leifeld2017}{}}%
+\CSLLeftMargin{22. }%
+\CSLRightInline{Leifeld, P., Wankmüller, S., Berger, V. T. Z., Ingold, K. \& Steiner, C. \href{https://doi.org/10.1371/journal.pone.0174671}{Collaboration patterns in the German political science co-authorship network}. \emph{PLOS ONE} \textbf{12}, e0174671 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-jagsi2006}{}}%
+\CSLLeftMargin{23. }%
+\CSLRightInline{Jagsi, R. \emph{et al.} \href{https://doi.org/10.1056/NEJMsa053910}{The {``}Gender Gap{''} in Authorship of Academic Medical Literature {\textemdash} A 35-Year Perspective}. \emph{New England Journal of Medicine} \textbf{355}, 281--287 (2006).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-west2013}{}}%
+\CSLLeftMargin{24. }%
+\CSLRightInline{West, J. D., Jacquet, J., King, M. M., Correll, S. J. \& Bergstrom, C. T. \href{https://doi.org/10.1371/journal.pone.0066212}{The Role of Gender in Scholarly Authorship}. \emph{PLoS ONE} \textbf{8}, e66212 (2013).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rigg2012}{}}%
+\CSLLeftMargin{25. }%
+\CSLRightInline{Rigg, L. S., McCarragher, S. \& Krmenec, A. \href{https://doi.org/10.1080/00330124.2011.611434}{Authorship, Collaboration, and Gender: Fifteen Years of Publication Productivity in Selected Geography Journals}. \emph{The Professional Geographer} \textbf{64}, 491--502 (2012).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-suxfcuxdfenbacher2017}{}}%
+\CSLLeftMargin{26. }%
+\CSLRightInline{Süßenbacher, S., Amering, M., Gmeiner, A. \& Schrank, B. \href{https://doi.org/10.1016/j.eurpsy.2017.03.008}{Gender-gaps and glass ceilings: A survey of gender-specific publication trends in Psychiatry between 1994 and 2014}. \emph{European Psychiatry} \textbf{44}, 90--95 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cushman2022}{}}%
+\CSLLeftMargin{27. }%
+\CSLRightInline{Cushman, M. \href{https://doi.org/10.1161/JAHA.122.025456}{Women Authorship in Cardiovascular Science: A Call to Track and Report to Achieve Equity}. \emph{Journal of the American Heart Association} \textbf{11}, e025456 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mihaljevic-brandt2016}{}}%
+\CSLLeftMargin{28. }%
+\CSLRightInline{Mihaljević-Brandt, H., Santamaría, L. \& Tullney, M. \href{https://doi.org/10.1371/journal.pone.0165367}{The Effect of Gender in the Publication Patterns in Mathematics}. \emph{PLOS ONE} \textbf{11}, e0165367 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bonham2017}{}}%
+\CSLLeftMargin{29. }%
+\CSLRightInline{Bonham, K. S. \& Stefan, M. I. \href{https://doi.org/10.1371/journal.pcbi.1005134}{Women are underrepresented in computational biology: An analysis of the scholarly literature in biology, computer science and computational biology}. \emph{PLOS Computational Biology} \textbf{13}, e1005134 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ross2022}{}}%
+\CSLLeftMargin{30. }%
+\CSLRightInline{Ross, M. B. \emph{et al.} Women are Credited Less in Science than are Men. \emph{Nature} (2022) doi:\href{https://doi.org/10.1038/s41586-022-04966-w}{10.1038/s41586-022-04966-w}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-zeng2016}{}}%
+\CSLLeftMargin{31. }%
+\CSLRightInline{Zeng, X. H. T. \emph{et al.} \href{https://doi.org/10.1371/journal.pbio.1002573}{Differences in Collaboration Patterns across Discipline, Career Stage, and Gender}. \emph{PLOS Biology} \textbf{14}, e1002573 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-katzenbach2003}{}}%
+\CSLLeftMargin{32. }%
+\CSLRightInline{Katzenbach, J. R. \& Smith, D. K. \emph{The wisdom of teams: Creating the high-performance organization}. (HarperBusiness Essentials, 2003).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-maliniak2013}{}}%
+\CSLLeftMargin{33. }%
+\CSLRightInline{Maliniak, D., Powers, R. \& Walter, B. F. \href{https://doi.org/10.1017/S0020818313000209}{The Gender Citation Gap in International Relations}. \emph{International Organization} \textbf{67}, 889--922 (2013).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cameron2016}{}}%
+\CSLLeftMargin{34. }%
+\CSLRightInline{Cameron, E. Z., White, A. M. \& Gray, M. E. \href{https://doi.org/10.1093/biosci/biv173}{Solving the Productivity and Impact Puzzle: Do Men Outperform Women, or are Metrics Biased?} \emph{BioScience} \textbf{66}, 245--252 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hutson2002}{}}%
+\CSLLeftMargin{35. }%
+\CSLRightInline{Hutson, S. R. \href{https://doi.org/10.2307/2694570}{Gendered Citation Practices in {\emph{American Antiquity}} and Other Archaeology Journals}. \emph{American Antiquity} \textbf{67}, 331--342 (2002).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rezek2011}{}}%
+\CSLLeftMargin{36. }%
+\CSLRightInline{Rezek, I., McDonald, R. J. \& Kallmes, D. F. \href{https://doi.org/10.1016/j.acra.2011.06.017}{Is the h-index predictive of greater NIH funding success among academic radiologists?} \emph{Academic Radiology} \textbf{18}, 1337--1340 (2011).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hirsch2005}{}}%
+\CSLLeftMargin{37. }%
+\CSLRightInline{Hirsch, J. E. \href{https://doi.org/10.1073/pnas.0507655102}{An index to quantify an individual's scientific research output}. \emph{Proceedings of the National Academy of Sciences} \textbf{102}, 16569--16572 (2005).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-crespo2019}{}}%
+\CSLLeftMargin{38. }%
+\CSLRightInline{Crespo, N. \& Simoes, N. \href{https://doi.org/10.1111/ssqu.12696}{Publication Performance Through the Lens of the h{-}index: How Can We Solve the Problem of the Ties?} \emph{Social Science Quarterly} \textbf{100}, 2495--2506 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-uxf8stby2013}{}}%
+\CSLLeftMargin{39. }%
+\CSLRightInline{Østby, G., Strand, H., Nordås, R. \& Gleditsch, N. P. \href{https://doi.org/10.1111/insp.12025}{Gender Gap or Gender Bias in Peace Research? Publication Patterns and Citation Rates for {\emph{Journal of Peace Research}} , 1983-2008}. \emph{International Studies Perspectives} \textbf{14}, 493--506 (2013).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-brown2009}{}}%
+\CSLLeftMargin{40. }%
+\CSLRightInline{Brown, R. J. C. \href{https://doi.org/10.1108/14684520911011043}{A simple method for excluding self{-}citation from the {\emph{h}} {-}index: the {\emph{b}} {-}index}. \emph{Online Information Review} \textbf{33}, 1129--1136 (2009).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kliegl2011}{}}%
+\CSLLeftMargin{41. }%
+\CSLRightInline{Kliegl, R. \& Bates, D. \href{https://doi.org/10.1007/s11192-010-0299-0}{International collaboration in psychology is on the rise}. \emph{Scientometrics} \textbf{87}, 149--158 (2011).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-coccia2016}{}}%
+\CSLLeftMargin{42. }%
+\CSLRightInline{Coccia, M. \& Wang, L. \href{https://doi.org/10.1073/pnas.1510820113}{Evolution and convergence of the patterns of international scientific collaboration}. \emph{Proceedings of the National Academy of Sciences} \textbf{113}, 2057--2061 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-coccia2016a}{}}%
+\CSLLeftMargin{43. }%
+\CSLRightInline{Coccia, M. \& Bozeman, B. \href{https://doi.org/10.1007/s11192-016-2027-x}{Allometric models to measure and analyze the evolution of international research collaboration}. \emph{Scientometrics} \textbf{108}, 1065--1084 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-katz1997}{}}%
+\CSLLeftMargin{44. }%
+\CSLRightInline{Katz, J. S. \& Hicks, D. \href{https://doi.org/10.1007/BF02459299}{How much is a collaboration worth? A calibrated bibliometric model}. \emph{Scientometrics} \textbf{40}, 541--554 (1997).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-khor2016}{}}%
+\CSLLeftMargin{45. }%
+\CSLRightInline{Khor, K. A. \& Yu, L.-G. \href{https://doi.org/10.1007/s11192-016-1905-6}{Influence of international co-authorship on the research citation impact of young universities}. \emph{Scientometrics} \textbf{107}, 1095--1110 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rousseau2016}{}}%
+\CSLLeftMargin{46. }%
+\CSLRightInline{Rousseau, R. \& Ding, J. \href{https://doi.org/10.1002/asi.23565}{Does international collaboration yield a higher citation potential for US scientists publishing in highly visible interdisciplinary Journals?} \emph{Journal of the Association for Information Science and Technology} \textbf{67}, 1009--1013 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-walsh2007}{}}%
+\CSLLeftMargin{47. }%
+\CSLRightInline{Walsh, J. P. \& Maloney, N. G. \href{https://doi.org/10.1111/j.1083-6101.2007.00346.x}{Collaboration Structure, Communication Media, and Problems in Scientific Work Teams}. \emph{Journal of Computer-Mediated Communication} \textbf{12}, 712--732 (2007).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-boyle2006}{}}%
+\CSLLeftMargin{48. }%
+\CSLRightInline{Boyle, F. \& Sherman, D. Scopus{\texttrademark}: The product and its development. \emph{The Serials Librarian} \textbf{49}, 147--153 (2006).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-champely2017}{}}%
+\CSLLeftMargin{49. }%
+\CSLRightInline{Champely, S. \emph{et al.} Pwr: Basic functions for power analysis. (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-aust2022}{}}%
+\CSLLeftMargin{50. }%
+\CSLRightInline{Aust, F. \emph{et al.} \emph{\href{https://CRAN.R-project.org/package=papaja}{Papaja: Prepare american psychological association journal articles with r markdown}}. (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kelley2022}{}}%
+\CSLLeftMargin{51. }%
+\CSLRightInline{Kelley, K. \emph{\href{https://CRAN.R-project.org/package=MBESS}{MBESS: The MBESS r package}}. (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pyspark}{}}%
+\CSLLeftMargin{52. }%
+\CSLRightInline{\href{https://spark.apache.org/docs/latest/api/python/}{PySpark documentation {\textemdash} PySpark 3.3.0 documentation}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-base}{}}%
+\CSLLeftMargin{53. }%
+\CSLRightInline{R Core Team. \emph{R: A language and environment for statistical computing}. \url{https://www.R-project.org/} (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-dplyr}{}}%
+\CSLLeftMargin{54. }%
+\CSLRightInline{Wickham, H., François, R., Henry, L. \& Kirill Müller. \emph{Dplyr: A grammar of data manipulation}. \url{https://CRAN.R-project.org/package=dplyr} (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-becker2021}{}}%
+\CSLLeftMargin{55. }%
+\CSLRightInline{Becker, J. \emph{et al.} \emph{\href{https://cran.r-project.org/web/packages/rio/}{Rio: A swiss-army knife for data i/o}}. (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tidyr}{}}%
+\CSLLeftMargin{56. }%
+\CSLRightInline{Wickham, H. \emph{Tidyr: Tidy messy data}. \url{https://CRAN.R-project.org/package=tidyr} (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-patchwork}{}}%
+\CSLLeftMargin{57. }%
+\CSLRightInline{Pedersen, T. L. \emph{Patchwork: The composer of plots}. \url{https://CRAN.R-project.org/package=patchwork} (2020).}
+
 \leavevmode\vadjust pre{\hypertarget{ref-R-ggplot2}{}}%
-Wickham, H. (2016). \emph{ggplot2: Elegant graphics for data analysis}. Springer-Verlag New York. Retrieved from \url{https://ggplot2.tidyverse.org}
+\CSLLeftMargin{58. }%
+\CSLRightInline{Wickham, H. \emph{\href{https://ggplot2.tidyverse.org}{ggplot2: Elegant graphics for data analysis}}. (Springer-Verlag New York, 2016).}
 
 \end{CSLReferences}
+
+\newpage
+
+\hypertarget{appendix-appendix}{%
+\appendix}
+
+
+\hypertarget{appendix-a}{%
+\subsection{Appendix A}\label{appendix-a}}
+
+\hypertarget{data-screening-1}{%
+\subsubsection{Data Screening}\label{data-screening-1}}
+
+You can find these results by going to \texttt{01\_prereg} and opening \texttt{team\_science\_analysis.html}. We ran these analyses on our first pilot code. They are more detailed than the second analysis code (i.e., we could pinpoint specific subareas within the final five areas analyzed), so we used the smaller analyses for data screening. The results are summarized here.
+
+\emph{Multicollinearity}.
+
+By searching for \texttt{stat.corr} within the code, you can find the correlations with there are multiple independent variables within a regression analysis. They are usually printed at the bottom of a scatter plot. The correlations for research question 1 were all very low \emph{r}s from .02 to .30. The correlations for research question 2 were similarly low with two exceptions: \emph{r} \textasciitilde{} .50-.53 for team size and number of countries and \emph{r} \textasciitilde{} .71-74 for team size and institution count. Given the number of countries and institutions can only be as high as the number of authors, these values are not surprising. Further, they did not meet our exclusion criteria of \emph{r} \textgreater{} .90 overall. Institution count for Earth Sciences correlated with team size at \emph{r} \textasciitilde{} .902-.908 but no other values were found. Given the more generalized subject areas, the average \emph{r} for these two variables was considered ok for use for the category that includes Earth Sciences.
+
+\emph{Linearity and Homoscedasticity}.
+
+By plotting the standardized residuals versus the predicted values, we examined for linearity (looking for curved patterns of dots) and homoscedasticity (looking for unequal spreads of dots on Y for each value of X). Each of these is shown in the scatter plots in the attached preregistration output noted above. You can view these plots, but an example is provided below. No graphs indicated curved relationships, but all graphs indicated some form of heteroscedasticity.
+
+\begin{figure}
+\includegraphics[width=1.29in]{figures/datascreening} \caption{ }\label{fig:datascreen-picture}
+\end{figure}
+
+\hypertarget{research-question-1a}{%
+\subsubsection{Research Question 1a}\label{research-question-1a}}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:tab-rq1a}Model Coefficients and Confidence Intervals for RQ1a}
+
+\begin{tabular}{llllllll}
+\toprule
+Area & $b$ & $SE$ & LL & UL & $R^2$ & LL & UL\\
+\midrule
+Overall & 0.08 & 0.00 & 0.08 & 0.08 & 0.00 & 0.00 & 0.00\\
+Health Sciences & 0.16 & 0.00 & 0.16 & 0.16 & 0.04 & 0.04 & 0.04\\
+Physical Sciences & 0.22 & 0.00 & 0.21 & 0.22 & 0.01 & 0.01 & 0.01\\
+Multidisciplinary & 0.13 & 0.00 & 0.12 & 0.13 & 0.02 & 0.02 & 0.02\\
+Social Sciences & 0.06 & 0.00 & 0.06 & 0.06 & 0.02 & 0.02 & 0.02\\
+Life Sciences & 0.16 & 0.00 & 0.16 & 0.16 & 0.05 & 0.05 & 0.05\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\hypertarget{research-question-1b}{%
+\subsubsection{Research Question 1b}\label{research-question-1b}}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:tab-rq1b}Model Coefficients and Confidence Intervals for RQ1b}
+
+\begin{tabular}{lllllllll}
+\toprule
+Area & DV & $b$ & $SE$ & LL & UL & $R^2$ & LL & UL\\
+\midrule
+Overall & Overall Citations & 0.12 & 0.00 & 0.12 & 0.13 & 0.00 & 0.00 & 0.00\\
+Overall & Citation 5 Years & 0.11 & 0.00 & 0.11 & 0.11 & 0.02 & 0.02 & 0.02\\
+Health Sciences & Overall Citations & 0.35 & 0.00 & 0.35 & 0.36 & 0.00 & 0.00 & 0.00\\
+Health Sciences & Citation 5 Years & 0.43 & 0.00 & 0.43 & 0.44 & 0.05 & 0.05 & 0.05\\
+Physical Sciences & Overall Citations & 0.05 & 0.00 & 0.05 & 0.05 & 0.00 & 0.00 & 0.00\\
+Physical Sciences & Citation 5 Years & 0.05 & 0.00 & 0.05 & 0.05 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Overall Citations & 2.05 & 0.05 & 1.95 & 2.14 & 0.03 & 0.02 & 0.03\\
+Multidisciplinary & Citation 5 Years & 2.11 & 0.02 & 2.06 & 2.15 & 0.06 & 0.05 & 0.06\\
+Social Sciences & Overall Citations & 0.89 & 0.01 & 0.86 & 0.91 & 0.01 & 0.01 & 0.01\\
+Social Sciences & Citation 5 Years & 0.58 & 0.00 & 0.57 & 0.58 & 0.05 & 0.05 & 0.05\\
+Life Sciences & Overall Citations & 0.48 & 0.01 & 0.47 & 0.49 & 0.00 & 0.00 & 0.00\\
+Life Sciences & Citation 5 Years & 0.36 & 0.00 & 0.35 & 0.36 & 0.03 & 0.03 & 0.03\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\hypertarget{research-question-2}{%
+\subsubsection{Research Question 2}\label{research-question-2}}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:tab-rq2}Model Coefficients and Confidence Intervals for RQ2}
+
+\scriptsize{
+
+\begin{tabular}{llllllllll}
+\toprule
+Area & IV & DV & $b$ & $SE$ & LL & UL & $R^2$ & LL & UL\\
+\midrule
+Overall & Country Count & Overall Citations & 7.46 & 0.04 & 7.38 & 7.54 & 0.01 & 0.01 & 0.01\\
+Overall & Country Count & Citation 5 Years & 4.46 & 0.01 & 4.43 & 4.49 & 0.03 & 0.03 & 0.03\\
+Overall & Institution Count & Overall Citations & 2.76 & 0.01 & 2.73 & 2.79 & 0.01 & 0.01 & 0.01\\
+Overall & Institution Count & Citation 5 Years & 2.08 & 0.01 & 2.07 & 2.09 & 0.03 & 0.03 & 0.03\\
+Overall & Gender Percent & Overall Citations & -1.95 & 0.11 & -2.17 & -1.72 & 0.00 & 0.00 & 0.00\\
+Overall & Gender Percent & Citation 5 Years & -2.24 & 0.03 & -2.30 & -2.17 & 0.02 & 0.02 & 0.02\\
+Overall & h-Index First & Overall Citations & 0.95 & 0.00 & 0.95 & 0.96 & 0.03 & 0.03 & 0.03\\
+Overall & h-Index First & Citation 5 Years & 0.24 & 0.00 & 0.24 & 0.24 & 0.05 & 0.05 & 0.05\\
+Overall & h-Index No-Self First & Overall Citations & 1.09 & 0.00 & 1.09 & 1.10 & 0.03 & 0.03 & 0.03\\
+Overall & h-Index No-Self First & Citation 5 Years & 0.27 & 0.00 & 0.27 & 0.27 & 0.05 & 0.05 & 0.05\\
+Overall & Gender First & Overall Citations & 1.94 & 0.05 & 1.85 & 2.03 & 0.00 & 0.00 & 0.00\\
+Overall & Gender First & Citation 5 Years & 1.00 & 0.01 & 0.97 & 1.03 & 0.02 & 0.02 & 0.02\\
+Overall & h-Index Last & Overall Citations & 0.67 & 0.00 & 0.67 & 0.67 & 0.03 & 0.03 & 0.03\\
+Overall & h-Index Last & Citation 5 Years & 0.23 & 0.00 & 0.23 & 0.23 & 0.07 & 0.07 & 0.07\\
+Overall & h-Index No-Self Last & Overall Citations & 0.75 & 0.00 & 0.75 & 0.76 & 0.03 & 0.03 & 0.03\\
+Overall & h-Index No-Self Last & Citation 5 Years & 0.25 & 0.00 & 0.25 & 0.25 & 0.07 & 0.07 & 0.07\\
+Overall & Gender Last & Overall Citations & 0.84 & 0.05 & 0.74 & 0.95 & 0.00 & 0.00 & 0.00\\
+Overall & Gender Last & Citation 5 Years & 0.50 & 0.02 & 0.46 & 0.53 & 0.02 & 0.02 & 0.02\\
+Health Sciences & Country Count & Overall Citations & 9.72 & 0.06 & 9.59 & 9.84 & 0.01 & 0.01 & 0.01\\
+Health Sciences & Country Count & Citation 5 Years & 6.23 & 0.03 & 6.18 & 6.29 & 0.06 & 0.06 & 0.06\\
+Health Sciences & Institution Count & Overall Citations & 2.95 & 0.02 & 2.92 & 2.99 & 0.01 & 0.01 & 0.01\\
+Health Sciences & Institution Count & Citation 5 Years & 2.38 & 0.01 & 2.36 & 2.40 & 0.06 & 0.06 & 0.06\\
+Health Sciences & Gender Percent & Overall Citations & -0.99 & 0.20 & -1.38 & -0.60 & 0.00 & 0.00 & 0.00\\
+Health Sciences & Gender Percent & Citation 5 Years & -0.17 & 0.06 & -0.29 & -0.04 & 0.03 & 0.03 & 0.03\\
+Health Sciences & h-Index First & Overall Citations & 0.84 & 0.00 & 0.83 & 0.84 & 0.05 & 0.04 & 0.05\\
+Health Sciences & h-Index First & Citation 5 Years & 0.22 & 0.00 & 0.22 & 0.22 & 0.07 & 0.07 & 0.07\\
+Health Sciences & h-Index No-Self First & Overall Citations & 0.92 & 0.00 & 0.92 & 0.93 & 0.05 & 0.05 & 0.05\\
+Health Sciences & h-Index No-Self First & Citation 5 Years & 0.24 & 0.00 & 0.24 & 0.24 & 0.07 & 0.07 & 0.07\\
+Health Sciences & Gender First & Overall Citations & 1.73 & 0.05 & 1.63 & 1.83 & 0.01 & 0.01 & 0.01\\
+Health Sciences & Gender First & Citation 5 Years & 0.68 & 0.02 & 0.65 & 0.72 & 0.03 & 0.03 & 0.03\\
+Health Sciences & h-Index Last & Overall Citations & 0.56 & 0.00 & 0.55 & 0.56 & 0.04 & 0.04 & 0.04\\
+Health Sciences & h-Index Last & Citation 5 Years & 0.17 & 0.00 & 0.17 & 0.17 & 0.08 & 0.08 & 0.08\\
+Health Sciences & h-Index No-Self Last & Overall Citations & 0.61 & 0.00 & 0.61 & 0.61 & 0.04 & 0.04 & 0.04\\
+Health Sciences & h-Index No-Self Last & Citation 5 Years & 0.19 & 0.00 & 0.19 & 0.19 & 0.08 & 0.08 & 0.08\\
+Health Sciences & Gender Last & Overall Citations & 0.76 & 0.06 & 0.65 & 0.88 & 0.01 & 0.01 & 0.01\\
+Health Sciences & Gender Last & Citation 5 Years & 0.28 & 0.02 & 0.24 & 0.32 & 0.04 & 0.04 & 0.04\\
+Physical Sciences & Country Count & Overall Citations & 5.70 & 0.06 & 5.58 & 5.82 & 0.00 & 0.00 & 0.00\\
+Physical Sciences & Country Count & Citation 5 Years & 3.37 & 0.02 & 3.34 & 3.41 & 0.04 & 0.04 & 0.04\\
+Physical Sciences & Institution Count & Overall Citations & 2.23 & 0.03 & 2.17 & 2.28 & 0.00 & 0.00 & 0.00\\
+Physical Sciences & Institution Count & Citation 5 Years & 1.48 & 0.01 & 1.46 & 1.50 & 0.04 & 0.04 & 0.04\\
+Physical Sciences & Gender Percent & Overall Citations & 1.39 & 0.17 & 1.07 & 1.72 & 0.00 & 0.00 & 0.00\\
+Physical Sciences & Gender Percent & Citation 5 Years & -0.47 & 0.05 & -0.56 & -0.38 & 0.03 & 0.03 & 0.03\\
+Physical Sciences & h-Index First & Overall Citations & 0.88 & 0.00 & 0.87 & 0.88 & 0.03 & 0.03 & 0.03\\
+Physical Sciences & h-Index First & Citation 5 Years & 0.22 & 0.00 & 0.22 & 0.22 & 0.06 & 0.06 & 0.06\\
+Physical Sciences & h-Index No-Self First & Overall Citations & 1.06 & 0.00 & 1.06 & 1.07 & 0.03 & 0.03 & 0.03\\
+Physical Sciences & h-Index No-Self First & Citation 5 Years & 0.26 & 0.00 & 0.26 & 0.26 & 0.06 & 0.06 & 0.06\\
+Physical Sciences & Gender First & Overall Citations & 0.75 & 0.05 & 0.66 & 0.84 & 0.00 & 0.00 & 0.00\\
+Physical Sciences & Gender First & Citation 5 Years & 0.61 & 0.01 & 0.58 & 0.64 & 0.03 & 0.03 & 0.03\\
+Physical Sciences & h-Index Last & Overall Citations & 0.59 & 0.00 & 0.58 & 0.59 & 0.03 & 0.03 & 0.03\\
+Physical Sciences & h-Index Last & Citation 5 Years & 0.21 & 0.00 & 0.21 & 0.21 & 0.08 & 0.08 & 0.08\\
+Physical Sciences & h-Index No-Self Last & Overall Citations & 0.67 & 0.00 & 0.67 & 0.67 & 0.03 & 0.03 & 0.03\\
+Physical Sciences & h-Index No-Self Last & Citation 5 Years & 0.24 & 0.00 & 0.24 & 0.24 & 0.08 & 0.08 & 0.08\\
+Physical Sciences & Gender Last & Overall Citations & 0.29 & 0.05 & 0.18 & 0.40 & 0.00 & 0.00 & 0.00\\
+Physical Sciences & Gender Last & Citation 5 Years & 0.39 & 0.02 & 0.36 & 0.43 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Country Count & Overall Citations & 8.60 & 0.47 & 7.68 & 9.53 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Country Count & Citation 5 Years & 8.30 & 0.23 & 7.85 & 8.76 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Institution Count & Overall Citations & 2.04 & 0.16 & 1.72 & 2.35 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Institution Count & Citation 5 Years & 3.78 & 0.08 & 3.62 & 3.93 & 0.04 & 0.03 & 0.04\\
+Multidisciplinary & Gender Percent & Overall Citations & 0.52 & 2.14 & -3.67 & 4.71 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Gender Percent & Citation 5 Years & 0.04 & 0.80 & -1.53 & 1.60 & 0.02 & 0.02 & 0.02\\
+Multidisciplinary & h-Index First & Overall Citations & 2.80 & 0.03 & 2.74 & 2.87 & 0.07 & 0.07 & 0.07\\
+Multidisciplinary & h-Index First & Citation 5 Years & 0.72 & 0.01 & 0.70 & 0.74 & 0.07 & 0.07 & 0.07\\
+Multidisciplinary & h-Index No-Self First & Overall Citations & 3.22 & 0.03 & 3.15 & 3.29 & 0.07 & 0.07 & 0.08\\
+Multidisciplinary & h-Index No-Self First & Citation 5 Years & 0.82 & 0.01 & 0.80 & 0.84 & 0.07 & 0.07 & 0.07\\
+Multidisciplinary & Gender First & Overall Citations & -1.34 & 0.72 & -2.75 & 0.08 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Gender First & Citation 5 Years & -0.68 & 0.28 & -1.22 & -0.13 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & h-Index Last & Overall Citations & 1.77 & 0.02 & 1.74 & 1.81 & 0.08 & 0.08 & 0.09\\
+Multidisciplinary & h-Index Last & Citation 5 Years & 0.63 & 0.01 & 0.62 & 0.64 & 0.11 & 0.11 & 0.12\\
+Multidisciplinary & h-Index No-Self Last & Overall Citations & 1.95 & 0.02 & 1.92 & 1.99 & 0.09 & 0.08 & 0.09\\
+Multidisciplinary & h-Index No-Self Last & Citation 5 Years & 0.69 & 0.01 & 0.68 & 0.70 & 0.12 & 0.12 & 0.12\\
+Multidisciplinary & Gender Last & Overall Citations & -3.96 & 0.82 & -5.58 & -2.35 & 0.03 & 0.03 & 0.03\\
+Multidisciplinary & Gender Last & Citation 5 Years & -1.98 & 0.35 & -2.66 & -1.30 & 0.02 & 0.02 & 0.03\\
+Social Sciences & Country Count & Overall Citations & 6.24 & 0.17 & 5.91 & 6.57 & 0.01 & 0.01 & 0.01\\
+Social Sciences & Country Count & Citation 5 Years & 1.80 & 0.03 & 1.74 & 1.87 & 0.07 & 0.07 & 0.07\\
+Social Sciences & Institution Count & Overall Citations & 4.43 & 0.09 & 4.24 & 4.61 & 0.01 & 0.01 & 0.01\\
+Social Sciences & Institution Count & Citation 5 Years & 1.29 & 0.02 & 1.25 & 1.33 & 0.07 & 0.07 & 0.07\\
+Social Sciences & Gender Percent & Overall Citations & -15.08 & 0.39 & -15.85 & -14.32 & 0.01 & 0.01 & 0.01\\
+Social Sciences & Gender Percent & Citation 5 Years & -1.24 & 0.07 & -1.38 & -1.10 & 0.07 & 0.07 & 0.07\\
+Social Sciences & h-Index First & Overall Citations & 1.41 & 0.00 & 1.40 & 1.42 & 0.05 & 0.05 & 0.05\\
+Social Sciences & h-Index First & Citation 5 Years & 0.21 & 0.00 & 0.21 & 0.21 & 0.12 & 0.11 & 0.12\\
+Social Sciences & h-Index No-Self First & Overall Citations & 1.57 & 0.01 & 1.56 & 1.58 & 0.05 & 0.05 & 0.05\\
+Social Sciences & h-Index No-Self First & Citation 5 Years & 0.23 & 0.00 & 0.23 & 0.23 & 0.12 & 0.12 & 0.12\\
+Social Sciences & Gender First & Overall Citations & 1.80 & 0.09 & 1.62 & 1.97 & 0.01 & 0.01 & 0.01\\
+Social Sciences & Gender First & Citation 5 Years & 0.38 & 0.02 & 0.35 & 0.42 & 0.07 & 0.06 & 0.07\\
+Social Sciences & h-Index Last & Overall Citations & 0.79 & 0.00 & 0.78 & 0.80 & 0.03 & 0.03 & 0.03\\
+Social Sciences & h-Index Last & Citation 5 Years & 0.16 & 0.00 & 0.16 & 0.16 & 0.11 & 0.10 & 0.11\\
+Social Sciences & h-Index No-Self Last & Overall Citations & 0.89 & 0.00 & 0.88 & 0.89 & 0.03 & 0.03 & 0.03\\
+Social Sciences & h-Index No-Self Last & Citation 5 Years & 0.17 & 0.00 & 0.17 & 0.18 & 0.11 & 0.11 & 0.11\\
+Social Sciences & Gender Last & Overall Citations & 1.58 & 0.10 & 1.38 & 1.77 & 0.01 & 0.01 & 0.01\\
+Social Sciences & Gender Last & Citation 5 Years & 0.11 & 0.02 & 0.08 & 0.15 & 0.07 & 0.07 & 0.07\\
+Life Sciences & Country Count & Overall Citations & 4.62 & 0.09 & 4.45 & 4.79 & 0.01 & 0.01 & 0.01\\
+Life Sciences & Country Count & Citation 5 Years & 2.03 & 0.03 & 1.97 & 2.10 & 0.03 & 0.03 & 0.03\\
+Life Sciences & Institution Count & Overall Citations & 1.27 & 0.04 & 1.20 & 1.35 & 0.01 & 0.01 & 0.01\\
+Life Sciences & Institution Count & Citation 5 Years & 0.64 & 0.02 & 0.61 & 0.67 & 0.03 & 0.03 & 0.03\\
+Life Sciences & Gender Percent & Overall Citations & 8.43 & 0.26 & 7.93 & 8.93 & 0.01 & 0.01 & 0.01\\
+Life Sciences & Gender Percent & Citation 5 Years & 2.92 & 0.08 & 2.76 & 3.07 & 0.03 & 0.03 & 0.03\\
+Life Sciences & h-Index First & Overall Citations & 0.81 & 0.00 & 0.81 & 0.82 & 0.03 & 0.02 & 0.03\\
+Life Sciences & h-Index First & Citation 5 Years & 0.19 & 0.00 & 0.19 & 0.19 & 0.04 & 0.04 & 0.04\\
+Life Sciences & h-Index No-Self First & Overall Citations & 0.93 & 0.00 & 0.92 & 0.93 & 0.03 & 0.03 & 0.03\\
+Life Sciences & h-Index No-Self First & Citation 5 Years & 0.22 & 0.00 & 0.21 & 0.22 & 0.04 & 0.04 & 0.04\\
+Life Sciences & Gender First & Overall Citations & 0.22 & 0.06 & 0.09 & 0.34 & 0.01 & 0.01 & 0.01\\
+Life Sciences & Gender First & Citation 5 Years & 0.06 & 0.02 & 0.01 & 0.10 & 0.02 & 0.02 & 0.02\\
+Life Sciences & h-Index Last & Overall Citations & 0.66 & 0.00 & 0.66 & 0.67 & 0.04 & 0.04 & 0.04\\
+Life Sciences & h-Index Last & Citation 5 Years & 0.20 & 0.00 & 0.20 & 0.21 & 0.06 & 0.05 & 0.06\\
+Life Sciences & h-Index No-Self Last & Overall Citations & 0.74 & 0.00 & 0.74 & 0.74 & 0.04 & 0.04 & 0.04\\
+Life Sciences & h-Index No-Self Last & Citation 5 Years & 0.23 & 0.00 & 0.23 & 0.23 & 0.06 & 0.06 & 0.06\\
+Life Sciences & Gender Last & Overall Citations & -1.17 & 0.07 & -1.32 & -1.03 & 0.01 & 0.01 & 0.01\\
+Life Sciences & Gender Last & Citation 5 Years & -0.35 & 0.03 & -0.40 & -0.29 & 0.02 & 0.02 & 0.02\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
 
 
 \end{document}

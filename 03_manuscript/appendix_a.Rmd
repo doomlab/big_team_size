@@ -1,0 +1,67 @@
+---
+appendix: "appendix_a.Rmd"
+---
+
+## Appendix A
+
+### Data Screening
+
+You can find these results by going to `01_prereg` and opening `team_science_analysis.html`. We ran these analyses on our first pilot code. They are more detailed than the second analysis code (i.e., we could pinpoint specific subareas within the final five areas analyzed), so we used the smaller analyses for data screening. The results are summarized here.
+
+*Multicollinearity*.
+
+By searching for `stat.corr` within the code, you can find the correlations with there are multiple independent variables within a regression analysis. They are usually printed at the bottom of a scatter plot. The correlations for research question 1 were all very low *r*s from .02 to .30. The correlations for research question 2 were similarly low with two exceptions: *r* \~ .50-.53 for team size and number of countries and *r* \~ .71-74 for team size and institution count. Given the number of countries and institutions can only be as high as the number of authors, these values are not surprising. Further, they did not meet our exclusion criteria of *r* \> .90 overall. Institution count for Earth Sciences correlated with team size at *r* \~ .902-.908 but no other values were found. Given the more generalized subject areas, the average *r* for these two variables was considered ok for use for the category that includes Earth Sciences.
+
+*Linearity and Homoscedasticity*.
+
+By plotting the standardized residuals versus the predicted values, we examined for linearity (looking for curved patterns of dots) and homoscedasticity (looking for unequal spreads of dots on Y for each value of X). Each of these is shown in the scatter plots in the attached preregistration output noted above. You can view these plots, but an example is provided below. No graphs indicated curved relationships, but all graphs indicated some form of heteroscedasticity.
+
+```{r datascreen-picture, echo = FALSE}
+knitr::include_graphics(here("03_manuscript", "figures", "datascreening.jpg"))
+```
+
+### Research Question 1a
+
+```{r tab-rq1a, results = 'asis'}
+apa_table(
+  hyp1a_model %>% 
+    select(subjareas, coef, se, lower, upper, r2, r2lower, r2upper) %>% 
+    mutate(subjareas = ifelse(is.na(subjareas), "Overall", subjareas)), 
+  caption = "Model Coefficients and Confidence Intervals for RQ1a", 
+  # decimals = 3,
+  escape = F, 
+  col.names = c("Area", "$b$", "$SE$", "LL", "UL", "$R^2$", "LL", "UL")
+)
+
+```
+
+### Research Question 1b
+
+```{r tab-rq1b, results = 'asis'}
+apa_table(
+  hyp1b_model %>% 
+    select(subjareas, DV, coef, se, lower, upper, r2, r2lower, r2upper) %>% 
+    mutate(subjareas = ifelse(is.na(subjareas), "Overall", subjareas)), 
+  caption = "Model Coefficients and Confidence Intervals for RQ1b", 
+  # decimals = 3,
+  escape = F, 
+  col.names = c("Area", "DV", "$b$", "$SE$", "LL", "UL", "$R^2$", "LL", "UL")
+)
+
+```
+
+### Research Question 2
+
+```{r tab-rq2, results = 'asis'}
+apa_table(
+  hyp2_model %>% 
+    ungroup() %>% 
+    select(subjareas, IV2, DV, coef, se, lower, upper, r2, r2lower, r2upper) %>% 
+    mutate(subjareas = ifelse(is.na(subjareas), "Overall", subjareas)), 
+  font_size = "scriptsize",
+  caption = "Model Coefficients and Confidence Intervals for RQ2", 
+  # decimals = 3,
+  escape = F, 
+  col.names = c("Area", "IV", "DV", "$b$", "$SE$", "LL", "UL", "$R^2$", "LL", "UL")
+)
+```
