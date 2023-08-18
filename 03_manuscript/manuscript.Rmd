@@ -573,7 +573,7 @@ cite_count <-
   ylab("Coefficient") + 
   coord_flip() +
   theme(legend.position = "bottom") + 
-  scale_color_brewer(name = "Subject Areas", palette = "Spectral") +
+  scale_color_brewer(name = "Subject Areas", palette = "Dark2") +
   facet_grid(rows = vars(DV))
   
 cite_count
@@ -583,6 +583,18 @@ ggsave(here("03_manuscript", "figures", "fig-subj-coef-r2.jpg"), width = 10, hei
 
 # Discussion 
 
+- Team size is getting bigger, across all disciplines
+
+- In general team size increases mean more citations 
+
+- what influences citation count:
+  - gender and the weirdness there
+    - first versus last comparison
+  - inst and country count are generally both positive
+  - prestige with h-index
+    - first versus last comparison
+  - the two different DV comparisons - effects are smaller smaller for 5 year citations but the effect size for 5 year citations is always bigger (likely because you are only looking at the last five years, variance there is probably smaller to predict overall)
+  
 \newpage
 
 # References
