@@ -602,11 +602,9 @@ ggsave(here("03_manuscript", "figures", "fig-subj-coef-r2.jpg"), width = 10, hei
 ::: {#refs custom-style="Bibliography"}
 :::
 
-
 \newpage
 
 # (APPENDIX) Appendix {-}
 
 ```{r child = "appendix_a.Rmd"}
 ```
-
