@@ -1,5 +1,5 @@
 ---
-title             : "Team Science: Examination of Factors Associated with Citation Metrics"
+title             : "Team Science: An Examination of Factors Associated with Citation Metrics"
 shorttitle        : "TEAM SCIENCE"
 author: 
   - name          : "Kelly Cuccolo"
@@ -42,6 +42,7 @@ affiliation:
     institution   : "Harrisburg University of Science and Technology"
 authornote: |
   The authors thank the Elsevier Research Team for their help in coding for this project. Publication meta-data was provided through a grant obtained from Elsevier's International Center for the Study of Research (ICSR) which provided access to meta-data collected by Elsevier.
+  No funding was received for this project.
 abstract: |
   Scientific collaboration, often measured through co-authorship, has grown in many disciplines and is frequently linked to increased citation rates. However, it remains unclear which disciplines have seen the greatest growth in collaboration and how this growth relates to article-level metrics. Moreover, little is known about how team demographics (e.g., *h*-index, gender, number of institutions) interact with team size to shape research impact. Understanding these dynamics is essential given their influence on hiring, tenure, and the broader scientific ecosystem. Using metadata from Elsevier’s International Center for the Study of Research (ICSR) Lab, we examined collaboration trends across disciplines and their associations with citation outcomes. Team size increased over time, with variation by discipline, and was positively associated with citation counts. Gender effects on citation rates varied by authorship order and discipline, indicating a complex relationship between gender and impact. Greater institutional and geographic diversity were linked to citation advantages. Last authors’ *h*-indices were especially predictive of impact, particularly when self-citations were excluded. These findings highlight how evolving patterns of collaboration influence research visibility and underscore the importance of considering team composition in evaluations of scientific output.
   <!-- https://tinyurl.com/ybremelq -->
