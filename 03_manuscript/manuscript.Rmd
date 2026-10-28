@@ -41,10 +41,10 @@ affiliation:
   - id            : "4"
     institution   : "Harrisburg University of Science and Technology"
 authornote: |
-  The authors thank the Elsevier Research Team for their help in coding for this project. Publication meta-data was provided through a grant obtained from Elsevier's International Center for the Study of Research (ICSR) which provided access to meta-data collected by Elsevier.
-  No funding was received for this project.
+  The authors thank the Elsevier Research Team for their help in coding for this project. The authors applied for and were granted access to publication meta-data collected by Elsevier through Elsevier's International Center for the Study of Research (ICSR). This access was provided at no cost and no monetary funding was received for this project.
+  Conflict of interest: The authors declare no conflicts of interest. The authors are not employed by Elsevier and received no payment from Elsevier. Elsevier provided data access and coding assistance only and had no role in the study design, analysis, interpretation, or the decision to publish.
 abstract: |
-  Scientific collaboration, often measured through co-authorship, has grown in many disciplines and is frequently linked to increased citation rates. However, it remains unclear which disciplines have seen the greatest growth in collaboration and how this growth relates to article-level metrics. Moreover, little is known about how team demographics (e.g., *h*-index, gender, number of institutions) interact with team size to shape research impact. Understanding these dynamics is essential given their influence on hiring, tenure, and the broader scientific ecosystem. Using metadata from Elsevier’s International Center for the Study of Research (ICSR) Lab, we examined collaboration trends across disciplines and their associations with citation outcomes. Team size increased over time, with variation by discipline, and was positively associated with citation counts. Gender effects on citation rates varied by authorship order and discipline, indicating a complex relationship between gender and impact. Greater institutional and geographic diversity were linked to citation advantages. Last authors’ *h*-indices were especially predictive of impact, particularly when self-citations were excluded. These findings highlight how evolving patterns of collaboration influence research visibility and underscore the importance of considering team composition in evaluations of scientific output.
+  Scientific collaboration, often measured through co-authorship, has grown in many disciplines and is frequently linked to increased citation rates. However, it remains unclear which disciplines have seen the greatest growth in collaboration and how this growth relates to article-level metrics. Moreover, little is known about how team demographics (e.g., *h*-index, gender, number of institutions) and team size interact with regard to research impact. Understanding these dynamics is essential given their influence on hiring, tenure, and the broader scientific ecosystem. Using metadata from Elsevier’s International Center for the Study of Research (ICSR) Lab, we examined collaboration trends across disciplines and their associations with citation outcomes. Team size increased over time, with variation by discipline, and was positively associated with citation counts. Gender relationships with citation rates varied by authorship order and discipline, indicating a complex relationship between gender and impact. Greater institutional and geographic diversity were linked to higher citation counts. Last authors’ *h*-indices were especially strongly associated with impact, particularly when self-citations were excluded. Effect sizes were small, and the observational design precludes causal conclusions. These findings describe how evolving patterns of collaboration are related to research visibility and underscore the importance of considering team composition, cautiously, in evaluations of scientific output.
   <!-- https://tinyurl.com/ybremelq -->
 keywords: "collaboration, publication, citation rates, authorship"
 floatsintext: yes
@@ -115,17 +115,16 @@ trackdown::update_file(file = "manuscript.Rmd",
                        hide_code = TRUE)
 ```
 
-Scientific collaboration (i.e., co-authorship) has been increasing in
-many fields of study, such as biomedical sciences [@papatheodorou2008],
+The number of co-authors on a project (i.e., team size, proxied here by
+the length of the authorship list) has been increasing in many fields of
+study, such as biomedical sciences [@papatheodorou2008],
 medicine [@weeks2004], and psychology [@zafrunnishan.reddyv.p.2010].
-Notably, scientific collaboration is one factor that may positively
-influence article metrics [e.g., citation rates, @larivière2015;
-@wuchty2007], although the extent of this effect may vary by field
-[e.g., physics, @hinnant2012]. Within scientific collaboration,
-additional characteristics of the authorship team may exert influence on
-these metrics. Authorship team diversity is a key factor to be
-considered when looking at the impact of collaboration on article
-metrics. Author diversity, broadly speaking, has been associated with
+Notably, the number of co-authors is one factor that may be positively
+associated with article metrics [e.g., citation rates, @larivière2015;
+@wuchty2007], although the extent of this relationship may vary by field
+[e.g., physics, @hinnant2012]. Within co-authored papers, additional
+characteristics of the authorship team may be related to these metrics.
+Author diversity, broadly speaking, has been associated with
 positive outcomes such as publication in high-impact factor journals,
 rates of citations, and funding [@freeman2015; @nichols2014]. It is
 important to note that author diversity can be conceptualized along a
@@ -134,79 +133,118 @@ States, Brazil), institutional affiliation, discipline, and rank.
 Evidence suggests the impact of international collaboration, rank, and
 gender on article metrics in fields such as sport science
 research [@wang2015], physics [@hinnant2012], and psychology [@geraci2015],
-respectively, but a gap exists in which the accumulation of these
-factors over time and across disciplines has not yet been addressed. As
-such, this project aims to understand: 1a.) What is the pattern of team
-size distribution within various disciplines over time, 1b.) is team
-size related to article impact?, and 2.) What characteristics of team
-composition have the greatest influence on article metrics?
+respectively. Despite the benefits of having diversity among co-authors
+for scientific productivity and impact, co-author teams tend to be
+homogenous [TODO: add citation; Kelly's note points to
+PMC6703830]. For example, when looking at gender, authors exhibit a
+tendency to work with others of the same gender, a finding that is
+stable over time [TODO: add citation; Kelly's note points to
+Scientometrics s11192-023-04885-1]. Thus, recommendations for scientists
+to increase co-author representation [TODO: add citation; Kelly's note
+points to a Drive PDF] may not be effective without careful
+consideration about team composition.
+
+The available research paints an incomplete picture of co-authorship
+trends and their relationship to citation metrics. Landmark studies have
+documented the growth of team size and its association with citations
+over long time spans [e.g., 1900--2011, @larivière2015; 1955--2000,
+@wuchty2007], and the gender gap in authorship has been studied across
+countries, disciplines, and career stages [@lariviere2013; @huang2020].
+However, these literatures have largely developed separately, and less
+is known about how team size and several features of team composition
+(gender, the *h*-index of the first and last authors, and the number of
+institutions and countries represented) are jointly related to
+article-level citation metrics within and across disciplines in a
+single, contemporary, article-level dataset. Subsequently, understanding
+co-author team composition is critical given previous research showing
+that, despite the benefits of co-authorship diversity, people tend to
+work with those similar to them. As such, this project aims to first
+establish trends in co-authorship team size within disciplines across
+time and then explore how the composition of these co-authorship teams
+is related to citation metrics. The research questions guiding these
+aims are as follows: 1a.) What is the pattern of team size distribution
+within various disciplines over time, 1b.) is team size related to
+article impact?, and 2.) What characteristics of team composition have
+the strongest association with article metrics?
 
 ## *Question 1*. What is the pattern of team size distribution within various disciplines over time, and is team size related to article impact?
 
-Science is becoming increasingly collaborative; evidence for this trend
-includes an increase in co-authored peer-reviewed publications (compared
-to single-authored) as well as initiatives, calls, and
-funding opportunities for collaborative research from both private and
-public/government sectors [@wuchty2007]. Further, some argue that scientific
-collaboration and large interdisciplinary/international teams are needed
-to effectively address modern societal questions and
-problems [@samarasekera2009]. Indeed, team size (i.e., number of
-co-authors) has been increasing in recent years across various disciplines [@papatheodorou2008], including science and engineering, social
-sciences, and arts and humanities [@wuchty2007]. While some research
-suggests an overall trend toward collaboration [@wuchty2007], these
-findings do not appear to apply to all disciplines equally.
+Initiatives, calls, and funding opportunities for collaborative research
+(from both private and public/government sectors) have been increasing in
+recent years, with some arguing that large teams (i.e., co-authors) are
+necessary for addressing modern societal questions and
+problems [@samarasekera2009]. Concurrently, various disciplines have
+reported changes in co-authorship trends [@papatheodorou2008; @wuchty2007].
+Discipline-specific investigations have identified co-authorship trends
+that differ by subdiscipline. For example, over the last approximately 30
+years co-authorship has doubled in subfields of the natural/physical
+sciences like physics and musculoskeletal science [@russell2019], while
+growth in mathematics has been notably slower [@grossman2002]. Among the
+social sciences, a more consistent pattern of increased co-authorship
+emerged, although specific changes vary by subfield [@hunter2008;
+@kozlowski2017; @demeuse2014; @rath2016; @gaunt2014]. This suggests that
+needs and norms within various disciplines may influence how quickly and
+to what extent authorship trends change and solidify. Because the current
+state of the research focuses on constructs like time [@abu2019],
+disciplinary journal [@demeuse2014], and geographical region [@leifeld2017]
+in isolation, examining co-authorship trends among multiple disciplines
+concurrently would afford a more holistic overview of the state of team
+science.
 
-Within the natural/physical sciences, subdisciplines vary in their
-collaborative growth. For instance, the average team size in physics has
-doubled over the last 45 years, whereas for mathematics, the growth
-appears slower - with the average team size rising from 1.22 to 1.85.
-Grossman [-@grossman2002] corroborates this effect, noting that for
-mathematics, the average number of collaborators has grown since the
-1940s, with 1 in 8 papers having 2+ authors. On the other hand, a review
-of four major musculoskeletal science journals noted
-approximately a doubling in the number of co-authors on a publication
-(3.67--7.3) over the last 30 years [@russell2019]. Likewise, biology has noted
-decreases in single-authored papers across specific subareas [e.g.,
-Ecology, Genetics, Zoology, and Botany, @nabout2015].
+Examining co-authorship trends across time and disciplines alongside
+citation metrics will also facilitate a deeper understanding of the
+conditions under which co-authorship is associated with impact. For
+example, among publications indexed in the annual volumes of the Web of
+Knowledge™ in 2007, single-author papers received an average of 2.91
+citations while multi-author papers exhibited an average of
+5.39 [@thijs2015]; this difference was consistent when examining citation
+averages from 1998 to 2007. Further probing this relationship, it appears
+that the number of citations increases with the number of authors, up to
+a point (approx. 20 authors) after which the relationship becomes
+inconsistent. This non-linear relationship between team size and impact
+suggests that other factors, such as the composition of the team, may
+contribute to the observed benefits when co-authored teams come together.
+We emphasize that team size is treated here as a descriptive feature of
+the authorship list; our analyses are observational and cannot establish
+that adding authors causes higher impact.
 
-Among the social sciences, a pattern of increasingly collaborative
-authorship emerges. For example, sociology has reported increases in
-both collaboration and the average number of authors per publication
-during the period from 1935 to 2005 [@hunter2008]. Specific publication
-outlets in psychology [e.g., Journal of Applied
-Psychology, @kozlowski2017] have seen increases in co-authored and
-decreases in solo-authored papers. Specific subfields of psychology have
-also noted similar changes in authorship trends [e.g.,
-industrial-organizational psychology, @demeuse2014]. Various branches of
-business, such as economics [@rath2016] and finance [@gaunt2014] have also
-noted increases in co-authorship.
+## *Question 2*. What characteristics of team composition have the strongest association with article metrics?
 
-Practically speaking, collaboration might offer important benefits to
-authors, as the number of authors appears to be associated with article
-impact (i.e., citation rates). Among publications indexed in the annual
-volumes of the Web of Knowledge™ in 2007, single-author papers received
-an average of 2.91 citations while multi-author papers exhibited an
-average of 5.39 [@thijs2015]; this difference was consistent when
-examining citation averages from 1998 to 2007. Further probing this
-relationship, it appears that the number of citations increases with the
-number of authors, up to a point (approx. 20 authors) after which the
-relationship becomes inconsistent. As such, collaboration may be
-rewarded by increased impact.
+When thinking about the composition of organizations, including teams,
+scholars have documented both positive and negative effects of
+diversity [TODO: add citation]. On the one hand, through team diversity
+members gain more insight about the task through varied perspectives. On
+the other hand, dissimilarities can create tension [TODO: add citation].
+The extent to which teams take advantage of the diversity of their
+members through discussion and the exchange of information may depend on
+characteristics of individual members that facilitate either
+open-mindedness or social categorization and intergroup bias
+[TODO: add citation]. Simulation research has also noted that the effect
+of diversity on team performance follows a curvilinear relationship with
+performance [TODO: add citation; Kelly's note points to
+jasss.org/9/3/3.html]. The Categorization--Elaboration Model
+[CEM, @vanknippenberg2004] integrates these perspectives: diversity
+(whether based on social categories or on differences in information and
+expertise) can stimulate the elaboration of task-relevant information,
+which benefits performance, but categorization processes can undermine
+that benefit.
 
-While most of the available research points to a positive relationship
-between collaboration and citations, the available research tends to
-examine manuscripts published in a narrow time frame [e.g., ten
-years, @abu2019], and often looks at fields in isolation, specific
-journals [@demeuse2014], and/or specific geographical
-regions [@leifeld2017]. As such, it is unclear how various disciplines
-have embraced collaboration over time and whether there has been any
-associated impact.
+The CEM provides a conceptual rationale for examining the present
+variables together. Gender is a social-category characteristic of the
+team; the number of institutions and countries represented index
+affiliation-based (and likely information-based) diversity; and the
+*h*-index of the first and last authors indexes the status and expertise
+that authors bring to the team. Team size sets the number of people among
+whom these differences can be distributed, and is therefore both a
+covariate for and a context of the composition variables (indeed,
+institution and country counts cannot exceed team size). We selected these
+variables because they are the author-level characteristics available at
+scale in the Scopus metadata, and we treat them as correlates of citation
+metrics rather than as causal mechanisms. This research on team diversity
+must also be considered alongside sociocultural research about how members
+of certain groups have historically been treated in the sciences.
 
-## *Question 2*. What characteristics of team composition have the greatest influence on article metrics?
-
-Although several disciplines report increases in co-authorship over the
-past several decades, it is important to ask the question of who is
-publishing, and with whom. Generally speaking, despite increases in
+Generally speaking, despite increases in
 women's representation in academia, women still are underrepresented
 when it comes to publishing co- and solo-authored papers [@jagsi2006]. In
 addition to authoring a smaller proportion of published work, research
@@ -239,13 +277,16 @@ likelihood of accumulating citations could influence a researchers'
 impact [@rezek2011], which is often considered important for career
 advances.
 
-One objective measure of a scholar's output and impact is the
+One commonly used measure of a scholar's output and impact is the
 "*h*-index" [@hirsch2005]. The *h*-index combines the number of articles
 published with the number of citations received for those articles. This
 approach attempts to balance high-impact articles with the number of
 articles published. Specifically, the *h*-score is the number of
 articles (X) that receive X citations. The *h*-index is one of the most
-widely used and accepted measures of a scholar's impact [@crespo2019].
+widely used measures of a scholar's impact [@crespo2019], although it
+has also been criticized, for example for its dependence on field and
+career length and for behaving inconsistently when comparing
+scholars [@bornmann2007; @waltman2012].
 Fields such as psychology have observed gender differences pertaining to
 *h*-indices that favor men. Women professors have a significantly lower
 *h*-index than men, with a difference of approximately four points.
@@ -267,8 +308,9 @@ gap between men's and women's manuscript submissions and publications
 are narrowing, and there appears to be no significant relationship
 between gender and citation count [@østby2013]. Although there are
 alternatives to the *h*-index that account for self-citations [e.g., the
-*b*-index, @brown2009], the *h*-index is popular and generally accepted
-as a robust bibliometric tool.
+*b*-index, @brown2009], the *h*-index remains popular, and we use it here
+as one available (and imperfect) indicator of an author's prior
+visibility rather than as a measure of scholarly quality.
 
 Given the arguments regarding the necessity of scientific collaboration
 and large international teams to address modern societal questions and
@@ -364,27 +406,43 @@ is designed to support researchers in their empirical study of
 meta-science on large datasets using the Databricks platform running
 Apache Spark architecture for big-data analyses. Through ICSR,
 researchers can access full publication metadata from Scopus including
-article metrics, author(s), and affiliation information. Scopus is a
-global database of abstracts and citations containing a wide
-representation of content, including articles, books, and conference
-proceedings [@boyle2006]. Scopus contains over 80 million entries from
-1788 to present curated by a team of experts to ensure quality metadata
-and inclusion of appropriate publications. All variables extracted from
-this dataset are described below.
+article metrics, author(s), and affiliation information. The data
+snapshot used was ICSR version v008 (snapshot dated 9 May 2023), and all
+citation counts reflect citations accrued up to that date. The unit of analysis was the journal article.
+For each article, we used the publication year, the ordered list of
+authors (and each author's inferred gender, *h*-index, and
+affiliations), the journal's ASJC subject classification, and citation
+counts. Scopus contains over 80 million entries from 1788 to present
+[@boyle2006]; we restricted the data as described in the Sampling Plan
+below. All variables extracted from this dataset are described below.
 
 ### Variables
 
 Article characteristics included the year of publication, number of
-authors (team size), and discipline. Discipline will be defined at the
-All Science Journal Classification (ASJC;
+authors (team size), and discipline. Team size was operationalized as
+the number of authors on the article's authorship list; this is a common
+proxy for the size of the team that produced the work, but it is not
+strictly synonymous with it (e.g., it excludes acknowledged contributors).
+Discipline was defined using the All Science Journal Classification
+(ASJC;
 <https://service.elsevier.com/app/answers/detail/a_id/15181/supporthub/scopus/>)
-using the five global subject area codes (Health, Physical, Life, Social
-Sciences, and Multidisciplinary).[^1] Metric characteristics included
-citation count (the number of times an article was cited within the
-current data snapshot) and weighted citations. Field-weighted citations
-indicated the number of citations in the last five years. We excluded
-articles within the last five years for the field-weighted citation
-counts to ensure consistency for this variable.
+with the five global subject area codes (Health, Physical, Life, Social
+Sciences, and Multidisciplinary).[^1] Because the ASJC is assigned at the
+level of the journal, an article takes the classification of the journal
+in which it was published. The Multidisciplinary category therefore
+reflects the type of journal (e.g., broad-scope outlets) and not the
+disciplinary makeup of the author team. Journals
+carrying more than one ASJC code were counted in each of the corresponding
+areas, so an article could contribute to more than one subject-area
+model; the overall models counted each article once. Articles whose
+journals fell outside the four named areas were classified as
+Multidisciplinary. Metric characteristics included citation count
+(the number of times an article was cited within the current data
+snapshot, including self-citations) and five-year citation count (the
+number of citations received within five years of publication, as
+supplied in the ICSR field-weighted citation impact table; this is the raw
+count, not the field-normalized ratio). For the five-year citation models we included only articles published
+before 2017, so that every article had a complete five-year window.
 
 [^1]: We originally planned on using the 27 subfields within the ASJC.
     However, we updated our preregistration to use only five of the
@@ -396,7 +454,9 @@ transformed affiliation countries into a count variable of the number of
 unique countries. Similarly, we transformed affiliation/institutions
 into a count of the number of different affiliations across authors. We
 used the *h*-index of the first and last authors for each article, with
-and without self-citation. Last, Elsevier has noted that their inferred
+and without self-citation. Author position was used as recorded; we did
+not assume that the last author is the most senior member of the team
+(see Limitations). Last, Elsevier has noted that their inferred
 gender column has a 97% accuracy, and we used the inferred gender of the
 first and last authors for each article. From this variable, we
 additionally calculated the gender ratio (number of inferred male /
@@ -405,28 +465,33 @@ total authors) as a single variable for each article.
 ### Sampling Plan
 
 While Scopus includes articles from 1788 to present, we limited our
-sample to journal articles published from 1970 until present. Scopus
-indicates that articles from 1970 to present include reference
-information, which will be required to calculate several of the above
-mentioned variables. Only journal articles from this time period will be
-included sampled at a rate of 25% of eligible articles. We will include
-the analysis date to indicate the data available at the time of
-analysis. We originally included all articles from 1970 and forward. Due
-to computational constraints, we randomly sampled 25% of eligible
-articles during this time span to constrain the run time of our code and
-the memory necessary to calculate *h*-index. It is important to note
-that we did *not* calculate *h*-index on the randomly sampled dataset.
-These values were calculated on the full data and then merged with the
-randomly sampled data to ensure *h*-indices were appropriate for authors
-on the randomly sampled data.
+sample to journal articles published from 1970 until the date of the data
+snapshot. Scopus indicates that articles from 1970 to present include
+reference information, which was required to calculate several of the
+above mentioned variables. We originally planned to include all eligible
+articles from 1970 forward. Due to computational constraints, we randomly
+sampled 25% of eligible articles during this time span to constrain the
+run time of our code and the memory necessary to calculate *h*-index.
+Articles were
+sampled by simple random sampling (fixed seed), so the sample is expected
+to be representative of the eligible population, and with several million
+articles per subject area the sampling error is negligible. However, we
+did not compare the sample with the full population, nor repeat the
+sampling, so we cannot demonstrate representativeness across publication
+years or subject areas; this is a limitation. It is important to note that we did *not* calculate *h*-index on
+the randomly sampled dataset. These values were calculated on the full
+data and then merged with the randomly sampled data to ensure
+*h*-indices were appropriate for authors on the randomly sampled data.
 
 ### Power
 
-Given the large size of the Scopus dataset, all analyses are expected to
+Given the large size of the Scopus dataset, all analyses were expected to
 achieve the required 95% power. Analyses using the *pwr*
-library [@champely2017] indicated that planned regressions have the
+library [@champely2017] indicated that the planned regressions had the
 ability to detect effects at $R^2$ \< .00001 at 95% power using a 95%
-confidence interval.
+confidence interval. Because such tiny effects are detectable, statistical
+significance is uninformative here; we therefore emphasize the magnitude
+of the effects (the slopes and $R^2$) when interpreting the results.
 
 ```{r power-analysis, echo = F, include = F, eval = F}
 pwr.f2.test(u = 1, #df num
@@ -451,7 +516,7 @@ pwr.f2.test(u = 3, #df num
 ### Data Availability
 
 While we cannot provide access to the full dataset because it is only
-accessible through access granted by Elsevier, we will provide our
+accessible through access granted by Elsevier, we provide our
 analysis code via GitHub and the Open Science Framework. Persons
 interested in replicating or extending the current work can do so
 through using the ICSR lab Databricks platform. ICSR has stated to the
@@ -473,29 +538,46 @@ from the original plan. The code used to create this manuscript with the
 Missing data was excluded for the analyses in which the data was missing
 only. We assumed all data is accurate. In all analyses, we examined the
 cell counts for each categorical variable to collapse small cell sizes
-(i.e., *n* \< 5). No articles will be considered an outlier, as all
+(i.e., *n* \< 5). No articles were considered outliers, as all
 publication data was expected to be part of the population.
 
 In each relevant analysis, we examined for multicollinearity of the IVs,
 as team size may positively correlate with count variables calculated in
-later research questions. If values are multicollinear, *r* \> .90, we
+later research questions. If values were multicollinear, *r* \> .90, we
 planned to note these correlations and only use one of the proposed
 variables. No values reached this criteria for the five subject areas.
-The size of the dataset implied the assumption of normality. In our
-analyses, a linear trend was the main focus of interest, and we did not
-note any non-linear trends. Last, nearly all scatter plots indicated
-heteroscedasticity. Please see Appendix A for further details.
+In our analyses, a linear trend was the main focus of interest, and we
+did not note any non-linear trends. Nearly all scatter plots indicated
+heteroscedasticity, and team size and citation counts are discrete,
+non-negative, and highly right-skewed (with many uncited articles),
+which are conditions under which count models (e.g., Poisson or negative
+binomial, possibly zero-inflated) are often preferred. We retained
+ordinary least squares linear models for three reasons: (a) they were
+specified in our preregistration; (b) with samples of this size,
+inference about the slopes does not depend on the normality of the
+residuals; and (c) the slopes are directly interpretable as the expected
+difference in citations per additional author (or per one-unit
+difference in an author characteristic), which we use throughout.
+However, the standard errors and confidence intervals from these models
+should be interpreted cautiously given the heteroscedasticity, and the
+linear models may misrepresent the conditional mean at the extremes of
+the distribution. We did not run
+negative binomial, zero-inflated, or other count-data models, and we no
+longer have access to the data to do so; this is a limitation of the
+present work. Please see Appendix A for further details.
 
 ### Decision Criteria
 
 The large sample size was expected to indicate all predictors
 significant at the traditional *p* value criterion. For individual
 predictors, we used the 95% confidence intervals of the slope to
-indicate if the effect is non-zero (i.e., the confidence interval does
-not include zero rounded to three decimals). The difference between
-effects will be determined by examining the confidence intervals of
+indicate if the effect was non-zero (i.e., the confidence interval did
+not include zero rounded to three decimals). Because significance was
+expected for even trivial effects, we interpreted the size of the slopes
+and of $R^2$ rather than significance alone. The difference between
+effects was determined by examining the confidence intervals of
 $R^2$ to three decimal places calculated with the *MBESS* library
- [@kelley2022]. If they do not overlap, we will state that they are
+[@kelley2022]. If they did not overlap, we stated that they were
 different.
 
 ### Research Questions
@@ -522,24 +604,33 @@ from zero to determine if the predictor was significant. Last, we
 calculated each subject area's slope and confidence interval using a
 linear model of team size predicted by year of publication. Again, we
 provide these slopes in a visualization for readers to examine with no
-official *post hoc* comparison. While a multilevel model would allow us
-to embed all disciplines within one model, no *pyspark* multilevel model
-implementation exists to model data at this scale.
+official *post hoc* comparison. A single model with discipline as a
+dummy-coded factor (fully interacted with year) would return the same
+discipline-specific slopes as separate models, so we estimated the
+discipline models separately; a multilevel model with random effects
+for discipline was not feasible because no *pyspark* multilevel model
+implementation exists to model data at this scale. We did not test the
+year-by-discipline interaction in a pooled model.
 
 *Research Question 1b: Is team size related to article impact?*
 
-For this research question, we examined the impact of team size on
+For this research question, we examined the association between team size and
 article publication metrics for impact. Our hypothesis was that team
-size impacts article metrics (non-directional). We ran these analyses
-once for each dependent variable of citation count and weighted citation
-five-year count. We calculated the mean, median, and interquartile range
+size is associated with article metrics (non-directional). We ran these analyses
+once for each dependent variable of citation count and five-year
+citation count. We calculated the mean, median, and interquartile range
 of each publication metric by discipline. We provide visualizations of
 these values instead of comparing them directly.
 
-To determine the impact of team size on publication metrics, we used a
-linear model of publication metrics predicted by time of publication
-(covariate) and team size. We included time as a covariate, as we
-expected that older articles would potentially have more or different
+To determine the association of team size with publication metrics, we
+used a linear model of publication metrics predicted by time of
+publication (covariate) and team size. Year of publication entered as a
+main effect only (i.e., no team size by year interaction was modeled)
+Year and team size
+were entered as raw values (not centered or scaled), so only the slopes are
+interpretable. We did not test a polynomial term for non-linearity.
+Team size was entered as a linear term only. We included time as a
+covariate, as we expected that older articles would potentially have more or different
 metrics because they have been around longer to cite. We examined if the
 confidence interval of the team size slope parameter was different from
 zero. Last, we calculated the slope for team size for each subject area
@@ -547,15 +638,17 @@ separately. We visualized these differences and the confidence
 intervals.
 
 *Research Question 2: What characteristics of team composition have the
-greatest influence on article metrics?*
+strongest association with article metrics?*
 
 For this research question, we continued to use the model from the
 previous research question and added other article metrics to determine
 their contribution to the model. Our hypothesis was that each variable
-impacts the metrics variables (non-directional). Each author independent
-variable will be modeled separately and compared using confidence
+is associated with the metrics variables (non-directional). Each author
+independent variable was modeled separately and compared using confidence
 intervals as described above to determine which variable had the
-strongest impact on publication metrics.
+strongest association with publication metrics. The author variables
+entered as main effects only; interactions with team size or year were
+not modeled.
 
 Using the linear model from the previous research question, we added
 each author independent variable (affiliation country count,
@@ -567,10 +660,10 @@ each author metric separately. When examining first and/or last author
 information, the single author paper presents a unique problem because
 they are both first and last authors. Therefore, these cannot be
 included in the same model. In order not to use the same variance twice,
-single author papers will be treated as first author only, and missing
+single author papers were treated as first author only, and missing
 data for last author analyses. If these were included in the same model,
 all single author papers would be dropped, which would bias the results.
-We will then compare each overall $R^2$ to determine if their confidence
+We then compared each overall $R^2$ to determine if their confidence
 intervals overlap. This analysis was used to indicate which author
 variable provided the most predictive information (since all other
 covariates are the same for each analysis, only the author variable is
@@ -746,14 +839,14 @@ Five year citations had a similar result, *b* =
 95% CI
 [`r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "Citation 5 Years") %>% pull(lower)`,
 `r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "Citation 5 Years") %>% pull(upper)`].
-These results indicated that approximately 10 extra authors resulted in
-at least one more citation count. The bottom of Figure
+These results indicated that approximately 10 extra authors were
+associated with at least one more citation. The bottom of Figure
 \@ref(fig:fig-heatmap) shows the results by subject area. Each subject
 area showed a coefficient greater than zero, but the overall effect size
 for the physical sciences was not different from zero. Multidisciplinary
 and social sciences showed the largest effects and coefficients,
-followed by life and health sciences. Each additional team member could
-represent up to two extra citations for research manuscripts. The
+followed by life and health sciences. Each additional team member was
+associated with up to two extra citations for research manuscripts. The
 coefficients are presented with their 95% confidence interval in
 Appendix A.
 
@@ -851,7 +944,7 @@ heat_results_a + heat_results_b + plot_layout(design = layout)
 ggsave(here("03_manuscript", "figures", "fig3-heatmap-r1.jpg"), width = 10, height = 6)
 ```
 
-## Research Question 2: What characteristics of team composition have the greatest influence on article metrics?
+## Research Question 2: What characteristics of team composition have the strongest association with article metrics?
 
 ### Model Statistics Overall
 
@@ -861,17 +954,22 @@ A includes the coefficients for each of the author variables and
 dependent variable combinations. Figure \@ref(fig:fig-hyp2) displays
 both the coefficients and effect sizes for each independent and
 dependent variable combination. All coefficients and effect sizes were
-different from zero. In general, all effects were positive, with one
-exception (gender percent). Increasing numbers of countries and/or
-institutions would correspond to increasing numbers of citations with a
+different from zero, but the effects were small in practical terms. The
+models that included team size, year, and one author variable explained
+between 0.4% and 3.5% of the variance in overall citations and between
+1.9% and 7.2% of the variance in five-year citations (for reference, team
+size and year alone explained 0.1% and 2.1%, respectively), so the
+author variables themselves account for even less unique variance. In general, all effects were positive, with one
+exception (gender percent). Higher numbers of countries and/or
+institutions were associated with higher numbers of citations with a
 stronger effect for more countries than institutions. *h*-index
-increases for first or last author increased the number of overall
+increases for first or last author were associated with more overall
 citations. Papers received more citations if the first or last author
 was male, but the effect was stronger if the first author was male.
 Last, the only negative predictor was the percent of males included on a
 manuscript (as compared to female, unknown, and missing values). As the
 overall proportion of males increased, the number of citations
-decreased. The coefficients indicate that the effects for each of these
+was lower. The coefficients indicate that the effects for each of these
 variables is stronger (i.e., higher *b* values) for overall citations,
 but the effect sizes indicate more variance accounted for when
 explaining five-year citation rates.
@@ -967,7 +1065,7 @@ Last, these analyses were separated by subject area. Figure
 independent and dependent variable combination. All coefficients and
 effect sizes were non-zero using our confidence interval criterion.
 Appendix A includes exact coefficients and effect sizes for each of the
-author variables and dependent variable combinations. We will examine
+author variables and dependent variable combinations. We examine
 the patterns of interest below.
 
 **Gender**. These results indicate different effects for gender from the
@@ -988,8 +1086,8 @@ five-year citation rates, but a positive effect on overall citation
 rates. The life sciences and multidisciplinary subject areas were both
 positive effects.
 
-**Country and Institution**. Country and institution counts both
-increased the number of citations. These effects were always larger for
+**Country and Institution**. Higher country and institution counts were both
+associated with more citations. These effects were always larger for
 the overall citations than the five-year citation counts; however, the
 effect sizes were again always larger for five-year citation models than
 overall citation models.
@@ -1088,48 +1186,71 @@ influenced by funding opportunities favoring collaborative efforts, the
 need for diverse expertise in tackling intricate research questions, and
 the growing complexity of modern scientific inquiry.
 
-Our analysis also confirms a positive association between team size and
-article impact, as measured by citation counts, reinforcing previous
+Our analysis also found a positive association between team size and
+article impact, as measured by citation counts, consistent with previous
 findings that collaborative works tend to garner more
-citations [@thijs2015; @wuchty2007]. One potential explanation is the
-increased dissemination of collaborative research through multiple
-authors' networks, leading to broader recognition and citation.
-Furthermore, larger teams may contribute to higher-quality research
-outputs due to collective expertise, improving the robustness and
-credibility of findings [@larivière2015]. However, while the relationship
-between team size and citations appears generally positive, it is not
-necessarily linear. Prior studies have suggested that citation benefits
-plateau beyond a certain threshold (e.g., approximately 20 authors),
-indicating diminishing returns for excessively large teams [@sharma2021].
-Future research should explore potential moderators, such as
-discipline-specific authorship norms and the role of team leadership in
-fostering impactful collaborations.
+citations [@thijs2015; @wuchty2007]. These data are observational, and
+the association should not be read as team size driving citations. It may
+partly reflect characteristics that co-occur with larger teams, such as
+disciplines in which both team size and citation counts are high; our
+by-discipline analyses show that the association was present within each
+of the five broad subject areas, but these areas remain coarse (e.g.,
+large-team fields such as particle physics and genomics are grouped with
+smaller-team fields), so residual disciplinary differences cannot be ruled
+out, and finer-grained disciplinary controls could change the estimates.
+One potential explanation for the association is the increased
+dissemination of collaborative research through multiple authors'
+networks, leading to broader recognition and citation. Larger teams may
+also bring more collective expertise, which could improve the robustness
+and credibility of findings [@larivière2015], and larger teams have more
+opportunities for self-citation, which would inflate citation counts
+because our citation outcomes included self-citations. We also did not
+account for journal quality (e.g., impact factor, CiteScore, or SJR);
+articles in more prestigious journals tend to be cited more, and larger
+or more diverse teams may be more likely to publish in such journals, so
+journal quality is a plausible confounder of the associations reported
+here. While the relationship between team size and citations appears
+generally positive, it is not necessarily linear. Prior studies have
+suggested that citation benefits plateau beyond a certain threshold (e.g.,
+approximately 20 authors), indicating diminishing returns for excessively
+large teams [@sharma2021]. We modeled team size as a linear term, so we
+could not evaluate this possibility directly. Future research should
+explore potential moderators, such as discipline-specific authorship norms
+and the role of team leadership in fostering impactful collaborations.
 
-## *Question 2*. What characteristics of team composition have the greatest influence on article metrics?
+## *Question 2*. What characteristics of team composition have the strongest association with article metrics?
 
 ### Gender
 
-Gender composition emerged as a significant factor influencing citation
-rates, though its effects varied by discipline. This variable exhibited
-a nuanced relationship with citation counts, which may reflect
-disciplinary norms regarding authorship position, scientific networks,
-gender biases, systemic inequities in academia, and other unknown
-factors. Consistent with prior research, our results indicate that
-male-dominated authorship teams tend to receive fewer citations in
-social sciences and health sciences, whereas in some disciplines,
-particularly the life sciences, male first authors were associated with
-higher citation counts [@west2013; @maliniak2013]. These findings suggest
-that gender biases in citation practices persist, with previous studies
-demonstrating that work authored by women is systematically under-cited,
-particularly in fields historically dominated by male
-researchers [@cameron2016].
+Gender composition was associated with citation rates, though the
+associations varied by discipline. We caution against interpreting these
+patterns as an effect of author gender on citing behavior. Readers
+frequently cannot infer authors' gender (e.g., from initials or unfamiliar
+names), and researchers generally cite work for its relevance, novelty,
+methodological quality, or venue. A more plausible reading is that gender
+is correlated with other factors that we did not model, such as career
+stage, institutional prestige, funding, journal quality, topic, and
+finer-grained disciplinary differences, as well as with disciplinary norms
+regarding authorship position, scientific networks, and systemic
+inequities in academia. Consistent with prior research, our results
+indicate that male-dominated authorship teams tended to receive fewer
+citations in social sciences and health sciences, whereas in some
+disciplines, particularly the life sciences, male first authors were
+associated with higher citation counts [@west2013; @maliniak2013]. Prior
+studies that did account for some of these factors have suggested that
+gender biases in citation practices may persist, with work authored by
+women under-cited in some fields, particularly fields historically
+dominated by male researchers [@cameron2016]; our models cannot test that
+explanation. Because the gender variable was inferred rather than
+self-reported, and because effect sizes were small, these results should
+be treated as descriptive.
 
 In the life sciences, papers received more citations when there was a
 female author in the last place and male authors in the first spot.
 These findings may reflect the various authorship norms for life
 sciences subdisciplines, wherein the weight of one’s contributions is
 associated with particular authorship positions. In all other instances,
-male-authored papers received more citations. This aligns with previous
+male-authored papers received more citations. This is compatible with previous
 research that highlights the systematic devaluation of women’s
 peer-reviewed contributions and research that is considered
 *feminine* [@ni2021] or that focuses on *women’s issues* [@mirin2021].
@@ -1141,22 +1262,32 @@ authorship order conventions, may still limit women’s perceived
 impact [@ross2022]. Moreover, prior research suggests that gender gaps in
 citation rates may be exacerbated by self-citation practices, as men are
 more likely to cite their previous work, thereby inflating their
-citation metrics [@hutson2002].
+citation metrics [@hutson2002]. Because our citation outcomes included
+self-citations, this pathway cannot be separated from other explanations
+here.
 
 ### Institution and Country
 
 Our findings highlight the citation advantages associated with
 institutional and geographic diversity. Collaboration across
 institutions and national borders was positively associated with
-citation counts, reinforcing prior studies indicating that international
-co-authorship enhances article visibility and impact  [@katz1997;
-@khor2016]. Notably, multidisciplinary teams and collaborations spanning
-multiple countries yielded the highest citation rates, likely reflecting
-the increasing recognition of global, cross-disciplinary perspectives in
-addressing scientific challenges [@coccia2016]. These results align with
-the argument that international collaborations facilitate access to
-diverse expertise and resources, enhancing research quality and its
-subsequent impact [@kliegl2011].
+citation counts, consistent with prior studies indicating that international
+co-authorship is associated with greater article visibility and impact [@katz1997;
+@khor2016]. These associations may not reflect an independent effect of
+collaboration. They could instead reflect unmeasured factors, such as
+larger grants, participation in international consortia, publication in
+higher-impact journals, or institutional prestige, that make both
+multi-institution authorship and higher citation counts more likely. Notably,
+articles in multidisciplinary journals and collaborations spanning multiple
+countries were associated with the highest citation rates. Note that
+"multidisciplinary" is a characteristic of the journal, not of the
+authorship team, so this result speaks to publication venue rather than to
+team composition. The pattern is compatible with the increasing
+recognition of global, cross-disciplinary perspectives in addressing
+scientific challenges [@coccia2016]. These results are also compatible with
+the argument that international collaborations may facilitate access to
+diverse expertise and resources, potentially enhancing research quality and
+its subsequent impact [@kliegl2011].
 
 Beyond increased citation impact, international collaborations can also
 contribute to a more comprehensive and innovative approach to research
@@ -1179,12 +1310,12 @@ international partnerships for research advancement.
 
 The positive association between h-index and citation counts was evident
 across all disciplines, with stronger effects observed for last authors
-compared to first authors. This finding suggests that senior researchers
+compared to first authors. This finding is compatible with the idea that researchers
 with established publication records tend to attract more citations,
 potentially due to their reputation and extensive academic
 networks [@geraci2015]. Interestingly, the relationship between h-index
 and citation count was more pronounced when self-citations were
-excluded, implying that high-impact researchers benefit from external
+excluded, which is consistent with, but does not demonstrate, high-impact researchers benefitting from external
 validation rather than self-referential practices [@leimu2005]. This
 highlights the importance of distinguishing between genuine academic
 influence and self-reinforcing citation behaviors when assessing
@@ -1196,9 +1327,14 @@ h-index across disciplines and career stages affect long-term scholarly
 impact.
 
 The limitations of *h*-index as a universal metric must also be
-acknowledged. Since it does not account for field-specific citation
-norms, early-career researchers, or that those publishing in niche areas
-may be at a disadvantage. Alternative bibliometric indicators, such as
+acknowledged. It does not account for field-specific citation norms, and
+early-career researchers and those publishing in niche areas may be at a
+disadvantage. In addition, we used the *h*-index of the last author as an
+indicator of an experienced author, but authorship conventions differ
+across disciplines (e.g., alphabetical ordering or other author-order
+practices), so the last author is not necessarily the most senior member of
+the team, and the first/last author comparison may be biased in fields
+that do not follow the first/last convention. Alternative bibliometric indicators, such as
 the i10-index or g-index, may provide complementary insights into
 scholarly impact by addressing some of these limitations. Moreover, as
 open-access publishing continues to rise, its potential impact on
@@ -1206,23 +1342,58 @@ citation disparities linked to h-index should be explored further.
 
 ## Conclusion and Future Directions
 
-In summary, our study underscores the growing prominence of scientific
-collaboration and its implications for research impact. While team size
-and interdisciplinary partnerships contribute positively to citation
-metrics, gender representation, and institutional diversity also play
-critical roles in shaping scholarly influence. These findings carry
-important implications for research evaluation, funding allocation, and
-institutional policies aimed at fostering equitable and impactful
-scientific collaboration. Future research should further investigate the
-causal mechanisms underlying these relationships, particularly in
-addressing potential biases in authorship recognition and citation
-practices. Additionally, exploring the intersectionality of gender,
-institutional affiliation, and career stage could provide a more nuanced
-understanding of how different factors collectively influence research
-visibility and impact. As the scientific enterprise continues to evolve,
-ensuring equitable and inclusive collaboration practices will be
-essential for maximizing the reach and significance of academic
-contributions.
+In summary, our study documents the growing prominence of scientific
+collaboration and its association with citation metrics. Team size and
+institutional and international diversity were positively associated with
+citation counts, and gender representation also showed varied
+associations with citations that differed by discipline. These
+associations were small in magnitude: the models explained, at most, about
+7% of the variance in citations, and the author variables explained only a
+fraction of that. Statistical significance was assured by the size of the
+dataset, so the practical size of the effects is what matters for
+interpretation.
+
+*Limitations.* The analyses are observational, so the associations cannot
+be interpreted causally. We used linear models for count outcomes that
+are skewed and heteroscedastic; used five broad subject areas that hide
+large differences in collaboration practices within them; did not control
+for journal quality, career stage, institutional prestige, or funding; and
+included self-citations in the citation outcomes. The *h*-index is a
+contested measure, and last-author position is an imperfect proxy for
+seniority. Gender was inferred rather than self-reported, and we analyzed
+a 25% random sample of eligible articles. Any of these may account for part
+of the observed associations.
+
+*Implications.* Given the small effect sizes and the likelihood of
+confounding, these findings do not support using team size, team
+composition, or author *h*-index as stand-alone indicators in research
+evaluation, funding allocation, hiring, or promotion decisions; such uses
+risk rewarding correlates of citation counts rather than the quality or
+contribution of the work. They are better suited to describing how
+collaboration practices differ across fields and to informing institutional
+policies that remove barriers to inclusive collaboration (for example,
+by supporting cross-institution and international partnerships and by
+examining how credit is assigned in teams) without presuming that such
+collaboration will in itself raise citation counts.
+
+*Future directions.* Future research should test these relationships with
+models suited to count data (e.g., negative binomial), include interactions
+among team size, time, and composition variables, add journal-level and
+career-stage controls, and use finer-grained subject classifications.
+Additionally, exploring the intersectionality of gender, institutional
+affiliation, and career stage could provide a more nuanced understanding of
+how different factors are jointly related to research visibility and
+impact. Finally, the recent adoption of large language models (LLMs) in
+research and writing may be changing how researchers collaborate and how
+teams are formed, for example by changing the amount of work that can be
+done by small teams or by lowering barriers across languages and
+disciplines. Whether team sizes and collaboration patterns have shifted
+since the widespread availability of LLMs is an empirical question that
+our data, which end at the data snapshot date, were not designed to
+address; the trends reported here provide a pre-LLM baseline against which
+such changes could be evaluated in future team science research. As the
+scientific enterprise continues to evolve, ensuring equitable and
+inclusive collaboration practices will be essential.
 
 \newpage
 
