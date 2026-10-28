@@ -23,7 +23,7 @@ author:
   - name          :  "Erin M. Buchanan"
     affiliation   : "4"
     corresponding :  yes   # Define only one corresponding author
-    email         : "ebuchanan@harrsiburgu.edu"
+    email         : "ebuchanan@harrisburgu.edu"
     address       : "326 Market St., Harrisburg, PA 17101"
     role          :
       - "Conceptualization"

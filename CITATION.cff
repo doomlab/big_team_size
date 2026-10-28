@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it using the metadata below."
+type: software
+title: "Team Science: An Examination of Factors Associated with Citation Metrics"
+abstract: >-
+  Analysis code, preregistration materials, and manuscript source for a
+  study of how co-authorship team size and team composition (gender,
+  h-index, number of institutions and countries) are associated with
+  citation metrics across disciplines, using Scopus metadata provided
+  through Elsevier's International Center for the Study of Research (ICSR) Lab.
+  The underlying dataset is not included; it is accessible through ICSR.
+authors:
+  - family-names: Cuccolo
+    given-names: Kelly
+    affiliation: Independent Researcher
+  - family-names: Wagge
+    given-names: Jordan
+    affiliation: Avila University
+    orcid: "https://orcid.org/0000-0002-5105-2084"
+  - family-names: Edlund
+    given-names: John E.
+    affiliation: Rochester Institute of Technology
+  - family-names: Buchanan
+    given-names: Erin M.
+    affiliation: Harrisburg University of Science and Technology
+    orcid: "https://orcid.org/0000-0002-9689-4189"
+repository-code: "https://github.com/doomlab/big_team_size"
+url: "https://osf.io/g4qnp/"
+license: Apache-2.0
+keywords:
+  - collaboration
+  - publication
+  - citation rates
+  - authorship
+  - team science
+  - scientometrics
