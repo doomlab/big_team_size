@@ -1,6 +1,6 @@
 # Team Science: An Examination of Factors Associated with Citation Metrics
 
-[![DOI](https://zenodo.org/badge/DOI/ZENODO_DOI_PLACEHOLDER.svg)](https://doi.org/ZENODO_DOI_PLACEHOLDER)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23769661.svg)](https://doi.org/10.5281/zenodo.23769661)
 
 Kelly Cuccolo, Jordan Wagge, John E. Edlund, and Erin M. Buchanan
 
@@ -81,7 +81,7 @@ from the original plan.
 ## Citation
 
 If you use this repository, please cite it using the Zenodo record
-(<https://doi.org/ZENODO_DOI_PLACEHOLDER>) or the metadata in
+(<https://doi.org/10.5281/zenodo.23769661>) or the metadata in
 [`CITATION.cff`](CITATION.cff).
 
 ## License
