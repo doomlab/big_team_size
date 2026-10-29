@@ -59,7 +59,7 @@ from the original plan.
 | `data/descriptives_output_df_200723_part1.csv` | Mean, SD, sample size, median, and IQR by subject area (RQ1a and RQ1b). |
 | `data/model_output_200723_part1.csv` | Model coefficients for RQ1a and RQ1b. |
 | `data/model_output_310723_part2.csv` | Model coefficients for RQ2 (author variables). |
-| `figures/` | Figures 1 to 6 and the data screening figure. |
+| `figures/` | Figures 1 to 7 and the data screening figure. |
 | `scopus/` | The final Databricks notebooks: `200723_part1` (RQ1) and `310723_part2` (RQ2). `200723_part2` is an earlier RQ2 run that ended in an error and was re-run as `310723_part2`. |
 
 ## Reproducing the analyses

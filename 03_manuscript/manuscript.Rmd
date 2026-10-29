@@ -135,14 +135,15 @@ gender on article metrics in fields such as sport science
 research [@wang2015], physics [@hinnant2012], and psychology [@geraci2015],
 respectively. Despite the benefits of having diversity among co-authors
 for scientific productivity and impact, co-author teams tend to be
-homogenous [TODO: add citation; Kelly's note points to
-PMC6703830]. For example, when looking at gender, authors exhibit a
+homogenous [e.g., within a cancer research center,
+@fagan2018]. For example, when looking at gender, authors exhibit a
 tendency to work with others of the same gender, a finding that is
-stable over time [TODO: add citation; Kelly's note points to
-Scientometrics s11192-023-04885-1]. Thus, recommendations for scientists
-to increase co-author representation [TODO: add citation; Kelly's note
-points to a Drive PDF] may not be effective without careful
-consideration about team composition.
+consistent over time [@whittington2023]. Thus, recommendations for scientists to diversify or broaden their
+co-author networks may not be effective without careful consideration
+of team size and composition. Consistent with this, simply enlarging a
+collaboration team or seeking well-connected collaborators is not always
+the best strategy for research performance, and the best approach
+depends on a scholar's own research variety and goals [@zhu2021].
 
 The available research paints an incomplete picture of co-authorship
 trends and their relationship to citation metrics. Landmark studies have
@@ -155,9 +156,9 @@ is known about how team size and several features of team composition
 (gender, the *h*-index of the first and last authors, and the number of
 institutions and countries represented) are jointly related to
 article-level citation metrics within and across disciplines in a
-single, contemporary, article-level dataset. Subsequently, understanding
-co-author team composition is critical given previous research showing
-that, despite the benefits of co-authorship diversity, people tend to
+single, contemporary, article-level dataset. Understanding
+co-author team composition is therefore critical, given previous research
+showing that, despite the benefits of co-authorship diversity, people tend to
 work with those similar to them. As such, this project aims to first
 establish trends in co-authorship team size within disciplines across
 time and then explore how the composition of these co-authorship teams
@@ -176,18 +177,21 @@ necessary for addressing modern societal questions and
 problems [@samarasekera2009]. Concurrently, various disciplines have
 reported changes in co-authorship trends [@papatheodorou2008; @wuchty2007].
 Discipline-specific investigations have identified co-authorship trends
-that differ by subdiscipline. For example, over the last approximately 30
-years co-authorship has doubled in subfields of the natural/physical
-sciences like physics and musculoskeletal science [@russell2019], while
-growth in mathematics has been notably slower [@grossman2002]. Among the
+that differ by subdiscipline. For example, over approximately 30 years the
+average number of authors roughly doubled in four major musculoskeletal
+science journals (from 3.67 to 7.3 authors per article) [@russell2019],
+whereas team sizes in mathematics have remained small, rising from an
+average of 1.10 authors per paper in the 1940s to 1.63 in the
+1990s [@grossman2002]. Among the
 social sciences, a more consistent pattern of increased co-authorship
 emerged, although specific changes vary by subfield [@hunter2008;
 @kozlowski2017; @demeuse2014; @rath2016; @gaunt2014]. This suggests that
 needs and norms within various disciplines may influence how quickly and
 to what extent authorship trends change and solidify. Because the current
-state of the research focuses on constructs like time [@abu2019],
-disciplinary journal [@demeuse2014], and geographical region [@leifeld2017]
-in isolation, examining co-authorship trends among multiple disciplines
+state of the research focuses on constructs like time period (e.g., eleven years of
+one journal, @abu2019), a single publication such as one
+handbook [@demeuse2014], and geographical region [@leifeld2017] in
+isolation, examining co-authorship trends among multiple disciplines
 concurrently would afford a more holistic overview of the state of team
 science.
 
@@ -197,12 +201,14 @@ conditions under which co-authorship is associated with impact. For
 example, among publications indexed in the annual volumes of the Web of
 Knowledge™ in 2007, single-author papers received an average of 2.91
 citations while multi-author papers exhibited an average of
-5.39 [@thijs2015]; this difference was consistent when examining citation
+5.39 [@thijs2015] (using a three-year citation window and excluding
+publications assigned only to the social sciences or to arts and
+humanities); this difference was consistent when examining citation
 averages from 1998 to 2007. Further probing this relationship, it appears
 that the number of citations increases with the number of authors, up to
-a point (approx. 20 authors) after which the relationship becomes
-inconsistent. This non-linear relationship between team size and impact
-suggests that other factors, such as the composition of the team, may
+a saturation point of approximately 20 authors. This non-linear relationship between team size and impact, which
+has also been described as an inverted U in cross-domain
+research [@zhu2021], suggests that other factors, such as the composition of the team, may
 contribute to the observed benefits when co-authored teams come together.
 We emphasize that team size is treated here as a descriptive feature of
 the authorship list; our analyses are observational and cannot establish
@@ -212,22 +218,21 @@ that adding authors causes higher impact.
 
 When thinking about the composition of organizations, including teams,
 scholars have documented both positive and negative effects of
-diversity [TODO: add citation]. On the one hand, through team diversity
+diversity [@vandijk2012; @vanknippenberg2024]. On the one hand, through team diversity
 members gain more insight about the task through varied perspectives. On
-the other hand, dissimilarities can create tension [TODO: add citation].
+the other hand, dissimilarities can create tension [@williams1998].
 The extent to which teams take advantage of the diversity of their
 members through discussion and the exchange of information may depend on
 characteristics of individual members that facilitate either
 open-mindedness or social categorization and intergroup bias
-[TODO: add citation]. Simulation research has also noted that the effect
-of diversity on team performance follows a curvilinear relationship with
-performance [TODO: add citation; Kelly's note points to
-jasss.org/9/3/3.html]. The Categorization--Elaboration Model
+[@homan2008; @vanknippenberg2004]. Simulation research has also found
+that the relationship between diversity and team performance is
+curvilinear (an inverted U) [@palmer2006]. The Categorization--Elaboration Model
 [CEM, @vanknippenberg2004] integrates these perspectives: diversity
 (whether based on social categories or on differences in information and
 expertise) can stimulate the elaboration of task-relevant information,
 which benefits performance, but categorization processes can undermine
-that benefit.
+that benefit [see also @vanknippenberg2024].
 
 The CEM provides a conceptual rationale for examining the present
 variables together. Gender is a social-category characteristic of the
@@ -296,7 +301,7 @@ effect was examined relative to mean salaries for full professors, and
 practically translated to an astounding effect of \$13,100 a year
 difference between men and women [@geraci2015].
 
-Notable is that the calculation of *h*-indices may be particularly
+Notably, the calculation of *h*-indices may be particularly
 biased by self-citations and years without publication. Higher rates of
 citations received by men were partially explained by high rates of
 self-citation which altered scores up to 14 extra *h*-index points.
@@ -305,7 +310,7 @@ impacting their *h*-index by up to 5 points [@cameron2016]. It is
 important to note that there is evidence of increasing equity between
 genders in certain fields; in international relations, for example, the
 gap between men's and women's manuscript submissions and publications
-are narrowing, and there appears to be no significant relationship
+is narrowing, and there appears to be no significant relationship
 between gender and citation count [@østby2013]. Although there are
 alternatives to the *h*-index that account for self-citations [e.g., the
 *b*-index, @brown2009], the *h*-index remains popular, and we use it here
@@ -748,11 +753,59 @@ zero, *b* = `r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(coef)`,
 `r hyp1a_model %>% filter(is.na(subjareas)) %>% pull(upper)`]. This
 result indicated that team size increases across time, wherein overall
 team sizes are likely to increase by at least one author every 13 years.
-Figure \@ref(fig:fig-heatmap) shows the results by subject area. All
+Figure \@ref(fig:fig-heatmap-a) shows the results by subject area. All
 subject area coefficients were greater than zero, where health and life
 sciences were similar, physical sciences had the highest team size
 growth, and social sciences had the lowest. The coefficients are
 presented with their 95% confidence interval in Appendix A.
+
+```{r create-heata}
+hyp1a_model_heat <- hyp1a_model %>% 
+  filter(!is.na(subjareas)) %>% 
+  select(subjareas, coef, lower, upper) %>% 
+  mutate(Estimate = "b") %>% 
+  bind_rows(
+    hyp1a_model %>% 
+      filter(!is.na(subjareas)) %>% 
+      select(subjareas, r2, r2lower, r2upper) %>% 
+      rename(coef = r2, 
+             lower = r2lower,
+             upper = r2upper) %>% 
+      mutate(Estimate = "Effect Size")
+  ) %>% 
+    mutate(heat_label = ifelse(
+    lower < .0001 & upper > .0001, "NS", "")) %>% 
+  mutate(Estimate = factor(Estimate, levels = c("Effect Size", "b"))) %>% 
+  mutate(DV = "Team Size")
+
+hyp1a_model_heat <- hyp1a_model_heat %>%
+  mutate(text_label = ifelse(
+    heat_label == "NS",
+    paste0("NS\n", sprintf("%.3f", coef)),
+    sprintf("%.3f", coef)
+  ))
+
+heat_results_a <- ggplot(hyp1a_model_heat, aes(subjareas, Estimate, fill = coef)) + 
+  geom_tile(color = "white", lwd = 1.5, linetype = 1) +
+  coord_fixed() + 
+  scale_y_discrete(labels  = c(TeX("$R^2$"), TeX("$b$"))) + 
+  ylab("") + 
+  xlab("") + 
+  facet_wrap(~DV) + 
+  theme_linedraw() + 
+  theme(axis.text.x = element_text(angle = 75, vjust = .50), 
+        legend.position = "right", 
+        legend.key.size = unit(.75, 'cm')) + 
+  scale_fill_distiller(palette = "Spectral", name = "Estimate") + 
+  theme(text = element_text(size = 12)) + 
+  geom_text(aes(label = text_label), size = 4) 
+  
+```
+
+```{r fig-heatmap-a, fig.height=3.5, fig.width=8, fig.cap="Heatmap of results for coefficients of team size predicting year. The effect sizes are also presented for comparison across subject areas."}
+heat_results_a
+ggsave(here("03_manuscript", "figures", "fig2-heatmap-r1a.jpg"), width = 8, height = 3.5)
+```
 
 ## Research Question 1b: Is team size related to article impact?
 
@@ -792,7 +845,7 @@ ggplot(hyp1b, aes(subjareas, median)) +
   ylab("Median, Mean, and IQR of Citation Counts") + 
   coord_flip() + 
   theme(text = element_text(size = 16))
-ggsave(here("03_manuscript", "figures", "fig2-desc-r1b.jpg"), width = 10, height = 6)
+ggsave(here("03_manuscript", "figures", "fig3-desc-r1b.jpg"), width = 10, height = 6)
 ```
 
 ### Model Statistics
@@ -840,8 +893,8 @@ Five year citations had a similar result, *b* =
 [`r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "Citation 5 Years") %>% pull(lower)`,
 `r hyp1b_model %>% filter(is.na(subjareas)) %>% filter(DV == "Citation 5 Years") %>% pull(upper)`].
 These results indicated that approximately 10 extra authors were
-associated with at least one more citation. The bottom of Figure
-\@ref(fig:fig-heatmap) shows the results by subject area. Each subject
+associated with at least one more citation. Figure
+\@ref(fig:fig-heatmap-b) shows the results by subject area. Each subject
 area showed a coefficient greater than zero, but the overall effect size
 for the physical sciences was not different from zero. Multidisciplinary
 and social sciences showed the largest effects and coefficients,
@@ -850,48 +903,6 @@ associated with up to two extra citations for research manuscripts. The
 coefficients are presented with their 95% confidence interval in
 Appendix A.
 
-```{r create-heata}
-hyp1a_model_heat <- hyp1a_model %>% 
-  filter(!is.na(subjareas)) %>% 
-  select(subjareas, coef, lower, upper) %>% 
-  mutate(Estimate = "b") %>% 
-  bind_rows(
-    hyp1a_model %>% 
-      filter(!is.na(subjareas)) %>% 
-      select(subjareas, r2, r2lower, r2upper) %>% 
-      rename(coef = r2, 
-             lower = r2lower,
-             upper = r2upper) %>% 
-      mutate(Estimate = "Effect Size")
-  ) %>% 
-    mutate(heat_label = ifelse(
-    lower < .0001 & upper > .0001, "NS", "")) %>% 
-  mutate(Estimate = factor(Estimate, levels = c("Effect Size", "b"))) %>% 
-  mutate(DV = "Team Size")
-
-hyp1a_model_heat <- hyp1a_model_heat %>%
-  mutate(text_label = ifelse(
-    heat_label == "NS",
-    paste0("NS\n", sprintf("%.3f", coef)),
-    sprintf("%.3f", coef)
-  ))
-
-heat_results_a <- ggplot(hyp1a_model_heat, aes(subjareas, Estimate, fill = coef)) + 
-  geom_tile(color = "white", lwd = 1.5, linetype = 1) +
-  coord_fixed() + 
-  scale_y_discrete(labels  = c(TeX("$R^2$"), TeX("$b$"))) + 
-  ylab("") + 
-  xlab("") + 
-  facet_wrap(~DV) + 
-  theme_linedraw() + 
-  theme(axis.text.x = element_text(angle = 75, vjust = .50), 
-        legend.position = "right", 
-        legend.key.size = unit(.75, 'cm')) + 
-  scale_fill_distiller(palette = "Spectral", name = "Estimate") + 
-  theme(text = element_text(size = 12)) + 
-  geom_text(aes(label = text_label), size = 4) 
-  
-```
 
 ```{r create-heatb}
 hyp1b_model_heat <- hyp1b_model %>% 
@@ -935,13 +946,9 @@ heat_results_b <- ggplot(hyp1b_model_heat, aes(subjareas, Estimate, fill = coef)
   geom_text(aes(label = text_label), size = 4) 
 ```
 
-```{r fig-heatmap, fig.height=6, fig.width=10, fig.cap="Heatmap of results for coefficients of team size predicting year (top), and team size predicting citation counts while controlling for year (bottom). The effect sizes are also presented for comparison across subject areas."}
-layout <- c(
-  area(t = 1, l = 1, b = 4, r = 4),
-  area(t = 5, l = 1, b = 9, r = 4)
-)
-heat_results_a + heat_results_b + plot_layout(design = layout)
-ggsave(here("03_manuscript", "figures", "fig3-heatmap-r1.jpg"), width = 10, height = 6)
+```{r fig-heatmap-b, fig.height=4.5, fig.width=10, fig.cap="Heatmap of results for coefficients of team size predicting citation counts while controlling for year. The effect sizes are also presented for comparison across subject areas."}
+heat_results_b
+ggsave(here("03_manuscript", "figures", "fig4-heatmap-r1b.jpg"), width = 10, height = 4.5)
 ```
 
 ## Research Question 2: What characteristics of team composition have the strongest association with article metrics?
@@ -959,7 +966,14 @@ models that included team size, year, and one author variable explained
 between 0.4% and 3.5% of the variance in overall citations and between
 1.9% and 7.2% of the variance in five-year citations (for reference, team
 size and year alone explained 0.1% and 2.1%, respectively), so the
-author variables themselves account for even less unique variance. In general, all effects were positive, with one
+author variables themselves account for even less unique variance.
+Subtracting the team size and year model's $R^2$ gives an approximate
+increment for each author variable: about 0.3% or less for the gender
+variables, up to 1.4% for country and institution counts, and 2.8% to
+5.2% for the *h*-indices. These increments are approximate because the
+author-variable models use the subset of articles with the required
+author information, which differs from the sample for the team size and
+year model. In general, all effects were positive, with one
 exception (gender percent). Higher numbers of countries and/or
 institutions were associated with higher numbers of citations with a
 stronger effect for more countries than institutions. *h*-index
@@ -1056,7 +1070,7 @@ effect_size_hyp2 <- ggplot(hyp2_model %>% filter(is.na(subjareas)), aes(IV2, r2,
 
 coef_hyp2 + effect_size_hyp2 + plot_layout(nrow = 2, guides = "collect") & theme(legend.position = 'bottom')
 
-ggsave(here("03_manuscript", "figures", "fig4-coef-effect-r2.jpg"), width = 10, height = 8)
+ggsave(here("03_manuscript", "figures", "fig5-coef-effect-r2.jpg"), width = 10, height = 8)
 ```
 
 Last, these analyses were separated by subject area. Figure
@@ -1101,28 +1115,6 @@ a manuscript. These coefficients were generally stronger for overall
 citations, but again, the effect sizes were often larger for five-year
 citation patterns.
 
-```{r fig-hyp2-effect, fig.width=10, fig.height=8, fig.cap = "Author variable coefficients predicting citation counts and five year citation counts separated by subject area. 95% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference."}
-cite_count <- 
-  ggplot(hyp2_model %>% 
-         filter(!is.na(subjareas)), aes(IV2, r2, color = subjareas)) + 
-  geom_point() +  
-  geom_pointrange(aes(ymin=r2lower, ymax=r2upper)) + 
-  theme_linedraw() + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5), 
-        legend.position = "bottom") + 
-  xlab("Author Variable") + 
-  ylab("Effect Size") + 
-  coord_flip() +
-  theme(legend.position = "bottom") + 
-  scale_color_brewer(name = "Subject Areas", palette = "Dark2") +
-  facet_grid(rows = vars(DV)) + 
-  theme(text = element_text(size = 16))
-
-cite_count
-
-ggsave(here("03_manuscript", "figures", "fig5-subj-effect-r2.jpg"), width = 12, height = 8)
-```
-
 ```{r fig-hyp2-coef, fig.width=10, fig.height=8, fig.cap="Author variable coefficients predicting citation counts and five year citation counts separated by subject area. 95% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference."}
 cite_count <- 
   ggplot(hyp2_model %>% 
@@ -1147,6 +1139,28 @@ cite_count
 ggsave(here("03_manuscript", "figures", "fig6-subj-coef-r2.jpg"), width = 12, height = 8)
 ```
 
+```{r fig-hyp2-effect, fig.width=10, fig.height=8, fig.cap = "Author variable effect sizes ($R^2$) predicting citation counts and five year citation counts separated by subject area. 95% confidence intervals are displayed but are very narrow due to large sample size. Appendix A includes all exact values for reference."}
+cite_count <- 
+  ggplot(hyp2_model %>% 
+         filter(!is.na(subjareas)), aes(IV2, r2, color = subjareas)) + 
+  geom_point() +  
+  geom_pointrange(aes(ymin=r2lower, ymax=r2upper)) + 
+  theme_linedraw() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0.5), 
+        legend.position = "bottom") + 
+  xlab("Author Variable") + 
+  ylab("Effect Size") + 
+  coord_flip() +
+  theme(legend.position = "bottom") + 
+  scale_color_brewer(name = "Subject Areas", palette = "Dark2") +
+  facet_grid(rows = vars(DV)) + 
+  theme(text = element_text(size = 16))
+
+cite_count
+
+ggsave(here("03_manuscript", "figures", "fig7-subj-effect-r2.jpg"), width = 12, height = 8)
+```
+
 # Discussion
 
 ## *Question 1*. What is the pattern of team size distribution within various disciplines over time, and is team size related to article impact?
@@ -1157,9 +1171,10 @@ relationship between team size and article impact. Our findings indicate
 a consistent increase in team size across disciplines, corroborating
 previous research on the expansion of scientific
 collaboration [@wuchty2007; @larivière2015]. The trend was most
-pronounced in the physical sciences, aligning with reports of a
-substantial rise in team sizes in physics and musculoskeletal science
-over the past few decades [@russell2019; @nabout2015]. Notably, the
+pronounced in the physical sciences. This is consistent with reports of
+substantial rises in team size in other natural science fields, such as
+musculoskeletal science [@russell2019] and biology [@nabout2015], over the
+past few decades, although those studies did not examine physics. Notably, the
 social sciences exhibited the lowest median number of authors per
 manuscript, a trend that may reflect long-standing disciplinary norms
 favoring single or small team authorship [@henriksen2016].
@@ -1213,7 +1228,7 @@ here. While the relationship between team size and citations appears
 generally positive, it is not necessarily linear. Prior studies have
 suggested that citation benefits plateau beyond a certain threshold (e.g.,
 approximately 20 authors), indicating diminishing returns for excessively
-large teams [@sharma2021]. We modeled team size as a linear term, so we
+large teams [@sharma2021; @zhu2021]. We modeled team size as a linear term, so we
 could not evaluate this possibility directly. Future research should
 explore potential moderators, such as discipline-specific authorship norms
 and the role of team leadership in fostering impactful collaborations.
@@ -1361,7 +1376,10 @@ for journal quality, career stage, institutional prestige, or funding; and
 included self-citations in the citation outcomes. The *h*-index is a
 contested measure, and last-author position is an imperfect proxy for
 seniority. Gender was inferred rather than self-reported, and we analyzed
-a 25% random sample of eligible articles. Any of these may account for part
+a 25% random sample of eligible articles. Because we no longer have access
+to the ICSR data, we could not present the distributions of team size and
+citations beyond summary statistics and capped boxplots, report descriptive
+statistics for the author variables, or run additional models. Any of these may account for part
 of the observed associations.
 
 *Implications.* Given the small effect sizes and the likelihood of
